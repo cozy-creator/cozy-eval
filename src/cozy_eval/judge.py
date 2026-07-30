@@ -6,7 +6,7 @@ There are TWO judge protocols, because there are two genuinely different reads
 of the same model, and conflating them was the original sin this module fixes:
 
   Judge      HARD. One structured, multi-question call per image; the reply is
-             text that :func:`cozy_eval.bench.metrics.adherence.parse_judge_answers`
+             text that :func:`cozy_eval.metrics.adherence.parse_judge_answers`
              turns into yes/no. Cheap — a 10-item checklist costs ONE call — and
              it is what the authored-checklist lane and the paired gate use.
 
@@ -19,8 +19,8 @@ Both are :class:`typing.Protocol` — structural, not inherited. Anything with t
 right method is a judge, so a test stub, an HTTP client for a hosted model, or a
 resident local VLM are interchangeable with no registration step. The concrete
 local implementations are
-:class:`cozy_eval.bench.metrics.adherence.VlmJudge` and
-:class:`cozy_eval.bench.metrics.vqascore.VlmSoftJudge`.
+:class:`cozy_eval.metrics.adherence.VlmJudge` and
+:class:`cozy_eval.metrics.vqascore.VlmSoftJudge`.
 
 The optional accounting attributes are read by the suite to fill in the report's
 cost fields. They are declared here so an implementer knows what is looked at;
@@ -43,7 +43,7 @@ class Judge(Protocol):
         """Answer one multi-question prompt about ``images``.
 
         ``prompt`` is built by
-        :func:`cozy_eval.bench.metrics.adherence.build_judge_prompt` and asks for a
+        :func:`cozy_eval.metrics.adherence.build_judge_prompt` and asks for a
         JSON array of ``{"n": <question number>, "answer": "yes"|"no"}``. Return
         the model's raw reply — parsing is tolerant and lives on our side. In
         edit mode ``images`` is ``[before, after]``, in that order.

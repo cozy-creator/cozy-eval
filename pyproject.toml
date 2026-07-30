@@ -27,18 +27,19 @@ reference = [
 ]
 distributional = ["scipy>=1.11", "cd-fvd>=0.1.1"]
 similarity = ["torch>=2.4", "torchmetrics[image]>=1.9", "numpy>=1.26"]
-# transformers 4.57 floor: the default judge is Qwen3-VL, whose classes land in 4.57
-judge = ["torch>=2.4", "transformers>=4.57"]
+# transformers 4.57 floor: the default judge is Qwen3-VL, whose classes land in 4.57.
+# Covers every model-scored adherence path: VLM judge, CLIP fallback, and the
+# Grounding DINO + SigLIP2 detectors behind compositional scoring.
+judge = ["torch>=2.4", "transformers>=4.57", "numpy>=1.26", "pillow>=10"]
 # rapidocr 3.0 floor: the unified entry point only exists from 3.0
 ocr = ["rapidocr>=3.0", "onnxruntime>=1.18"]
 preference = ["torch>=2.4", "transformers>=4.57"]
-compositional = ["torch>=2.4", "transformers>=4.51", "numpy>=1.26", "pillow>=10"]
 # piq floor: torchmetrics' default clip_iqa checkpoint is loaded through piq at runtime
 quality = ["torch>=2.4", "torchmetrics[image]>=1.9", "piq>=0.8", "numpy>=1.26", "scipy>=1.11", "pillow>=10"]
 hpsv3 = ["torch>=2.4", "transformers>=4.53", "safetensors>=0.4", "huggingface-hub>=0.23", "pillow>=10"]
 video = ["numpy>=1.26", "pillow>=10"]
 
-all = ["cozy-eval[reference,distributional,similarity,judge,ocr,preference,compositional,quality,hpsv3,video]"]
+all = ["cozy-eval[reference,distributional,similarity,judge,ocr,preference,quality,hpsv3,video]"]
 dev = ["pytest>=8.0", "ruff>=0.6", "pillow>=10"]
 
 [project.urls]

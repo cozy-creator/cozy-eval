@@ -12,7 +12,7 @@ Two methods on one primitive:
              arithmetic-mean atom score + geometric-mean prompt score —
              GenEval2's Soft-TIFA aggregation (arXiv:2512.16853; method only,
              their CC-BY-NC code/data untouched). Atoms come from
-             ``cozy_eval.bench.decompose`` and are versioned data, not eval-time
+             ``cozy_eval.decompose`` and are versioned data, not eval-time
              LLM output.
 
 Soft scores resolve small deltas a hard parse rounds away, at a cost: one
@@ -68,7 +68,7 @@ def aggregate(atoms: list[AtomScore]) -> SoftTifaScore:
 
 class VlmSoftJudge:
     """A resident local VLM read for one-token answer probabilities rather than
-    generation — the reference :class:`cozy_eval.bench.judge.SoftJudge`."""
+    generation — the reference :class:`cozy_eval.judge.SoftJudge`."""
 
     def __init__(self, model_ref: str = DEFAULT_JUDGE, *, device: str = AUTO):
         from transformers import AutoModelForImageTextToText, AutoProcessor

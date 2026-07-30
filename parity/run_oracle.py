@@ -131,7 +131,7 @@ def bank_ours() -> None:
     """Only for metrics whose banked assertion is against `ours` (match=diverged)."""
     from PIL import Image
 
-    from cozy_eval.bench.metrics import iqa
+    from cozy_eval.metrics import quality as iqa
 
     for name, cfg in METRICS.items():
         if cfg["match"] != "diverged":

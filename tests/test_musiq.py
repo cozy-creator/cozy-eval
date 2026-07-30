@@ -11,7 +11,7 @@ import itertools
 import numpy as np
 import pytest
 
-from cozy_eval.bench.metrics import musiq
+from cozy_eval.metrics import musiq
 
 
 def test_hash_ids_match_the_tf_v1_nearest_rule():

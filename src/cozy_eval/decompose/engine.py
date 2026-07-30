@@ -229,7 +229,7 @@ def load_cases(path: str | Path) -> CaseSet:
 
 def to_prompt_set(cs: CaseSet) -> dict:
     """The promptset.py JSON shape; write with json.dump and register via
-    ``cozy_eval.bench.promptset.add_prompt_set``."""
+    ``cozy_eval.promptset.add_prompt_set``."""
     return {
         "set_id": cs.set_id, "version": cs.version,
         "purpose": "generated compositional benchmark (decompose.engine, deterministic)",
@@ -244,7 +244,7 @@ def to_prompt_set(cs: CaseSet) -> dict:
 
 def to_checklist_set(cs: CaseSet) -> dict:
     """The adherence checklist JSON shape (kind=vqa atoms), loadable by
-    ``cozy_eval.bench.load_checklists``."""
+    ``cozy_eval.load_checklists``."""
     return {
         "checklist_set_id": f"{cs.set_id}-atoms",
         "version": cs.version,

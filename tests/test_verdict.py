@@ -11,8 +11,8 @@ from __future__ import annotations
 
 import pytest
 
-from cozy_eval.bench import registry
-from cozy_eval.bench.verdict import (
+from cozy_eval import registry
+from cozy_eval.verdict import (
     CONDITIONAL_PARITY,
     FREE_WIN,
     REJECT,

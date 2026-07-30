@@ -39,6 +39,8 @@ from collections.abc import Iterable
 from dataclasses import asdict, dataclass, field
 from typing import Any
 
+from .errors import ProtocolError, TrajectoryPerturbingError
+
 
 class Lane(enum.StrEnum):
     """Which family of metrics is admissible for a comparison."""
@@ -114,14 +116,6 @@ _POST_LATENT = frozenset({
     ChangeKind.VIDEO_ENCODER,
     ChangeKind.CONTAINER_MUX,
 })
-
-
-class TrajectoryPerturbingError(RuntimeError):
-    """Raised when reference metrics are requested for a different-take comparison."""
-
-
-class ProtocolError(ValueError):
-    """Raised when a comparison's protocol stamp is incomplete or self-inconsistent."""
 
 
 def _reject_packed(changes: tuple[Any, ...], caller: str) -> None:

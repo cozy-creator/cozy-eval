@@ -42,7 +42,7 @@ def checklist_set(name: str) -> ChecklistSet:
     if name not in CHECKLIST_SETS:
         raise ConfigError(
             f"unknown checklist set {name!r}; known: {sorted(CHECKLIST_SETS)}. "
-            "Register your own with cozy_eval.bench.catalog.add_checklist_set(name, path)."
+            "Register your own with cozy_eval.catalog.add_checklist_set(name, path)."
         )
     if name not in _CACHE:
         _CACHE[name] = load_checklists(CHECKLIST_SETS[name])

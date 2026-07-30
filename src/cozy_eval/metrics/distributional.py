@@ -17,9 +17,7 @@ from __future__ import annotations
 
 import numpy as np
 
-
-class SampleSizeError(RuntimeError):
-    """Raised when a Fréchet-class statistic is requested at an unusable n."""
+from ..errors import SampleSizeError
 
 
 def frechet(feat_a: np.ndarray, feat_b: np.ndarray, *, min_samples: int = 64) -> float:

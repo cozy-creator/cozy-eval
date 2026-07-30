@@ -26,8 +26,8 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from cozy_eval import benchmarks as B
-from cozy_eval.backends.signal import ClipScore, score
 from cozy_eval.frames import LUMA, iter_frames
+from cozy_eval.metrics.signal import ClipScore, score
 
 LTX8 = ("forge", "chef", "market", "portrait", "fabric", "street", "water", "forest")
 

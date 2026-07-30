@@ -1,6 +1,6 @@
-"""NIQE is closed-form (no weights), so it is tested for real on synthetic
-images. The torchmetrics-backed metrics (arniqa, clip_iqa) download weights and
-are `heavy`-marked.
+"""The quality dimension. NIQE is closed-form (no weights), so it and the clip
+adapter over it are tested for real on synthetic images. The torchmetrics-backed
+metrics (arniqa, clip_iqa) download weights and are `heavy`-marked.
 
 Registry wiring lives in `test_public_api.py`'s registry sweep.
 """
@@ -8,7 +8,7 @@ Registry wiring lives in `test_public_api.py`'s registry sweep.
 import numpy as np
 import pytest
 
-from cozy_eval.bench.metrics import iqa
+from cozy_eval.metrics import quality
 
 
 def _textured(size=384, seed=7):
@@ -34,12 +34,12 @@ def test_niqe_is_finite_and_deterministic_across_every_input_form():
     gray = _textured()
     rgb = np.stack([gray] * 3, axis=-1)
 
-    a, b = iqa.niqe(gray), iqa.niqe(gray)
+    a, b = quality.niqe(gray), quality.niqe(gray)
     assert np.isfinite(a) and a > 0
     assert a == b
     # BT.601 luma weights sum to 0.9999, so the RGB path differs by a hair.
-    assert abs(a - iqa.niqe(rgb)) < 1e-3
-    assert abs(iqa.niqe(Image.fromarray(rgb)) - iqa.niqe(rgb)) < 1e-6
+    assert abs(a - quality.niqe(rgb)) < 1e-3
+    assert abs(quality.niqe(Image.fromarray(rgb)) - quality.niqe(rgb)) < 1e-6
 
 
 def test_white_noise_scores_worse_than_structure():
@@ -47,12 +47,12 @@ def test_white_noise_scores_worse_than_structure():
     from natural scenes."""
     rng = np.random.default_rng(3)
     noise = rng.integers(0, 256, size=(384, 384), dtype=np.uint8)
-    assert iqa.niqe(noise) > iqa.niqe(_textured())
+    assert quality.niqe(noise) > quality.niqe(_textured())
 
 
 def test_small_image_raises():
     with pytest.raises(ValueError, match="needs at least 192x192"):
-        iqa.niqe(np.zeros((100, 100), dtype=np.uint8))
+        quality.niqe(np.zeros((100, 100), dtype=np.uint8))
 
 
 def test_niqe_parity_with_banked_oracle():
@@ -67,7 +67,7 @@ def test_niqe_parity_with_banked_oracle():
     fixtures = Path(__file__).parent / "fixtures"
     spec = json.loads((fixtures / "oracle_niqe.json").read_text())
     for name, ref in spec["values"].items():
-        ours = iqa.niqe(Image.open(fixtures / f"{name}.png"))
+        ours = quality.niqe(Image.open(fixtures / f"{name}.png"))
         assert abs(ours - ref) / ref < spec["tolerance_rel"], (
             f"{name}: ours={ours:.3f} oracle={ref:.3f}"
         )
@@ -85,7 +85,7 @@ def _banked(metric):
 @pytest.mark.parametrize("metric", ["arniqa", "clip_iqa"])
 def test_learned_metrics_score_in_range(metric):
     img = np.stack([_textured()] * 3, axis=-1)
-    assert 0.0 <= getattr(iqa, metric)(img) <= 1.0
+    assert 0.0 <= getattr(quality, metric)(img) <= 1.0
 
 
 @pytest.mark.heavy
@@ -99,7 +99,7 @@ def test_clip_iqa_reproduces_the_oracle_under_the_oracle_prompts():
     fixtures, spec = _banked("clip_iqa")
     prompts = tuple(tuple(p) for p in spec["oracle_config"]["prompts"])
     for name, ref in spec["values"].items():
-        ours = iqa.clip_iqa(Image.open(fixtures / f"{name}.png"), prompts=prompts)
+        ours = quality.clip_iqa(Image.open(fixtures / f"{name}.png"), prompts=prompts)
         assert abs(ours - ref) / ref < spec["tolerance_rel"], (
             f"{name}: ours={ours:.6f} oracle={ref:.6f}"
         )
@@ -115,7 +115,58 @@ def test_arniqa_matches_its_banked_values():
 
     fixtures, spec = _banked("arniqa")
     for name, ref in spec["ours"].items():
-        ours = iqa.arniqa(Image.open(fixtures / f"{name}.png"))
+        ours = quality.arniqa(Image.open(fixtures / f"{name}.png"))
         assert abs(ours - ref) / ref < spec["tolerance_rel"], (
             f"{name}: ours={ours:.6f} banked={ref:.6f}"
         )
+
+
+# ---------------------------------------------------------------------------
+# the clip adapter
+# ---------------------------------------------------------------------------
+
+def _clip(n=6, size=256, blur=False):
+    """A textured scene with camera drift — the regime NSS metrics assume."""
+    rng = np.random.default_rng(5)
+    y, x = np.mgrid[0:size, 0:size] / size
+    base = 96 + 64 * np.sin(2 * np.pi * x * 3) * np.cos(2 * np.pi * y * 2)
+    spec = np.fft.rfft2(rng.normal(size=(size, size)))
+    fy, fx = np.fft.fftfreq(size)[:, None], np.fft.rfftfreq(size)[None, :]
+    pink = np.fft.irfft2(spec / np.maximum(np.hypot(fy, fx), 1.0 / size), s=(size, size))
+    pink = pink / np.abs(pink).max() * (8 if blur else 48)
+    gray = np.clip(base + pink, 0, 255) / 255.0
+    return [np.roll(np.stack([gray] * 3, -1), i, axis=1).astype(np.float32) for i in range(n)]
+
+
+def test_niqe_scores_a_clip_and_names_its_numbers():
+    out = quality.score_frames(_clip(), model="niqe", stride=2)
+    assert set(out) == {"niqe_mean", "niqe_worst", "niqe_frames"}
+    assert out["niqe_frames"] == 3
+    assert np.isfinite(out["niqe_mean"]) and out["niqe_mean"] > 0
+
+
+def test_the_worst_frame_follows_the_metrics_direction():
+    """NIQE is lower-is-better, so its tail is the HIGH percentile. Reporting
+    p10 for it (the old behaviour) named the clip's best frames 'worst'."""
+    out = quality.score_frames(_clip(), model="niqe", stride=1)
+    assert out["niqe_worst"] >= out["niqe_mean"]
+
+
+def test_frames_reach_the_scorer_in_image_range():
+    """iter_frames yields 0..1; every scorer reads 0..255 and is silently wrong,
+    not loud, on the wrong scale. A clip of one frame must score as that frame."""
+    from PIL import Image
+
+    frame = _clip(n=1)[0]
+    direct = quality.niqe(Image.fromarray(np.rint(frame * 255).astype(np.uint8)))
+    assert abs(quality.score_frames([frame], model="niqe")["niqe_mean"] - direct) < 1e-9
+
+
+def test_unknown_model_names_the_known_ones():
+    with pytest.raises(ValueError, match="niqe"):
+        quality.score_frames(_clip(), model="brisque")
+
+
+def test_empty_clip_raises():
+    with pytest.raises(ValueError, match="no frames"):
+        quality.score_frames([], model="niqe")

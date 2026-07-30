@@ -8,7 +8,7 @@ Registry wiring lives in `test_public_api.py`'s registry sweep.
 
 import pytest
 
-from cozy_eval.bench.metrics import hpsv3
+from cozy_eval.metrics import hpsv3
 
 transformers = pytest.importorskip("transformers")
 

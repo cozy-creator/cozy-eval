@@ -1,4 +1,7 @@
-"""What a quality verdict is allowed to measure, and which numbers gate.
+"""What an evaluation is allowed to measure, and which numbers gate.
+
+ONE table for the whole library — every metric, whatever module computes it and
+whoever wrote that module.
 
 STABILITY: locked core (v0.x). See the stability section of the README.
 
@@ -16,11 +19,18 @@ Each dimension has exactly ONE gated headline number plus its worst-case tail.
 Everything else is report-only: computed because it is nearly free and useful
 to a human reader, never able to fail a candidate on its own.
 
+NOT declared here, deliberately: the population gate's derived indices
+(``imaging_index``, ``jerk_excess``, ``flicker_ratio``, ``significant_features``,
+``population_frechet``). Those are declared as data too — in
+:data:`cozy_eval.benchmarks.VIDEO_BUDGETS` — because they are two-sided budgets
+on statistics computed ACROSS a prompt population, and ``MetricSpec`` has one
+direction and one row. The split is metric-vs-threshold, not layer-vs-layer.
+
 Redundancy here was MEASURED, not assumed — see ``REDUNDANCY_EVIDENCE``.
 
 **Every metric this package implements is declared in ``BUILTIN`` below, as
 data.** A ``MetricSpec`` is pure metadata — no torch, no weights — so the table
-is complete on ``import cozy_eval.bench`` whether or not the module that computes a
+is complete on ``import cozy_eval`` whether or not the module that computes a
 given number was imported. That is deliberate: if metrics registered themselves
 as an import side effect, ``REGISTRY``, ``GATED`` and ``headline()`` would
 answer differently depending on what the caller happened to import, and a
@@ -50,7 +60,7 @@ from .errors import RegistryError
 
 #: Identifies the METRIC SET a report was produced with. Same ``cozy-eval/<thing>@<n>``
 #: convention as ``suite.REPORT_SCHEMA``. Bump when a metric's meaning changes.
-METRIC_SET_VERSION = "cozy-eval/bench-metrics@2"
+METRIC_SET_VERSION = "cozy-eval/metrics@3"
 
 # A metric name is an API key: budgets, banked reports and report rows all
 # address metrics by it.
@@ -125,6 +135,22 @@ BUILTIN: tuple[MetricSpec, ...] = (
             "report-only. Pixel identity punishes same-seed trajectory "
             "divergence identically whether the candidate got worse or merely "
             "different. Kept so historical rows stay comparable."
+        ),
+    ),
+    MetricSpec(
+        name="vmaf", dimension=SIMILARITY, version="1.0",
+        model_ref="libvmaf:vmaf_v0.6.1", note=(
+            "reference lane only, whole video files through ffmpeg's libvmaf. "
+            "Report-only here because its budgets are per-content: a VMAF that "
+            "is excellent for animation is mediocre for film grain."
+        ),
+    ),
+    MetricSpec(
+        name="cvvdp", dimension=SIMILARITY, version="1.0",
+        model_ref="cvvdp:standard_4k", note=(
+            "reference lane only. ColorVideoVDP JOD units — a perceptual "
+            "difference predictor that models colour and motion, unlike the "
+            "luma-only classics beside it. Report-only for the same reason."
         ),
     ),
     # --- adherence --------------------------------------------------------
@@ -320,7 +346,7 @@ BUILTIN: tuple[MetricSpec, ...] = (
 )
 
 # Live registry. Rebuilt in place by register() so that modules holding a
-# reference to THIS MODULE (``from cozy_eval.bench import registry``) always see the
+# reference to THIS MODULE (``from cozy_eval import registry``) always see the
 # current set. Do not do ``from .registry import REGISTRY`` — that snapshots.
 REGISTRY: tuple[MetricSpec, ...] = BUILTIN
 BY_NAME: dict[str, MetricSpec] = {}

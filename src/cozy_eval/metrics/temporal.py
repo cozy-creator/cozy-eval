@@ -20,7 +20,7 @@ change that does not belong inside a generation verdict, and this package
 takes no ffmpeg dependency for it.
 
 SINGLE-ARM temporal statistics (flicker/jerk on one clip, no reference) are
-NOT implemented here: ``cozy_eval.backends.signal`` already owns them, so
+NOT implemented here: ``cozy_eval.metrics.signal`` already owns them, so
 :func:`signal_stats` composes it directly.
 """
 
@@ -153,7 +153,7 @@ def signal_stats(frames: Any) -> dict[str, float]:
     ``jerk_ratio`` keeps its name (second/first temporal difference of
     frame-mean luma; smooth motion sits low, flicker and judder push it up).
     """
-    from cozy_eval.backends.signal import score
+    from cozy_eval.metrics.signal import score
 
     clip = score(frames)
     return {

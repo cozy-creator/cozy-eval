@@ -80,7 +80,7 @@ def load(name: str) -> PromptSet:
     if name not in PROMPT_SETS:
         raise ConfigError(
             f"unknown prompt set {name!r}; known: {sorted(PROMPT_SETS)}. "
-            "Register your own with cozy_eval.bench.promptset.add_prompt_set(name, path)."
+            "Register your own with cozy_eval.promptset.add_prompt_set(name, path)."
         )
     path = PROMPT_SETS[name]
     try:

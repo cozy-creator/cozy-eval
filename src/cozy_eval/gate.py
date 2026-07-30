@@ -6,9 +6,9 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from . import benchmarks as B
-from .backends import reference as R
-from .backends.signal import ClipScore, score
 from .control import NullControl
+from .metrics import reference as R
+from .metrics.signal import ClipScore, score
 from .protocol import (
     Lane,
     Protocol,

@@ -32,9 +32,9 @@ from .judge import Judge
 from .metrics import adherence, ocr, preference, similarity
 
 #: Version of the report STRUCTURE. Bump when a key changes meaning or leaves.
-REPORT_SCHEMA = "cozy-eval/bench-report@1"
+REPORT_SCHEMA = "cozy-eval/report@2"
 
-#: Keys :attr:`BenchReport.seconds` may carry. Stable — a dashboard may key on
+#: Keys :attr:`SuiteReport.seconds` may carry. Stable — a dashboard may key on
 #: them. Absent means the stage did not run, never means zero.
 SECONDS_KEYS = (
     "lpips_load", "lpips", "pixel_metrics", "dframe", "clip", "ocr",
@@ -42,11 +42,11 @@ SECONDS_KEYS = (
     "preference_load", "preference_infer", "signal", "total",
 )
 
-#: Keys :attr:`BenchReport.models` may carry, mapped to the model actually used.
+#: Keys :attr:`SuiteReport.models` may carry, mapped to the model actually used.
 MODELS_KEYS = ("lpips", "clip", "judge", "ocr", "preference", "signal")
 
 
-class BenchSample(msgspec.Struct, kw_only=True):
+class Sample(msgspec.Struct, kw_only=True):
     """One eval row. ``checklist_id`` selects the authored element checklist;
     empty means this row has no checklist and is not scored for adherence."""
 
@@ -62,7 +62,7 @@ class SampleRow(msgspec.Struct, kw_only=True):
     own worst row, which requires the row to carry its own numbers.
 
     The named fields are the core metric set. ``values`` is the extension slot
-    that mirrors :func:`cozy_eval.bench.registry.register`: any metric without a
+    that mirrors :func:`cozy_eval.registry.register`: any metric without a
     dedicated field here — a registered third-party metric, or one of the
     compositional/quality/soft lanes — reports through it under its registry
     name, and :func:`summarize` reads it transparently.
@@ -114,7 +114,7 @@ class DimensionSummary(msgspec.Struct, kw_only=True):
     note: str = ""
 
 
-class BenchReport(msgspec.Struct, kw_only=True):
+class SuiteReport(msgspec.Struct, kw_only=True):
     """A run's results. Self-describing: it names its own schema version, the
     metric set that produced it, and the library version that wrote it, so a
     report banked today is still interpretable by a later version."""
@@ -172,7 +172,7 @@ def summarize(
     if spec is None:
         raise RegistryError(
             f"cannot summarize unknown metric {metric!r}; register it first with "
-            f"cozy_eval.bench.registry.register(). registered: {sorted(registry.BY_NAME)}"
+            f"cozy_eval.registry.register(). registered: {sorted(registry.BY_NAME)}"
         )
     field = field or metric
     pairs = _values(rows, field)
@@ -197,7 +197,7 @@ def summarize(
 
 
 def _adherence_for(
-    sample: BenchSample, checklists: Any, image: Any, before: Any,
+    sample: Sample, checklists: Any, image: Any, before: Any,
     *, judge: Judge | None, use_ocr: bool, ocr_seconds: list[float],
 ) -> adherence.AdherenceScore | None:
     if checklists is None or not sample.checklist_id:
@@ -223,7 +223,7 @@ def _adherence_for(
 
 
 def run(
-    samples: list[BenchSample],
+    samples: list[Sample],
     candidates: list[Any],
     *,
     references: list[Any] | None = None,
@@ -235,7 +235,7 @@ def run(
     device: str = AUTO,
     render_seconds: float = 0.0,
     preference_model: str = "",
-) -> BenchReport:
+) -> SuiteReport:
     """Score a batch. ``references`` present => paired mode."""
     if len(samples) != len(candidates):
         raise ConfigError(
@@ -251,7 +251,7 @@ def run(
     device = resolve_device(device)
     ocr_seconds: list[float] = []
 
-    report = BenchReport(
+    report = SuiteReport(
         mode="paired" if paired else "reference-free", samples=len(samples),
         library_version=_library_version(),
         created_at=datetime.now(UTC).isoformat(timespec="seconds"),
@@ -439,10 +439,10 @@ __all__ = [
     "MODELS_KEYS",
     "REPORT_SCHEMA",
     "SECONDS_KEYS",
-    "BenchReport",
-    "BenchSample",
     "DimensionSummary",
+    "Sample",
     "SampleRow",
+    "SuiteReport",
     "free_models",
     "run",
     "summarize",

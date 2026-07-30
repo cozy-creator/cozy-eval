@@ -2,7 +2,7 @@
 
 STABILITY: locked core (v0.x) for :func:`run_video`'s call shape and the modes
 it stamps (``video-paired`` / ``video-reference-free``); the report it returns
-is the same :class:`cozy_eval.bench.suite.BenchReport` schema.
+is the same :class:`cozy_eval.suite.SuiteReport` schema.
 
 What changes for video, and what deliberately does not:
 
@@ -10,16 +10,16 @@ What changes for video, and what deliberately does not:
   per-frame MEANS under their usual names, plus the worst-frame tail
   (``lpips_frame_worst``) — AND gains the Δ-frame channel (``dframe_psnr``,
   ``dframe_ssim``): the frame-to-frame dynamics comparison where flicker is a
-  first-order signal. See :mod:`cozy_eval.bench.metrics.temporal`.
+  first-order signal. See :mod:`cozy_eval.metrics.temporal`.
 * **adherence** uses the same authored-checklist discipline with the
-  motion/hold duality (:class:`cozy_eval.bench.metrics.adherence.VideoChecklist`):
+  motion/hold duality (:class:`cozy_eval.metrics.adherence.VideoChecklist`):
   a clip can fail by not moving or by not holding still. The judge sees an
   ORDERED strip of uniformly sampled frames in ONE call per clip — the same
   Judge protocol as images; a judge with native video input is just a faster
   implementation of the same contract. OCR items are read on every sampled
   frame and must PERSIST (majority of frames), because text that is legible in
   one lucky frame has not survived motion.
-* **quality** composes ``cozy_eval.backends.signal`` for single-arm temporal
+* **quality** composes ``cozy_eval.metrics.signal`` for single-arm temporal
   signal statistics (``luma_flicker``, ``jerk_ratio``).
 * **preference** is UNMEASURED in video mode for now, and the report says so.
   A commercially-clean video preference model exists (UnifiedReward-2.0,
@@ -249,11 +249,11 @@ def run_video(
     judge_frames: int = DEFAULT_JUDGE_FRAMES,
     device: str = AUTO,
     render_seconds: float = 0.0,
-) -> suite.BenchReport:
+) -> suite.SuiteReport:
     """Score a batch of clips. ``references`` present => video-paired mode.
 
     ``candidates`` / ``references`` are clips in any form
-    :func:`cozy_eval.bench.metrics.temporal.as_frames` accepts.
+    :func:`cozy_eval.metrics.temporal.as_frames` accepts.
     """
     if len(samples) != len(candidates):
         raise ConfigError(
@@ -269,7 +269,7 @@ def run_video(
     device = resolve_device(device)
     ocr_seconds: list[float] = []
 
-    report = suite.BenchReport(
+    report = suite.SuiteReport(
         mode="video-paired" if paired else "video-reference-free",
         samples=len(samples),
         library_version=suite._library_version(),

@@ -3,15 +3,18 @@
 **Quality benchmarking for generative image and video models, with the validity
 rules enforced by the API.**
 
-Two halves, one package:
+Two questions, one library, one set of validity rules over both:
 
-* **`cozy_eval`** — the verdict layer: *how far did the pixels move, and is that
-  damage or just a different take?* Lanes, protocol stamping, null controls,
-  population gates.
-* **[`cozy_eval.bench`](#cozy_evalbench--did-it-make-what-was-asked-for)** — the
-  benchmark layer: *did the model make what was asked for?* Checklist adherence,
-  preference, standalone quality — MIT reimplementations of methods the
-  ecosystem only ships under non-commercial licences.
+* *How far did the pixels move, and is that damage or just a different take?*
+  Lanes, protocol stamping, null controls, population gates.
+* *[Did the model make what was asked for?](#did-it-make-what-was-asked-for)*
+  Checklist adherence, preference, standalone quality — MIT reimplementations of
+  methods the ecosystem otherwise only ships under non-commercial licences.
+
+Everything is organized by **what it measures**, not by who wrote it. Every
+metric lives in `cozy_eval.metrics`, every metric is declared in one
+`cozy_eval.registry`, and the same protocol/null-control/population rules govern
+all of them.
 
 There are good libraries for computing quality metrics. `ffmpeg-quality-metrics`
 and `cvvdp` do full-reference video properly; `torchmetrics` owns FID/KID/IS and
@@ -221,30 +224,34 @@ cozy-eval compare --reference a.mp4 --candidate b.mp4 --vmaf \
 Each catches a degradation the other two miss — see the validation table in
 [GATE.md](GATE.md).
 
-## `cozy_eval.bench` — did it make what was asked for?
+## Did it make what was asked for?
 
-The gate above tells you whether pixels moved for a *valid* reason. `bench`
+The gate above tells you whether pixels moved for a *valid* reason. The suite
 answers the other question: is the render actually what the prompt requested?
 It exists because the good evaluation code in this space is locked up —
 GenEval2 is CC-BY-NC, pyiqa relicensed to PolyForm-Noncommercial, DOVER and
-FAST-VQA are S-Lab non-commercial. `bench` reimplements the published methods
-from the papers under MIT, with the audit trail in
+FAST-VQA are S-Lab non-commercial. This library reimplements the published
+methods from the papers under MIT, with the audit trail in
 [`PROVENANCE.md`](PROVENANCE.md).
 
 Four mostly-independent dimensions, each with exactly one gated headline
 number; everything else is report-only:
 
-| dimension | headline | needs a reference? |
-|---|---|---|
-| **similarity** — how far did the pixels move | `lpips` | yes |
-| **adherence** — did it contain what was asked for | `element_recall` | no |
-| **preference** — would a human prefer it | `pref_delta` | no |
-| **quality** — does it look good on its own terms | `arniqa` | no |
+| dimension | what it asks | headline | needs a reference? | module |
+|---|---|---|---|---|
+| **similarity** | how far did the pixels move | `lpips` | yes | `metrics/similarity.py`, `metrics/reference.py` |
+| **adherence** | did it contain what was asked for | `element_recall` | no | `metrics/adherence.py`, `geneval.py`, `ocr.py`, `vqascore.py` |
+| **preference** | would a human prefer it | `pref_delta` | no | `metrics/preference.py`, `hpsv3.py` |
+| **quality** | does it look good on its own terms | `arniqa` | no | `metrics/quality.py`, `musiq.py`, `signal.py` |
+
+The Δ-frame temporal channel (`metrics/temporal.py`) and the population
+distances (`metrics/distributional.py`) report into the dimensions above; the
+gate's own two-sided budgets over a whole prompt population live in
+`cozy_eval.benchmarks`, which is a threshold table, not a metric table.
 
 ```python
-from cozy_eval.bench import promptset, suite
+from cozy_eval import promptset, suite
 
-ps = promptset.load("hard-eval-v1")
 report = suite.run(samples, candidates,
                    checklists=promptset.checklists_for("hard-eval-v1"))
 print(report.summary("element_recall"))
@@ -261,15 +268,13 @@ The load-bearing design decisions:
 * **Editing is a duality**: `edit_compliance` (the instructed change happened)
   vs `edit_preservation` (everything else stayed put) — under- and over-editing
   fail on opposite halves.
-* **Video** (`cozy_eval.bench.video.run_video`): per-frame aggregation with
+* **Video** (`cozy_eval.video.run_video`): per-frame aggregation with
   worst-frame tails, a Δ-frame temporal channel per-frame metrics cannot see,
   and motion/hold checklists judged on one ordered frame strip per clip.
-  Single-arm flicker/jerk statistics are composed from `cozy_eval`'s own signal
-  backend.
-* **Tri-state verdict** (`free_win` / `conditional_parity` / `reject`): a
+* **Tri-state parity verdict** (`free_win` / `conditional_parity` / `reject`): a
   candidate that fulfilled the request *differently but equally well* is not a
   failure — the case a pixel-distance metric cannot express.
-* **Registry as data.** `import cozy_eval.bench` sees the complete metric table
+* **Registry as data.** `import cozy_eval` sees the complete metric table
   without importing a single scoring backend; external metrics join through
   `register()`.
 
@@ -277,10 +282,9 @@ Scoring backends are extras, so the base install stays torch-free:
 
 ```bash
 pip install "cozy-eval[similarity]"      # LPIPS / SSIM / MS-SSIM / PSNR
-pip install "cozy-eval[judge]"           # VLM judge + CLIP fallback
+pip install "cozy-eval[judge]"           # VLM judge, CLIP fallback, Grounding DINO + SigLIP2
 pip install "cozy-eval[ocr]"             # OCR items (rapidocr, Apache-2.0)
 pip install "cozy-eval[preference]"      # PickScore and alternates
-pip install "cozy-eval[compositional]"   # Grounding DINO + SigLIP2 colour binding
 pip install "cozy-eval[quality]"         # ARNIQA / CLIP-IQA / MUSIQ port / NIQE
 pip install "cozy-eval[hpsv3]"           # HPSv3 preference scorer (16 GB weights)
 pip install "cozy-eval[video]"           # frame handling + Δ-frame channel
@@ -297,10 +301,10 @@ rankings, CLIP-IQA bit-identical under the oracle's own prompt set, ARNIQA
 deliberately diverged (antialiased half-scale) with the divergence isolated and
 recorded. The oracle NUMBERS, not code, are banked in `tests/fixtures/`.
 
-**Stability**: everything re-exported from the `cozy_eval.bench` package root
-(metric names, the registry, the report schema, checklist/prompt-set formats,
-the verdict, the Judge protocols) is locked for 0.x; everything under
-`cozy_eval.bench.metrics.*` and `cozy_eval.bench.decompose` is experimental.
+**Stability**: everything re-exported from the `cozy_eval` package root (metric
+names, the registry, the report schema, checklist/prompt-set formats, the
+verdicts, the Judge protocols, the protocol/lane rules) is locked for 0.x;
+everything under `cozy_eval.metrics.*` and `cozy_eval.decompose` is experimental.
 
 ## Documentation
 
@@ -308,8 +312,8 @@ the verdict, the Judge protocols) is locked for 0.x; everything under
   render conditions, thresholds with calibration provenance, the full validation
   table with separation margins, and an explicit list of what this gate does
   *not* measure.
-* **[PROVENANCE.md](PROVENANCE.md)** — per bench module: which paper it
-  implements, that the implementation is original, and the real licence of every
+* **[PROVENANCE.md](PROVENANCE.md)** — per module: which paper it implements,
+  whether the implementation is original, and the real licence of every
   dependency and model weight involved.
 * **[calibration/](calibration/)** — the evidence. `run_banked.py` regenerates
   every threshold from real renders plus synthetic single-axis controls.

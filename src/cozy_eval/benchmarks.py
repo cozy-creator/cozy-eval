@@ -25,7 +25,7 @@ from typing import Any
 import numpy as np
 
 from . import _stats
-from .backends.signal import (
+from .metrics.signal import (
     DETAIL_METRICS,
     IMAGING_METRICS,
     TONAL_METRICS,

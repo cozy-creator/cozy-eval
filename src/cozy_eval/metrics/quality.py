@@ -1,4 +1,8 @@
-"""Dimension 4: technical quality — does the image LOOK good, no reference, no prompt.
+"""Technical quality — does the render LOOK good, no reference, no prompt.
+
+Per image (:func:`niqe`, :func:`arniqa`, :func:`clip_iqa`, and :func:`musiq` in
+its own module) and per clip (:func:`score_frames`, which subsamples frames and
+reduces them to a mean and a worst-case tail).
 
 STABILITY: experimental (v0.x). Metric NAMES (``arniqa``, ``clip_iqa``,
 ``niqe``) are locked by the registry; these function signatures are not.
@@ -52,11 +56,18 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+
 from ..device import AUTO, resolve_device
 from ..errors import ConfigError
+from ..frames import iter_frames
 
 _MODEL_CACHE: dict[str, Any] = {}
 _DATA = Path(__file__).parent / "data"
+
+#: Reference-free per-frame scorers, by registry name. ``niqe`` is closed form
+#: and needs no weights; the rest download on first use and want a GPU.
+FRAME_MODELS = ("niqe", "musiq", "arniqa", "clip_iqa")
 
 # NIQE constants from the paper: 96px patches at scale 1, two scales, patches
 # kept when their sharpness clears 0.75 of the image maximum.
@@ -281,10 +292,57 @@ def clip_iqa(image: Any, *, prompts: tuple[Any, ...] = QUALITY_PROMPTS,
     return float(out)
 
 
+# ---------------------------------------------------------------------------
+# clip adapter — one score per clip from a per-frame scorer
+# ---------------------------------------------------------------------------
+
+def _scorer(model: str):
+    if model not in FRAME_MODELS:
+        raise ConfigError(f"unknown frame model {model!r}; known: {list(FRAME_MODELS)}")
+    if model == "musiq":
+        from . import musiq
+
+        return musiq.musiq
+    return globals()[model]
+
+
+def score_frames(source, *, model: str = "niqe", device: str = AUTO,
+                 stride: int = 8) -> dict[str, float]:
+    """Aggregate a per-frame no-reference score over a clip.
+
+    ``stride`` subsamples frames: the learned models are two orders of magnitude
+    more expensive than the signal metrics and per-frame scores are highly
+    correlated between neighbours.
+
+    Returns ``{model}_mean`` and ``{model}_worst``. The tail is the 10th or 90th
+    percentile depending on the metric's declared direction — a clip that is
+    fine on average can still hold one ruined frame, and for NIQE (lower is
+    better) that frame is at the TOP of the distribution.
+    """
+    from ..registry import spec
+
+    score = _scorer(model)
+    higher_is_better = spec(model).higher_is_better
+    kwargs = {} if model == "niqe" else {"device": device}
+    # iter_frames yields 0..1 float; every scorer here reads image-range data,
+    # and all four are silently wrong (not loud) on a 0..1 input.
+    vals = [float(score(np.rint(f * 255.0).astype(np.uint8), **kwargs))
+            for i, f in enumerate(iter_frames(source)) if not i % stride]
+    if not vals:
+        raise ConfigError("no frames scored")
+    return {
+        f"{model}_mean": float(np.mean(vals)),
+        f"{model}_worst": float(np.percentile(vals, 10 if higher_is_better else 90)),
+        f"{model}_frames": float(len(vals)),
+    }
+
+
 __all__ = [
+    "FRAME_MODELS",
     "QUALITY_PROMPTS",
     "arniqa",
     "clip_iqa",
     "free_models",
     "niqe",
+    "score_frames",
 ]

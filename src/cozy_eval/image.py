@@ -14,11 +14,11 @@ reference-metric budgets it already validated for its own post-latent lane.
 
 from __future__ import annotations
 
-from .backends.signal import ClipScore
-from .backends.signal import score as _score
 from .benchmarks import VIDEO_BUDGETS, Budget, distributional, imaging
 from .control import NullControl
 from .gate import GateReport, Verdict, run_reference_gate  # noqa: F401
+from .metrics.signal import ClipScore
+from .metrics.signal import score as _score
 from .protocol import Lane, Protocol, ProtocolError
 
 #: Image budgets reuse the video imaging/distributional calibration. They are

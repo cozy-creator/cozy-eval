@@ -10,7 +10,7 @@ import math
 
 import pytest
 
-from cozy_eval.bench.metrics.vqascore import AtomScore, aggregate
+from cozy_eval.metrics.vqascore import AtomScore, aggregate
 
 
 def atom(p, id="a", question="q"):
@@ -50,7 +50,7 @@ class TestSoftJudge:
     def judge(self):
         import torch
 
-        from cozy_eval.bench.metrics.vqascore import VlmSoftJudge
+        from cozy_eval.metrics.vqascore import VlmSoftJudge
 
         # CPU prefills of SmolVLM run ~10 min/question on a shared box; take
         # the GPU when there is one.
@@ -70,8 +70,8 @@ class TestSoftJudge:
         assert p_red > p_blue
 
     def test_vqascore_and_soft_tifa_run(self, judge):
-        from cozy_eval.bench.metrics.adherence import ChecklistItem
-        from cozy_eval.bench.metrics.vqascore import soft_tifa, vqascore
+        from cozy_eval.metrics.adherence import ChecklistItem
+        from cozy_eval.metrics.vqascore import soft_tifa, vqascore
 
         img = self._solid((30, 30, 220))
         s = vqascore(judge, img, "a plain blue image")

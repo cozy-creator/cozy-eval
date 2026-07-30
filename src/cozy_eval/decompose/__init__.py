@@ -4,7 +4,7 @@ STABILITY: experimental (v0.x). The EMITTED formats are stable — they are the
 locked prompt-set and checklist JSON shapes — but this package's own types and
 functions may change.
 
-One structured :class:`~cozy_eval.bench.decompose.engine.Case` is the source of
+One structured :class:`~cozy_eval.decompose.engine.Case` is the source of
 truth; the prompt TEXT, the detector-lane :class:`CompositionalSpec`, and the
 judge-lane atom checklist are all derived from it by fixed templates. That is
 what makes the benchmark reproducible: no eval-time LLM decomposition, no

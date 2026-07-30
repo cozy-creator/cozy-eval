@@ -15,14 +15,12 @@ from pathlib import Path
 
 import numpy as np
 
+from .errors import DecodeError
+
 LUMA = np.array([0.299, 0.587, 0.114], np.float32)
 
 Frame = np.ndarray          # (H, W, 3) float32 in [0, 1]
 FrameSource = "str | Path | Iterable[Frame] | np.ndarray"
-
-
-class DecodeError(RuntimeError):
-    pass
 
 
 def probe(path: str | Path) -> tuple[int, int, float, int]:

@@ -16,8 +16,8 @@ from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 from . import __version__
-from .backends.signal import score
 from .gate import run_population_gate, run_reference_gate
+from .metrics.signal import score
 from .protocol import ChangeKind, Protocol, TrajectoryPerturbingError
 
 

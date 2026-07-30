@@ -1,21 +1,21 @@
 """Runnable on CPU in a few seconds, with no model downloads.
 
-Shows the four things you need to use cozy_eval.bench:
+Shows the four things you need to use cozy_eval:
 
   1. the authored prompt set + its cross-validated checklists
   2. scoring adherence with a judge (stubbed here — a real one is a VLM)
   3. the edit change/preserve duality
   4. the tri-state verdict over a paired comparison
 
-Run:  python examples/bench_quickstart.py
+Run:  python examples/suite_quickstart.py
 """
 
 from __future__ import annotations
 
 from PIL import Image
 
-from cozy_eval.bench import promptset, registry, verdict
-from cozy_eval.bench.metrics import adherence, similarity
+from cozy_eval import promptset, registry, verdict
+from cozy_eval.metrics import adherence, similarity
 
 SET = "hard-eval-v1"
 
@@ -23,7 +23,7 @@ SET = "hard-eval-v1"
 class StubJudge:
     """Stands in for a vision-language judge.
 
-    ``cozy_eval.bench.Judge`` is a Protocol, not a base class: anything with an
+    ``cozy_eval.Judge`` is a Protocol, not a base class: anything with an
     ``ask(images, prompt) -> str`` method IS a judge. The real local one is
     ``adherence.VlmJudge("Qwen/Qwen3-VL-8B-Instruct")`` — Apache-2.0 weights,
     ~18 GB — but a hosted model behind HTTP, or this five-line stub, plug in

@@ -19,8 +19,8 @@ from pathlib import Path
 import pytest
 from PIL import Image, ImageDraw
 
-from cozy_eval.bench import errors, promptset
-from cozy_eval.bench.metrics import adherence, similarity
+from cozy_eval import errors, promptset
+from cozy_eval.metrics import adherence, similarity
 
 SET = "hard-eval-v1"
 

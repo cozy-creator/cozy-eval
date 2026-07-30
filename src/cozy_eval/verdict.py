@@ -1,4 +1,8 @@
-"""The tri-state verdict: two questions, not one.
+"""The tri-state parity verdict: two questions, not one.
+
+Distinct from :class:`cozy_eval.Verdict`, which is the GATE's outcome
+(PASS/FAIL/INDETERMINATE/DEGENERATE) for a protocol-stamped population run.
+This one is the outcome of comparing a candidate against a reference render.
 
 A paired comparison of a candidate against a reference answers two genuinely
 different questions, and collapsing them into one pass/fail throws away the
@@ -85,7 +89,7 @@ class Measurement(msgspec.Struct, frozen=True, kw_only=True):
     worst_row: str = ""
 
 
-class Verdict(msgspec.Struct, kw_only=True):
+class ParityVerdict(msgspec.Struct, kw_only=True):
     verdict: str
     faithfulness_passed: bool
     # None = parity was NOT MEASURED (no judge / no preference model / no budget).
@@ -144,7 +148,7 @@ def _parity_measured(
     return False
 
 
-def evaluate(measurements: list[Measurement] | dict[str, Measurement], budget: Budget) -> Verdict:
+def evaluate(measurements: list[Measurement] | dict[str, Measurement], budget: Budget) -> ParityVerdict:
     """Decide the tri-state from measurements and a calibrated budget."""
     obs = (
         {m.metric: m for m in measurements}
@@ -165,7 +169,7 @@ def evaluate(measurements: list[Measurement] | dict[str, Measurement], budget: B
                 "ANOMALY: faithfulness holds while a measured capability "
                 "dimension degraded — " + "; ".join(parity)
             )
-        return Verdict(
+        return ParityVerdict(
             verdict=FREE_WIN,
             faithfulness_passed=True,
             parity_passed=(not parity) if measured else None,
@@ -175,7 +179,7 @@ def evaluate(measurements: list[Measurement] | dict[str, Measurement], budget: B
         )
 
     if measured and not parity:
-        return Verdict(
+        return ParityVerdict(
             verdict=CONDITIONAL_PARITY,
             faithfulness_passed=False,
             parity_passed=True,
@@ -187,7 +191,7 @@ def evaluate(measurements: list[Measurement] | dict[str, Measurement], budget: B
             ),
         )
 
-    return Verdict(
+    return ParityVerdict(
         verdict=REJECT,
         faithfulness_passed=False,
         parity_passed=False if measured else None,
@@ -210,7 +214,7 @@ __all__ = [
     "REJECT",
     "Budget",
     "Measurement",
+    "ParityVerdict",
     "Threshold",
-    "Verdict",
     "evaluate",
 ]

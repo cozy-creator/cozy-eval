@@ -1,6 +1,6 @@
 """The null-control arm: which budgets are you allowed to believe on this family?
 
-Every threshold in :mod:`~cozy_eval.benchmarks` was fixed on one family
+Every threshold in :mod:`~cozy_evalmarks` was fixed on one family
 at one resolution. A threshold is only a threshold where the *clean* population
 sits comfortably inside it — and that is a per-family fact, not a library fact.
 
@@ -46,7 +46,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from . import benchmarks as B
-from .backends.signal import ClipScore
+from .metrics.signal import ClipScore
 from .protocol import ChangeKind, Protocol, ProtocolError
 
 Pair = tuple[ClipScore, ClipScore]

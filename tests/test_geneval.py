@@ -9,7 +9,7 @@ per rule.
 import msgspec
 import pytest
 
-from cozy_eval.bench.metrics.geneval import (
+from cozy_eval.metrics.geneval import (
     CompositionalSpec,
     Detection,
     ExcludeTerm,
@@ -236,7 +236,7 @@ class TestBackends:
 
     @pytest.fixture(scope="class")
     def detector(self):
-        from cozy_eval.bench.metrics.geneval import GroundingDino
+        from cozy_eval.metrics.geneval import GroundingDino
 
         return GroundingDino(device="cpu")
 
@@ -253,7 +253,7 @@ class TestBackends:
     def test_detector_returns_typed_detections_and_siglip_names_their_colors(
         self, detector,
     ):
-        from cozy_eval.bench.metrics.geneval import Detection, SiglipColors
+        from cozy_eval.metrics.geneval import Detection, SiglipColors
 
         scene = self._scene()
         dets = detector.detect(scene, ("circle", "square"))
@@ -268,7 +268,7 @@ class TestBackends:
         assert colors.classify(scene, blue_square) == "blue"
 
     def test_score_image_end_to_end(self, detector):
-        from cozy_eval.bench.metrics.geneval import SiglipColors, score_image
+        from cozy_eval.metrics.geneval import SiglipColors, score_image
 
         compositional_spec = CompositionalSpec(
             spec_id="smoke", prompt="a red circle left of a blue square",

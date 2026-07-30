@@ -19,20 +19,21 @@ import sys
 import msgspec
 import pytest
 
-import cozy_eval.bench
-from cozy_eval.bench import errors, registry, suite
+import cozy_eval
+from cozy_eval import errors, registry, suite
 
 # Modules that must never register a metric, import torch, or otherwise have a
 # side effect at import time.
 METRIC_MODULES = (
-    "adherence", "similarity", "preference", "ocr",
-    "geneval", "iqa", "musiq", "vqascore", "hpsv3", "temporal",
+    "adherence", "similarity", "reference", "preference", "ocr", "geneval",
+    "quality", "musiq", "vqascore", "hpsv3", "temporal", "signal",
+    "distributional",
 )
 
 #: The locked core: modules the README promises by name off the package root.
 CORE_MODULES = (
-    "catalog", "device", "errors", "judge", "promptset", "registry", "suite",
-    "verdict", "video",
+    "catalog", "decompose", "device", "errors", "judge", "metrics", "promptset",
+    "registry", "suite", "verdict", "video",
 )
 
 
@@ -48,7 +49,7 @@ def test_regression_every_dimension_has_a_headline_on_a_bare_import() -> None:
     because the defect is invisible once any test has imported a metric."""
     out = subprocess.run(
         [sys.executable, "-c", (
-            "import cozy_eval.bench, cozy_eval.bench.registry as r, json, sys\n"
+            "import cozy_eval, cozy_eval.registry as r, json, sys\n"
             "print(json.dumps({\n"
             "  'headlines': {d: r.headline(d).name for d in r.DIMENSIONS},\n"
             "  'count': len(r.REGISTRY),\n"
@@ -66,7 +67,7 @@ def test_regression_every_dimension_has_a_headline_on_a_bare_import() -> None:
         "quality": "arniqa",
     }
     assert got["count"] == len(registry.BUILTIN)
-    assert got["heavy"] == [], f"importing cozy_eval.bench pulled in {got['heavy']}"
+    assert got["heavy"] == [], f"importing cozy_eval pulled in {got['heavy']}"
 
 
 def test_regression_importing_a_metric_module_does_not_change_the_registry() -> None:
@@ -76,7 +77,7 @@ def test_regression_importing_a_metric_module_does_not_change_the_registry() -> 
     happened to import."""
     before = registry.REGISTRY
     for name in METRIC_MODULES:
-        importlib.import_module(f"cozy_eval.bench.metrics.{name}")
+        importlib.import_module(f"cozy_eval.metrics.{name}")
     assert registry.REGISTRY is before
 
 
@@ -90,6 +91,8 @@ EXPECTED_SPECS = {
     "ms_ssim":            ("similarity", False, False, True,  True),
     "lpips_frame_worst":  ("similarity", False, False, False, True),
     "dframe_psnr":        ("similarity", False, False, True,  True),
+    "vmaf":               ("similarity", False, False, True,  True),
+    "cvvdp":              ("similarity", False, False, True,  True),
     "element_recall":     ("adherence",  True,  True,  True,  False),
     "clip_delta":         ("adherence",  True,  False, True,  True),
     "vqascore":           ("adherence",  False, False, True,  False),
@@ -110,7 +113,7 @@ EXPECTED_SPECS = {
 #: ourselves is <subject>_<quantity>.
 PUBLISHED_NAMES = {
     "lpips", "ssim", "ms_ssim", "psnr", "niqe", "musiq", "arniqa",
-    "clip_iqa", "vqascore",
+    "clip_iqa", "vqascore", "vmaf", "cvvdp",
 }
 
 
@@ -163,21 +166,20 @@ def test_registry_integrity_sweep() -> None:
 @pytest.mark.parametrize("module", CORE_MODULES)
 def test_locked_core_modules_are_reachable_from_the_package_root(module: str) -> None:
     """The README promises these by name as the locked core."""
-    assert getattr(cozy_eval.bench, module) is not None
-    assert module in cozy_eval.bench.__all__
+    assert getattr(cozy_eval, module) is not None
+    assert module in cozy_eval.__all__
 
 
 def test_every_exported_name_exists_package_wide() -> None:
     """__all__ is the export list `from x import *` and every doc generator
     reads; a name in it that does not resolve is a broken public surface.
     Ordering is enforced by ruff RUF022, not re-litigated here."""
-    missing = [n for n in cozy_eval.bench.__all__ if not hasattr(cozy_eval.bench, n)]
-    assert not missing, f"cozy_eval.bench.__all__ names that do not exist: {missing}"
+    missing = [n for n in cozy_eval.__all__ if not hasattr(cozy_eval, n)]
+    assert not missing, f"cozy_eval.__all__ names that do not exist: {missing}"
 
     for name in (
-        ["cozy_eval.bench.decompose", "cozy_eval.bench.metrics"]
-        + [f"cozy_eval.bench.metrics.{m}" for m in METRIC_MODULES]
-        + [f"cozy_eval.bench.{m}" for m in CORE_MODULES]
+        [f"cozy_eval.metrics.{m}" for m in METRIC_MODULES]
+        + [f"cozy_eval.{m}" for m in CORE_MODULES]
     ):
         module = importlib.import_module(name)
         missing = [n for n in getattr(module, "__all__", []) if not hasattr(module, n)]
@@ -192,20 +194,23 @@ def test_the_error_hierarchy_is_additive() -> None:
     """One root so a caller can catch everything, and each class still
     subclasses the builtin it replaced — so `except ValueError` written against
     an earlier version keeps working."""
-    for cls in (errors.ConfigError, errors.DataError,
-                errors.RegistryError, errors.BackendError):
-        assert issubclass(cls, errors.CozyBenchError)
-    for cls in (errors.ConfigError, errors.DataError, errors.RegistryError):
+    for name in errors.__all__:
+        if name != "CozyEvalError":
+            assert issubclass(getattr(errors, name), errors.CozyEvalError), name
+    for cls in (errors.ConfigError, errors.DataError, errors.RegistryError,
+                errors.ProtocolError):
         assert issubclass(cls, ValueError)
-    assert issubclass(errors.BackendError, RuntimeError)
+    for cls in (errors.BackendError, errors.DecodeError, errors.SampleSizeError,
+                errors.TrajectoryPerturbingError):
+        assert issubclass(cls, RuntimeError)
 
 
 def test_unknown_names_are_reported_with_what_does_exist() -> None:
     """An actionable message names the alternatives."""
     with pytest.raises(errors.ConfigError, match="known:"):
-        cozy_eval.bench.checklist_set("nope")
+        cozy_eval.checklist_set("nope")
     with pytest.raises(errors.ConfigError, match="known:"):
-        cozy_eval.bench.promptset.load("nope")
+        cozy_eval.promptset.load("nope")
     with pytest.raises(errors.RegistryError, match="registered:"):
         registry.spec("nope")
     with pytest.raises(errors.RegistryError, match="registered:"):
@@ -220,8 +225,8 @@ def test_a_report_describes_itself_and_round_trips_through_json() -> None:
     """A banked report is read back by a version that did not write it, so it
     names its own schema/metric-set/library versions and must be plain JSON —
     no NaN, no tuples, no non-string keys."""
-    report = suite.BenchReport(
-        library_version=cozy_eval.bench.__version__,
+    report = suite.SuiteReport(
+        library_version=cozy_eval.__version__,
         created_at="2026-07-27T00:00:00+00:00",
         mode="paired", samples=1,
         rows=[suite.SampleRow(index=0, lpips=0.2, values={"niqe": 3.5})],
@@ -230,14 +235,14 @@ def test_a_report_describes_itself_and_round_trips_through_json() -> None:
     )
     assert report.schema_version == suite.REPORT_SCHEMA
     assert report.metric_set == registry.METRIC_SET_VERSION
-    assert report.library_version == cozy_eval.bench.__version__
+    assert report.library_version == cozy_eval.__version__
     # Both version strings use ONE convention, so a reader can parse either.
     for value in (report.schema_version, report.metric_set):
         assert value.startswith("cozy-eval/") and "@" in value
 
     raw = msgspec.json.encode(report)
     json.loads(raw)  # plain-JSON parseable, not just msgspec-decodable
-    assert msgspec.json.decode(raw, type=suite.BenchReport) == report
+    assert msgspec.json.decode(raw, type=suite.SuiteReport) == report
 
 
 def test_the_values_slot_carries_metrics_the_core_schema_has_no_field_for() -> None:
@@ -302,23 +307,31 @@ def test_regression_unmeasured_is_not_zero_and_zero_is_not_unmeasured() -> None:
 def test_auto_is_the_one_device_convention_everywhere() -> None:
     """Two lanes built this and defaulted opposite ways (cuda vs cpu). One
     convention now, checked by signature so it cannot drift back."""
-    from cozy_eval.bench import video
-    from cozy_eval.bench.metrics import adherence, geneval, iqa, musiq, preference, vqascore
+    from cozy_eval import video
+    from cozy_eval.metrics import (
+        adherence,
+        geneval,
+        musiq,
+        preference,
+        quality,
+        vqascore,
+    )
 
-    assert cozy_eval.bench.resolve_device("cpu") == "cpu"
-    assert cozy_eval.bench.resolve_device("cuda:1") == "cuda:1"
-    assert cozy_eval.bench.resolve_device(cozy_eval.bench.AUTO) in ("cpu", "cuda")
+    assert cozy_eval.resolve_device("cpu") == "cpu"
+    assert cozy_eval.resolve_device("cuda:1") == "cuda:1"
+    assert cozy_eval.resolve_device(cozy_eval.AUTO) in ("cpu", "cuda")
 
     entry_points = (
-        suite.run, video.run_video, iqa.arniqa, iqa.clip_iqa, musiq.musiq,
+        suite.run, video.run_video, quality.arniqa, quality.clip_iqa,
+        quality.score_frames, musiq.musiq,
         preference.primary_scores, preference.pickscore_scores,
         adherence.VlmJudge.__init__, vqascore.VlmSoftJudge.__init__,
         geneval.GroundingDino.__init__, geneval.SiglipColors.__init__,
     )
     for func in entry_points:
         param = inspect.signature(func).parameters.get("device")
-        assert param is not None and param.default == cozy_eval.bench.AUTO, func.__qualname__
-    assert len(entry_points) == 11
+        assert param is not None and param.default == cozy_eval.AUTO, func.__qualname__
+    assert len(entry_points) == 12
 
 
 def test_regression_model_caches_key_on_the_model_and_the_device() -> None:
@@ -327,7 +340,7 @@ def test_regression_model_caches_key_on_the_model_and_the_device() -> None:
     got the FIRST model's scores; similarity's caches ignored `device` the same
     way. Loaders are primed with sentinels instead of real weights, so the key
     is exercised for real without downloading gigabytes."""
-    from cozy_eval.bench.metrics import preference, similarity
+    from cozy_eval.metrics import preference, similarity
 
     preference.free_models()
     similarity.free_models()
@@ -354,7 +367,7 @@ def test_regression_model_caches_key_on_the_model_and_the_device() -> None:
 def test_free_models_covers_every_module_that_caches_one() -> None:
     """A cache that free_models() forgets is a leaked multi-GB model."""
     for name in METRIC_MODULES:
-        module = importlib.import_module(f"cozy_eval.bench.metrics.{name}")
+        module = importlib.import_module(f"cozy_eval.metrics.{name}")
         caches = [
             v for k, v in vars(module).items()
             if k.endswith("_CACHE") or k == "_CACHE"

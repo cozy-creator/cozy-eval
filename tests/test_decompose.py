@@ -7,10 +7,10 @@ import json
 
 import pytest
 
-from cozy_eval.bench.decompose import engine, vocab
-from cozy_eval.bench.decompose.engine import Case, CaseSet, Entity, Rel
-from cozy_eval.bench.metrics.adherence import load_checklists
-from cozy_eval.bench.metrics.geneval import validate_spec
+from cozy_eval.decompose import engine, vocab
+from cozy_eval.decompose.engine import Case, CaseSet, Entity, Rel
+from cozy_eval.metrics.adherence import load_checklists
+from cozy_eval.metrics.geneval import validate_spec
 
 
 def case(task="two_object", entities=(), relations=(), case_id="c0"):
@@ -174,7 +174,7 @@ def test_the_frozen_builtin_set_has_not_drifted(tmp_path):
 
 
 def test_the_builtin_set_cross_validates_against_its_checklists():
-    from cozy_eval.bench import promptset
+    from cozy_eval import promptset
 
     cases = engine.register_builtin()
     assert len(cases.cases) == 108

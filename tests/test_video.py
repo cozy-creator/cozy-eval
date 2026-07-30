@@ -18,8 +18,8 @@ import msgspec
 import numpy as np
 import pytest
 
-from cozy_eval.bench import errors, promptset, suite, video
-from cozy_eval.bench.metrics import adherence, similarity, temporal
+from cozy_eval import errors, promptset, suite, video
+from cozy_eval.metrics import adherence, similarity, temporal
 
 SET = "hard-video-v1"
 
@@ -319,8 +319,8 @@ def test_run_video_paired_reports_all_video_channels() -> None:
     assert any("video preference UNMEASURED" in note for note in report.notes)
     assert set(report.seconds) <= set(suite.SECONDS_KEYS)
     assert set(report.models) <= set(suite.MODELS_KEYS)
-    # The report stays a plain-JSON BenchReport.
-    back = msgspec.json.decode(msgspec.json.encode(report), type=suite.BenchReport)
+    # The report stays a plain-JSON SuiteReport.
+    back = msgspec.json.decode(msgspec.json.encode(report), type=suite.SuiteReport)
     assert back == report
 
 

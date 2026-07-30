@@ -56,7 +56,7 @@ from ..errors import DataError
 # reference for checking this judge's agreement. Its checklist prompt/parse
 # structure is what this module follows.
 DEFAULT_JUDGE = "Qwen/Qwen3-VL-8B-Instruct"
-# Detector+recognizer OCR, NOT a VLM (see bench.ocr for why). ~35 MB all-in.
+# Detector+recognizer OCR, NOT a VLM (see metrics.ocr for why). ~35 MB all-in.
 DEFAULT_OCR = "rapidocr:PP-OCRv5-latin"
 
 OCR_FUZZY_PASS = 0.85  # normalized similarity at which an OCR item counts as present
@@ -348,7 +348,7 @@ def resident_vram() -> int:
 
 
 class VlmJudge:
-    """A resident local judge VLM — the reference :class:`cozy_eval.bench.judge.Judge`.
+    """A resident local judge VLM — the reference :class:`cozy_eval.judge.Judge`.
 
     Loaded once per pass, on the machine that rendered. Anything else with an
     ``ask(images, prompt) -> str`` method is equally a judge; nothing here is

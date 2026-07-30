@@ -9,8 +9,8 @@ from __future__ import annotations
 import msgspec
 import pytest
 
-from cozy_eval.bench import errors, registry
-from cozy_eval.bench.registry import MetricSpec
+from cozy_eval import errors, registry
+from cozy_eval.registry import MetricSpec
 
 SPEC = MetricSpec(
     name="ext_metric", dimension=registry.ADHERENCE, version="0.1", paired=False,

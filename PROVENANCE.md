@@ -21,7 +21,8 @@ Two hard rules govern the whole repository:
    integration, if one is ever added, sits behind an explicit opt-in flag and
    emits a loud licence warning at load.
 
-Licence verification date: **2026-07-27** (video-mode rows: **2026-07-28**).
+Licence verification date: **2026-07-27** (video-mode rows: **2026-07-28**;
+dependency table re-audited at latest resolvable versions **2026-07-30**).
 Every row below was read from the actual HF model-card YAML frontmatter or the
 repository `LICENSE` file, not inferred from a family name or a blog post.
 Re-verify before a release: upstream projects relicense (pyiqa went Apache-2.0
@@ -44,7 +45,7 @@ depending on it).
 | `checklists/`, `promptsets/` | the authored prompt set and its checklists | **original content**, authored by us | |
 | `metrics/geneval.py` | GenEval scoring semantics (thresholds, dead-zone position rule, exact counts via exclude clauses) | **original**; semantics mirror the MIT original (`djghosh13/geneval`) for score comparability | Backends deliberately differ: Grounding DINO (open-vocab, Apache) instead of mmdet Mask2Former; SigLIP2 instead of OpenAI CLIP for colour binding (same three prompt templates). Bbox crops instead of instance-mask composites — boxes are all an open-vocab detector gives. |
 | `metrics/iqa.py` (NIQE) | Mittal, Soundararajan & Bovik, *Making a "Completely Blind" Image Quality Analyzer* (IEEE SPL 2013) | **original implementation** | Pristine-model MVG parameters (`metrics/data/niqe_pristine.npz`) adapted from scikit-video (**BSD-3-Clause**) with attribution. Parity vs the NC oracle: max 2.4% rel on banked fixtures (`tests/fixtures/oracle_niqe.json`). |
-| `metrics/iqa.py` (arniqa, clip_iqa) | ARNIQA (Agnolucci et al. 2024), CLIP-IQA (Wang et al. 2023) | **thin wrappers over torchmetrics (Apache-2.0)** | Deliberately not reimplemented — permissive implementations already exist. |
+| `metrics/iqa.py` (arniqa, clip_iqa) | ARNIQA (Agnolucci et al. 2024), CLIP-IQA (Wang et al. 2023) | **thin wrappers over torchmetrics (Apache-2.0)** | Deliberately not reimplemented — permissive implementations already exist. Both are banked against the NC oracle: `clip_iqa` is bit-identical to it under the oracle's five-pair prompt set (our default is the paper's single canonical pair); `arniqa` deliberately diverges on the half-scale resize — we antialias, the oracle decimates — and swapping the resize reproduces it to 1e-4. `tests/fixtures/oracle_{clip_iqa,arniqa}.json`. |
 | `metrics/musiq.py` | Ke et al., *MUSIQ: Multi-scale Image Quality Transformer* (ICCV 2021) | **PyTorch port ADAPTED with attribution from the Apache-2.0 reference** (`google-research/musiq`, flax) | Loads Google's released Apache checkpoints via our own npz converter — no permissive PyTorch path existed before. TF GAUSSIAN resize, SAME patching and the v1 nearest hash rule reproduced; parity vs the NC oracle max 4.5% rel, identical rankings (`tests/fixtures/oracle_musiq.json`). |
 | `metrics/vqascore.py` | VQAScore (Lin et al. 2024, Apache-2.0) single-number p("yes"); Soft-TIFA aggregation (GenEval2 paper, arXiv:2512.16853 — METHOD only) | **original** | No GenEval2 code or data touched; atoms come from our own `decompose/` templates. Soft p(yes) normalized vs p(no) over one answer token. |
 | `metrics/hpsv3.py` | HPSv3 (Ma et al. 2025) | **ADAPTED with attribution from the MIT original** (`MizzenAI/HPSv3`) | Ported off its `transformers==4.45.2` pin to modern transformers. The INSTRUCTION text and ranknet head shape are the trained model's contract, reproduced byte-exact. Checkpoint key remap 4.45-era -> v5 layout. |
@@ -108,7 +109,7 @@ depending on it).
 | `numpy` | BSD-3-Clause | | array ops |
 | `pillow` | MIT-CMU | | image IO in examples/tests |
 | `scipy` | BSD-3-Clause | github.com/scipy | NIQE (`ndimage.correlate`, `special.gamma`). Its wheels bundle OpenBLAS/`libgfortran` (GPL-3.0 **with the GCC Runtime Library Exception**) and `libquadmath` (LGPL-2.1) — the standard manylinux scientific-Python situation, explicitly permitted for non-GPL programs. Noted because a naive licence scanner flags the string. |
-| `piq` | Apache-2.0 (PyPI classifier; `license` field blank) | PyPI | required at runtime by torchmetrics' `clip_iqa` default checkpoint path |
+| `piq` | Apache-2.0 (PyPI classifier; `license` field blank) | PyPI | required at runtime by torchmetrics' `clip_iqa` default checkpoint path — re-verified against torchmetrics 1.9.0, which still does `import piq; piq.clip_iqa.clip.load()` |
 | `onnxruntime` | MIT | PyPI classifier | rapidocr runtime |
 | `safetensors`, `huggingface-hub` | Apache-2.0 | github.com/huggingface | HPSv3 checkpoint fetch + load |
 | `python-doctr` | Apache-2.0 | github.com/mindee/doctr | OPTIONAL OCR fallback, deliberately **not declared** in any extra — bring your own |
@@ -124,7 +125,7 @@ Not used, and why — these are the licence traps, recorded so nobody re-walks t
 
 | project | licence | verdict |
 |---|---|---|
-| **pyiqa / IQA-PyTorch** | **PolyForm-Noncommercial-1.0.0 + NTU S-Lab** (`chaofengc/IQA-PyTorch` `LICENSE`) | UNUSABLE. Relicensed from Apache-2.0 at 0.1.16 (2026-07-08). The most actively maintained IQA zoo and we can use none of it. |
+| **pyiqa / IQA-PyTorch** | **PolyForm-Noncommercial-1.0.0 + NTU S-Lab** (`chaofengc/IQA-PyTorch` `LICENSE`) | UNUSABLE, and as of 2026-07-30 **not reachable from any extra**: the `perceptual` extra that pinned `pyiqa<0.1.16` is deleted. Relicensed from Apache-2.0 at 0.1.16 (2026-07-08). Survives only as the dev-only parity oracle (0.1.15, the last Apache release), installed in a throwaway venv by `parity/run_oracle.py`; the NUMBERS are committed, the package never is. |
 | **GenEval2** | **CC BY-NC 4.0**, Meta Platforms (`facebookresearch/GenEval2` `LICENSE`) | UNUSABLE. Reimplement the method from the GenEval paper instead. |
 | **DOVER / FAST-VQA** | S-Lab 1.0 (non-commercial) — while their `setup.py` still declares MIT/Apache | UNUSABLE. The declared metadata is wrong; read the `LICENSE`. |
 | **Ultralytics YOLO** | **AGPL-3.0** (paid Enterprise Licence exists) | UNUSABLE as a dependency. Copyleft would reach our users' products. |
@@ -245,9 +246,15 @@ quietly relicensed module is not.
   project, not a port.
 - **Q-Align.** S-Lab non-commercial. Its discrete-level LMM prompting could be
   reimplemented over Qwen3-VL later.
-- **pyiqa's remaining learned no-reference scorers** (MANIQA, LIQE, HyperIQA,
-  DBCNN, NIMA). Not blocked on licence — permissive ORIGINALS exist for all of
-  them — just not ported yet. pyiqa is not the bottleneck.
+- **BRISQUE.** Was reachable through the deleted `pyiqa` extra and is now gone,
+  not ported. NIQE is the opinion-*unaware* successor from the same authors and
+  is shipped; BRISQUE additionally needs an SVR trained on LIVE, whose weights
+  have no clean provenance. Nothing in this library called it.
+- **pyiqa's remaining learned no-reference scorers** (MANIQA, TOPIQ, LIQE,
+  HyperIQA, DBCNN, NIMA). MANIQA and TOPIQ were likewise reachable through the
+  deleted extra and are dropped by name rather than ported. Not blocked on
+  licence for most of them — permissive ORIGINALS exist — just not worth
+  porting until something asks for them. pyiqa is not the bottleneck.
 - **The MUSIQ `ava` checkpoint** (10-class head) is not wired; `spaq` and
   `paq2piq` are wired but unverified against an oracle.
 - **Video preference scoring.** Not a licence gap — `UnifiedReward-2.0-qwen3vl-8b`

@@ -6,6 +6,8 @@ tests/fixtures/oracle_musiq.json).
 Registry wiring lives in `test_public_api.py`'s registry sweep.
 """
 
+import itertools
+
 import numpy as np
 import pytest
 
@@ -20,7 +22,7 @@ def test_hash_ids_match_the_tf_v1_nearest_rule():
     # count > grid: values stay in range and are non-decreasing
     ids = musiq._hash_ids(23)
     assert ids.min() == 0 and ids.max() == 9
-    assert all(a <= b for a, b in zip(ids, ids[1:], strict=False))
+    assert all(a <= b for a, b in itertools.pairwise(ids))
 
 
 def test_gaussian_resize_normalizes_its_kernel_and_preserves_a_constant():

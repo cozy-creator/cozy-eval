@@ -1,14 +1,15 @@
 {
   "metric": "musiq",
-  "oracle": "pyiqa==0.1.16 (musiq koniq), CPU, dev-only venv — never a dependency of this package",
-  "generated": "2026-07-27",
+  "oracle": "pyiqa==0.1.15 (musiq), CPU, dev-only venv — never a dependency of this package",
+  "generated": "2026-07-30",
   "regenerate": "parity/run_oracle.py",
   "tolerance_rel": 0.06,
-  "note": "rankings identical; residuals (max 4.5%, on the aliasing-sensitive noise fixture) come from GAUSSIAN-resize approximations — the oracle's own preprocessing also deviates from TF. whitenoise scoring ~45 is the model's real out-of-distribution behavior, reproduced by both implementations",
+  "note": "OUR PyTorch port of the Apache reference. Rankings identical; residuals (max 4.5%, on the aliasing-sensitive noise fixture) come from GAUSSIAN-resize approximations — the oracle's own preprocessing also deviates from TF. whitenoise scoring ~45 is the model's real out-of-distribution behavior, reproduced by both implementations.",
   "values": {
     "scene": 15.446128845214844,
     "scene_blur": 15.43516731262207,
     "scene_noise": 16.49475860595703,
     "whitenoise": 45.706382751464844
-  }
+  },
+  "match": "exact"
 }

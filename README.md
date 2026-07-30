@@ -13,10 +13,11 @@ Two halves, one package:
   preference, standalone quality — MIT reimplementations of methods the
   ecosystem only ships under non-commercial licences.
 
-There are good libraries for computing quality metrics. `pyiqa` maintains sixty-odd
-no-reference image scorers; `ffmpeg-quality-metrics` and `cvvdp` do full-reference
-video properly; `torchmetrics` owns FID/KID/IS; `cd-fvd` and `fvmd` do population
-distances. This library does not reimplement any of them — it composes them.
+There are good libraries for computing quality metrics. `ffmpeg-quality-metrics`
+and `cvvdp` do full-reference video properly; `torchmetrics` owns FID/KID/IS and
+the permissively-packaged learned scorers; `cd-fvd` and `fvmd` do population
+distances. This library composes those and reimplements only what is otherwise
+locked behind a non-commercial licence.
 
 What no library does is stop you from computing the **wrong metric**. That is what
 this one is for.
@@ -72,9 +73,9 @@ size rather than validity, so the production side never got the message.
 | **NO-SIGNAL, not a confident FAIL** | An arm of constant frames returns `DEGENERATE`, not `FAIL` with an imaging index of 0.0. There is nothing to compare; ranking it would be a category error. |
 | **Statistical honesty** | Paired *t* with Holm correction, effect sizes, and a practical-effect floor so significance without magnitude cannot fail an artifact. No package surveyed reports a confidence interval or effect size on a quality delta. |
 
-Composed, never reimplemented: `ffmpeg-quality-metrics` and `cvvdp` for
-full-reference video, `scikit-image` for SSIM, `lpips` for LPIPS, `pyiqa` for
-learned no-reference image scorers, `cd-fvd` and `fvmd` for population distances.
+Composed where a maintained permissive implementation exists: `ffmpeg-quality-metrics`
+and `cvvdp` for full-reference video, `scikit-image` for SSIM, `lpips` for LPIPS,
+`torchmetrics` for ARNIQA/CLIP-IQA, `cd-fvd` and `fvmd` for population distances.
 The base install is **numpy + msgspec only** — everything else is an extra.
 
 ## Install
@@ -82,14 +83,17 @@ The base install is **numpy + msgspec only** — everything else is an extra.
 ```bash
 pip install cozy-eval                      # numpy + the ffmpeg CLI
 pip install "cozy-eval[reference]"         # VMAF / ColorVideoVDP / SSIM / LPIPS
-pip install "cozy-eval[perceptual]"        # pyiqa: MUSIQ, CLIP-IQA, MANIQA …
+pip install "cozy-eval[quality]"           # NIQE / MUSIQ / ARNIQA / CLIP-IQA
 pip install "cozy-eval[distributional]"    # cd-fvd, fvmd
 ```
 
-> **Licence note.** The `perceptual` extra pins `pyiqa<0.1.16`: pyiqa relicensed
-> Apache-2.0 → PolyForm-Noncommercial-1.0.0 at 0.1.16 (2026-07-08). DOVER and
-> FAST-VQA are deliberately not wrapped — both are S-Lab-1.0 (non-commercial)
-> while their `setup.py` files still declare MIT/Apache. Check before you bump.
+> **Licence note.** No dependency here is non-commercial, and none ever will be.
+> `pyiqa` was dropped outright when it relicensed Apache-2.0 →
+> PolyForm-Noncommercial-1.0.0 at 0.1.16 (2026-07-08): NIQE and MUSIQ are ours,
+> ARNIQA and CLIP-IQA come from torchmetrics, and BRISQUE/MANIQA/TOPIQ are gone
+> rather than ported. DOVER and FAST-VQA are deliberately not wrapped — both are
+> S-Lab-1.0 (non-commercial) while their `setup.py` files still declare
+> MIT/Apache. `parity/` keeps the replacements honest against the banked oracle.
 
 ## Use
 
@@ -287,10 +291,11 @@ pip install "cozy-eval[all]"
 can load are not all MIT. It never defaults to weights that cannot be used
 commercially, and every model it touches has a verified row in
 [`PROVENANCE.md`](PROVENANCE.md) — including "none stated", where that is the
-truth. `parity/` holds the harness that keeps the reimplementations honest
-against the non-commercial oracles (NIQE within 2.4%, MUSIQ within 4.5% with
-identical rankings); the oracle NUMBERS, not code, are banked in
-`tests/fixtures/`.
+truth. `parity/` holds the harness that keeps the replacements honest against the
+non-commercial oracles — NIQE within 2.4%, MUSIQ within 4.5% with identical
+rankings, CLIP-IQA bit-identical under the oracle's own prompt set, ARNIQA
+deliberately diverged (antialiased half-scale) with the divergence isolated and
+recorded. The oracle NUMBERS, not code, are banked in `tests/fixtures/`.
 
 **Stability**: everything re-exported from the `cozy_eval.bench` package root
 (metric names, the registry, the report schema, checklist/prompt-set formats,

@@ -271,7 +271,7 @@ def run(
         lpips_s = pixel_s = 0.0
         for row, _sample, ref, cand in zip(rows, samples, references, candidates, strict=True):
             if cand.size != ref.size:
-                cand = cand.resize(ref.size)
+                cand = cand.resize(ref.size)  # noqa: PLW2901 — scoring wants the pair aligned
             t1 = time.monotonic()
             row.lpips = similarity.lpips_pair(lp, ref, cand, device)
             lpips_s += time.monotonic() - t1

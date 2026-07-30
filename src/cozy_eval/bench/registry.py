@@ -329,7 +329,9 @@ REPORT_ONLY: tuple[str, ...] = ()
 
 
 def _rebuild() -> None:
-    global BY_NAME, GATED, REPORT_ONLY
+    # Rebinding at module level is the point: holders of `from . import
+    # registry` must see the live set.
+    global BY_NAME, GATED, REPORT_ONLY  # noqa: PLW0603
     BY_NAME = {m.name: m for m in REGISTRY}
     GATED = tuple(m.name for m in REGISTRY if m.gated)
     REPORT_ONLY = tuple(m.name for m in REGISTRY if not m.gated)
@@ -347,7 +349,7 @@ def register(spec: MetricSpec, *, replace: bool = False) -> MetricSpec:
     what makes a report readable, so it is enforced at registration rather than
     discovered later at read time.
     """
-    global REGISTRY
+    global REGISTRY  # noqa: PLW0603 — see _rebuild
     if not NAME_PATTERN.match(spec.name):
         raise RegistryError(
             f"metric name {spec.name!r} is not a valid key: names are lowercase "
@@ -375,14 +377,14 @@ def register(spec: MetricSpec, *, replace: bool = False) -> MetricSpec:
                 f"dimension {spec.dimension!r} already has headline metric {clash[0]!r}; "
                 f"{spec.name!r} cannot also be the headline"
             )
-    REGISTRY = tuple(m for m in REGISTRY if m.name != spec.name) + (spec,)
+    REGISTRY = (*(m for m in REGISTRY if m.name != spec.name), spec)
     _rebuild()
     return spec
 
 
 def unregister(name: str) -> None:
     """Remove a metric. Mainly for tests that register a throwaway spec."""
-    global REGISTRY
+    global REGISTRY  # noqa: PLW0603 — see _rebuild
     REGISTRY = tuple(m for m in REGISTRY if m.name != name)
     _rebuild()
 

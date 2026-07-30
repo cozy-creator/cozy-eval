@@ -45,6 +45,8 @@ release. Each such module says so in its own docstring.
 
 from __future__ import annotations
 
+from cozy_eval import __version__
+
 from . import catalog, device, errors, judge, promptset, registry, suite, verdict, video
 from .catalog import add_checklist_set, checklist_set
 from .device import AUTO, resolve_device
@@ -69,8 +71,6 @@ from .registry import METRIC_SET_VERSION, MetricSpec, register
 from .suite import BenchReport, BenchSample, DimensionSummary, SampleRow
 from .verdict import Budget, Measurement, Threshold, Verdict, evaluate
 from .video import VideoSample, run_video
-
-from cozy_eval import __version__
 
 __all__ = [
     "AUTO",

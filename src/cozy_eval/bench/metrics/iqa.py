@@ -24,12 +24,27 @@ BUILD-vs-BUY per metric:
             statistics, no learned weights, runs anywhere numpy runs. The
             pristine-model MVG parameters are adapted from scikit-video
             (BSD-3, attributed in PROVENANCE.md).
+  musiq     OUR PyTorch port of the Apache reference — see musiq.py.
 
-NOT reimplemented, and why: ARNIQA/DISTS/CLIP-IQA already ship permissively in
-torchmetrics; BRISQUE and the classical FR zoo ship in piq (Apache-2.0); TOPIQ's
-value is its NC-trained weights, so it is a tracked gap, not a module. MUSIQ is
-the planned flagship addition (Apache TF checkpoints, no permissive PyTorch
-port exists) — see musiq.py when it lands.
+Where we deliberately differ from `pyiqa`, the NC oracle these numbers are
+banked against (`parity/run_oracle.py`, tolerances in tests/fixtures):
+
+  clip_iqa  default prompt pair is the paper's ("Good photo."/"Bad photo.");
+            pyiqa averages five hand-written pairs. Pass `prompts=` for its set —
+            the implementations then agree to 1e-4, so the gap is the prompt
+            choice, nothing else.
+  arniqa    half-scale branch uses an ANTIALIASED resize. pyiqa decimates with
+            `F.interpolate(..., mode="bilinear")`, which aliases exactly the
+            high-frequency energy an NR quality metric reads (its whitenoise
+            fixture scores 0.376 against our 0.576). Same weights otherwise:
+            swapping the resize reproduces pyiqa to 1e-4.
+
+NOT implemented, and why: BRISQUE (superseded for our purposes by NIQE, the
+opinion-unaware successor from the same authors, and its SVR weights have no
+clean provenance), MANIQA and TOPIQ (learned NR scorers with no permissive
+checkpoint; TOPIQ's value IS its NC-trained weights). All three were reachable
+through pyiqa and are dropped rather than ported — nothing in this library
+called them. See PROVENANCE.md.
 """
 
 from __future__ import annotations
@@ -232,24 +247,42 @@ def arniqa(image: Any, *, regressor: str = "koniq10k", device: str = AUTO) -> fl
         return float(model(_image_tensor(image).to(device)))
 
 
-def clip_iqa(image: Any, *, device: str = AUTO) -> float:
+#: The paper's canonical quality probe. `pyiqa` instead averages five pairs,
+#: which is a different quantity, not a better-estimated one.
+QUALITY_PROMPTS: tuple[Any, ...] = ("quality",)
+
+
+def clip_iqa(image: Any, *, prompts: tuple[Any, ...] = QUALITY_PROMPTS,
+             device: str = AUTO) -> float:
     """CLIP-IQA (Wang et al. 2023) via torchmetrics; 0..1, higher is better.
+
+    ``prompts`` takes torchmetrics' antonym-pair form — a builtin name like
+    ``"quality"`` or an explicit ``(positive, negative)`` tuple. More than one
+    pair is averaged.
+
     Backbone weights: OpenAI CLIP — no licence tag on the HF card, MIT at the
-    upstream repo; recorded as such in PROVENANCE.md."""
+    upstream repo; recorded as such in PROVENANCE.md.
+    """
     import torch
 
     device = resolve_device(device)
-    key = f"clip_iqa:{device}"
+    key = f"clip_iqa:{device}:{prompts}"
     if key not in _MODEL_CACHE:
         from torchmetrics.multimodal import CLIPImageQualityAssessment
 
-        _MODEL_CACHE[key] = CLIPImageQualityAssessment().to(device).eval()
+        _MODEL_CACHE[key] = CLIPImageQualityAssessment(prompts=prompts).to(device).eval()
     model = _MODEL_CACHE[key]
+    # data_range is 1.0, so the model wants 0..1 — feeding it 0..255 puts every
+    # pixel far outside CLIP's normalization and silently returns nonsense.
     with torch.no_grad():
-        return float(model(_image_tensor(image).to(device) * 255.0))
+        out = model(_image_tensor(image).to(device))
+    if isinstance(out, dict):
+        return float(torch.stack([v for v in out.values()]).mean())
+    return float(out)
 
 
 __all__ = [
+    "QUALITY_PROMPTS",
     "arniqa",
     "clip_iqa",
     "free_models",

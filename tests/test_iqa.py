@@ -73,8 +73,49 @@ def test_niqe_parity_with_banked_oracle():
         )
 
 
+def _banked(metric):
+    import json
+    from pathlib import Path
+
+    fixtures = Path(__file__).parent / "fixtures"
+    return fixtures, json.loads((fixtures / f"oracle_{metric}.json").read_text())
+
+
 @pytest.mark.heavy
 @pytest.mark.parametrize("metric", ["arniqa", "clip_iqa"])
 def test_learned_metrics_score_in_range(metric):
     img = np.stack([_textured()] * 3, axis=-1)
     assert 0.0 <= getattr(iqa, metric)(img) <= 1.0
+
+
+@pytest.mark.heavy
+def test_clip_iqa_reproduces_the_oracle_under_the_oracle_prompts():
+    """The only difference from the NC reference is the prompt set: ours is the
+    paper's single canonical pair, pyiqa averages five. Given its five, the two
+    implementations agree to 1e-4 — so the substitution is the same metric, and
+    the default difference is a deliberate choice rather than a port error."""
+    from PIL import Image
+
+    fixtures, spec = _banked("clip_iqa")
+    prompts = tuple(tuple(p) for p in spec["oracle_config"]["prompts"])
+    for name, ref in spec["values"].items():
+        ours = iqa.clip_iqa(Image.open(fixtures / f"{name}.png"), prompts=prompts)
+        assert abs(ours - ref) / ref < spec["tolerance_rel"], (
+            f"{name}: ours={ours:.6f} oracle={ref:.6f}"
+        )
+
+
+@pytest.mark.heavy
+def test_arniqa_matches_its_banked_values():
+    """arniqa deliberately diverges from the NC reference (antialiased half-scale
+    vs its aliased decimation — see the json's `divergence`), so the banked
+    guard is our own number: it catches a torchmetrics change silently moving
+    the metric, which matters because nothing here carries an upper bound."""
+    from PIL import Image
+
+    fixtures, spec = _banked("arniqa")
+    for name, ref in spec["ours"].items():
+        ours = iqa.arniqa(Image.open(fixtures / f"{name}.png"))
+        assert abs(ours - ref) / ref < spec["tolerance_rel"], (
+            f"{name}: ours={ours:.6f} banked={ref:.6f}"
+        )

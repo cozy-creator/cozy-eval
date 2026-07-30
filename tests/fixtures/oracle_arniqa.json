@@ -1,0 +1,22 @@
+{
+  "metric": "arniqa",
+  "oracle": "pyiqa==0.1.15 (arniqa), CPU, dev-only venv — never a dependency of this package",
+  "generated": "2026-07-30",
+  "regenerate": "parity/run_oracle.py",
+  "tolerance_rel": 0.0001,
+  "note": "NOT our implementation: torchmetrics (Apache-2.0), koniq10k regressor. `ours` is the regression guard; `values` is what pyiqa returns.",
+  "values": {
+    "scene": 0.21423400938510895,
+    "scene_blur": 0.5368199348449707,
+    "scene_noise": 0.35228005051612854,
+    "whitenoise": 0.3764916658401489
+  },
+  "match": "diverged",
+  "divergence": "half-scale branch. We resize with antialiasing (torchvision `transforms.Resize`, via torchmetrics); pyiqa decimates with `F.interpolate(mode='bilinear')`, which aliases exactly the high-frequency energy an NR quality metric reads — its whitenoise fixture scores 0.376 against our 0.576. Same encoder and regressor otherwise: swapping in the non-antialiased resize reproduces the oracle to 1e-4, so the resize is the whole difference.",
+  "ours": {
+    "scene": 0.26320019364356995,
+    "scene_blur": 0.5423543453216553,
+    "scene_noise": 0.3248693346977234,
+    "whitenoise": 0.5755220055580139
+  }
+}

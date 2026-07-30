@@ -11,9 +11,9 @@ a metric, we call it rather than reimplement it:
 * :mod:`.reference` — reference metrics for the same-trajectory lane. Uses
   ``libvmaf`` through ffmpeg when present and scikit-image's SSIM when present,
   falling back to the built-in windowed SSIM.
-* :mod:`.perceptual` — ``pip install cozy-eval[perceptual]``. Wraps
-  ``pyiqa`` (MUSIQ, CLIP-IQA, MANIQA, NIQE, BRISQUE) and, for video, DOVER-class
-  scorers. Never reimplemented here.
+* :mod:`.perceptual` — ``pip install cozy-eval[quality]``. Learned and
+  closed-form no-reference quality (NIQE, MUSIQ, ARNIQA, CLIP-IQA) aggregated
+  over a clip. The scorers themselves live in :mod:`cozy_eval.bench.metrics`.
 * :mod:`.distributional` — ``pip install cozy-eval[distributional]``.
   Deep-feature Fréchet distances (I3D-FVD, V-JEPA/JEDi). Opt-in and explicitly
   NOT validated at the sample sizes this library's gate runs at; see GATE.md.

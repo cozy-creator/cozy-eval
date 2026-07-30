@@ -84,7 +84,7 @@ def test_as_frames_normalizes_every_accepted_form_and_rejects_non_clips() -> Non
     frames = temporal.as_frames(arr)
     assert frames.shape == (3, 32, 32, 3)
     assert frames.dtype == np.float32
-    assert 0.0 <= float(frames.min()) and float(frames.max()) <= 1.0
+    assert float(frames.min()) >= 0.0 and float(frames.max()) <= 1.0
 
     pil = [Image.fromarray(f) for f in arr]
     assert np.allclose(frames, temporal.as_frames(pil))

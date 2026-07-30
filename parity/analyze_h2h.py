@@ -1,6 +1,7 @@
 """Local analysis of the pod's results.json: delta resolution + agreement."""
 
 import json
+import pathlib
 import statistics as st
 import sys
 
@@ -22,7 +23,7 @@ def spread(values):
 
 
 def main(path):
-    data = json.loads(open(path).read())
+    data = json.loads(pathlib.Path(path).read_text())
     rows = data["rows"]
     real = [r for r in rows if not r["population"].startswith("control")]
     ctrl = [r for r in rows if r["population"].startswith("control")]

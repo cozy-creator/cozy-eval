@@ -1,0 +1,39 @@
+{
+  "metric": "clip_iqa",
+  "oracle": "pyiqa==0.1.15 (clipiqa), CPU, dev-only venv — never a dependency of this package",
+  "generated": "2026-07-30",
+  "regenerate": "parity/run_oracle.py",
+  "tolerance_rel": 0.0001,
+  "note": "NOT our implementation: torchmetrics (Apache-2.0) over the same piq-hosted CLIP-IQA RN50 weights. Bit-identical to the oracle once given the oracle's prompt set, so the DEFAULT difference is the prompt choice and nothing else: we use the paper's single canonical pair, pyiqa averages five hand-written pairs that also probe sharpness, resolution and noise.",
+  "values": {
+    "scene": 0.35961490869522095,
+    "scene_blur": 0.2815520167350769,
+    "scene_noise": 0.4080595374107361,
+    "whitenoise": 0.5948855876922607
+  },
+  "match": "exact",
+  "oracle_config": {
+    "prompts": [
+      [
+        "Good image",
+        "bad image"
+      ],
+      [
+        "Sharp image",
+        "blurry image"
+      ],
+      [
+        "sharp edges",
+        "blurry edges"
+      ],
+      [
+        "High resolution image",
+        "low resolution image"
+      ],
+      [
+        "Noise-free image",
+        "noisy image"
+      ]
+    ]
+  }
+}

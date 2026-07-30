@@ -115,15 +115,15 @@ def _reasons(
         if m is None or t is None:
             continue
         hib = spec.higher_is_better
-        if m.mean is not None and t.mean_limit is not None:
-            if _breaches(m.mean, t.mean_limit, hib):
-                out.append(f"{spec.name}_mean {m.mean:.4g} vs budget {t.mean_limit:.4g}")
-        if m.worst is not None and t.tail_limit is not None:
-            if _breaches(m.worst, t.tail_limit, hib):
-                row = f" on {m.worst_row}" if m.worst_row else ""
-                out.append(
-                    f"{spec.name}_worst {m.worst:.4g} vs tail budget {t.tail_limit:.4g}{row}"
-                )
+        if (m.mean is not None and t.mean_limit is not None
+                and _breaches(m.mean, t.mean_limit, hib)):
+            out.append(f"{spec.name}_mean {m.mean:.4g} vs budget {t.mean_limit:.4g}")
+        if (m.worst is not None and t.tail_limit is not None
+                and _breaches(m.worst, t.tail_limit, hib)):
+            row = f" on {m.worst_row}" if m.worst_row else ""
+            out.append(
+                f"{spec.name}_worst {m.worst:.4g} vs tail budget {t.tail_limit:.4g}{row}"
+            )
     return out
 
 

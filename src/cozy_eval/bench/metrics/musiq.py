@@ -373,7 +373,7 @@ def _checkpoint_path(variant: str) -> Path:
     cache.mkdir(parents=True, exist_ok=True)
     url = CHECKPOINT_URLS[variant]
     try:
-        urllib.request.urlretrieve(url, path)  # noqa: S310
+        urllib.request.urlretrieve(url, path)
     except OSError as exc:
         path.unlink(missing_ok=True)  # never leave a truncated checkpoint behind
         raise BackendError(

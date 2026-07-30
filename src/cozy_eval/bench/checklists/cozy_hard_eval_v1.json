@@ -1,0 +1,1479 @@
+{
+  "checklist_set_id": "hard-eval-v1-checklists",
+  "version": 1,
+  "prompt_set": "hard-eval-v1",
+  "prompt_set_version": 1,
+  "created": "2026-07-27",
+  "purpose": "Element fidelity. One authored, reviewable, VERSIONED checklist per prompt: the concrete elements the prompt specifies, each verifiable from the render alone. Authored rather than LLM-decomposed per run (TIFA/DSG generate questions at eval time, which makes a score irreproducible and unreviewable); these are written once, read by a human once, and then scored identically forever.",
+  "item_kinds": {
+    "ocr": "a literal string the prompt requires to be READABLE in the image. Scored by OCR: exact match, plus a normalized similarity for partial credit. `absent: true` inverts it (the string must NOT be readable).",
+    "vqa": "a closed yes/no question a judge VLM answers about the image. Phrased so YES means the prompt was obeyed."
+  },
+  "edit_semantics": {
+    "change": "INSTRUCTION COMPLIANCE — did the requested edit happen, exactly as specified. Judged on the BEFORE+AFTER pair together with the instruction; a question like 'did X change' is unanswerable from the after image alone.",
+    "preserve": "PRESERVATION — did everything the instruction did NOT mention stay the same. Under-editing shows up as compliance failure; over-editing shows up as preservation failure."
+  },
+  "default_weight": 1.0,
+  "t2i": [
+    {
+      "prompt_id": "t01",
+      "items": [
+        {
+          "id": "t01.text.heading",
+          "kind": "ocr",
+          "text": "MORNING BAKE"
+        },
+        {
+          "id": "t01.text.line1",
+          "kind": "ocr",
+          "text": "SOURDOUGH 4.50"
+        },
+        {
+          "id": "t01.text.line2",
+          "kind": "ocr",
+          "text": "ALMOND CROISSANT 3.75"
+        },
+        {
+          "id": "t01.text.line3",
+          "kind": "ocr",
+          "text": "CARDAMOM BUN 4.20"
+        },
+        {
+          "id": "t01.text.footer",
+          "kind": "ocr",
+          "text": "SOLD OUT BY NOON"
+        },
+        {
+          "id": "t01.obj.sign",
+          "kind": "vqa",
+          "question": "Is there a chalkboard A-frame sign standing on wet pavement?"
+        },
+        {
+          "id": "t01.attr.lines",
+          "kind": "vqa",
+          "question": "Does the chalkboard carry five clearly separated lines of hand-lettered chalk text?"
+        },
+        {
+          "id": "t01.obj.wheat",
+          "kind": "vqa",
+          "question": "Is there a small chalk drawing of a wheat sheaf in the lower right corner of the board?"
+        },
+        {
+          "id": "t01.attr.underline",
+          "kind": "vqa",
+          "question": "Is the bottom line of chalk text underlined?"
+        },
+        {
+          "id": "t01.attr.dof",
+          "kind": "vqa",
+          "question": "Is the background a warm, glowing, out-of-focus shop interior behind the sign?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t02",
+      "items": [
+        {
+          "id": "t02.text.headline",
+          "kind": "ocr",
+          "text": "HARBOUR BRIDGE REOPENS"
+        },
+        {
+          "id": "t02.text.subhead",
+          "kind": "ocr",
+          "text": "After nineteen months of repairs"
+        },
+        {
+          "id": "t02.obj.hands",
+          "kind": "vqa",
+          "question": "Are a man's weathered hands holding an open broadsheet newspaper?"
+        },
+        {
+          "id": "t02.attr.fingers",
+          "kind": "vqa",
+          "question": "Does each visible hand have exactly five correctly formed fingers, with no extra, missing or fused fingers?"
+        },
+        {
+          "id": "t02.attr.columns",
+          "kind": "vqa",
+          "question": "Are there two columns of small grey body text below the headline?"
+        },
+        {
+          "id": "t02.obj.ring",
+          "kind": "vqa",
+          "question": "Is there a plain steel wedding band on the left ring finger?"
+        },
+        {
+          "id": "t02.obj.espresso",
+          "kind": "vqa",
+          "question": "Is there a half-finished espresso cup beside the newspaper?"
+        },
+        {
+          "id": "t02.obj.glasses",
+          "kind": "vqa",
+          "question": "Is there a folded pair of reading glasses beside the newspaper?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t03",
+      "items": [
+        {
+          "id": "t03.subj.face",
+          "kind": "vqa",
+          "question": "Does the face of an elderly woman, roughly eighty years old, fill most of the frame?"
+        },
+        {
+          "id": "t03.attr.backdrop",
+          "kind": "vqa",
+          "question": "Is the background a plain deep charcoal seamless backdrop?"
+        },
+        {
+          "id": "t03.attr.skin",
+          "kind": "vqa",
+          "question": "Is her skin deeply sun-creased, with small sunspots visible across her cheekbones?"
+        },
+        {
+          "id": "t03.attr.eyes",
+          "kind": "vqa",
+          "question": "Are her eyes pale grey-green with clearly defined catchlights?"
+        },
+        {
+          "id": "t03.attr.brows",
+          "kind": "vqa",
+          "question": "Are her eyebrows sparse and silver?"
+        },
+        {
+          "id": "t03.attr.scar",
+          "kind": "vqa",
+          "question": "Is there a small healed scar through her left eyebrow?"
+        },
+        {
+          "id": "t03.attr.lips",
+          "kind": "vqa",
+          "question": "Are her lips dry and slightly parted, as if mid-sentence?"
+        },
+        {
+          "id": "t03.obj.headscarf",
+          "kind": "vqa",
+          "question": "Is she wearing a navy headscarf with individual white hairs escaping from it?"
+        },
+        {
+          "id": "t03.attr.light",
+          "kind": "vqa",
+          "question": "Is the key light a single large soft source from the left of frame, with the shadow side gently filled rather than black?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t04",
+      "items": [
+        {
+          "id": "t04.text.line1",
+          "kind": "ocr",
+          "text": "SINGLE ORIGIN"
+        },
+        {
+          "id": "t04.text.line2",
+          "kind": "ocr",
+          "text": "ETHIOPIA GUJI"
+        },
+        {
+          "id": "t04.subj.barista",
+          "kind": "vqa",
+          "question": "Is a young barista with short bleached hair shown from the chest up?"
+        },
+        {
+          "id": "t04.attr.nosering",
+          "kind": "vqa",
+          "question": "Is she wearing a nose ring?"
+        },
+        {
+          "id": "t04.attr.pour",
+          "kind": "vqa",
+          "question": "Is she pouring steamed milk into a white ceramic cup, forming a rosetta latte-art pattern?"
+        },
+        {
+          "id": "t04.attr.hands",
+          "kind": "vqa",
+          "question": "Are both of her hands visible and correctly formed, the left gripping the cup's handle and the right tilting a steel pitcher?"
+        },
+        {
+          "id": "t04.attr.gaze",
+          "kind": "vqa",
+          "question": "Is she looking down at the cup in concentration rather than at the camera?"
+        },
+        {
+          "id": "t04.obj.chalkboard",
+          "kind": "vqa",
+          "question": "Is there a small black chalkboard behind her shoulder carrying two lines of text?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t05",
+      "items": [
+        {
+          "id": "t05.text.line1",
+          "kind": "ocr",
+          "text": "H. WHITLOCK & SON"
+        },
+        {
+          "id": "t05.text.line2",
+          "kind": "ocr",
+          "text": "IRONMONGERS"
+        },
+        {
+          "id": "t05.text.line3",
+          "kind": "ocr",
+          "text": "ESTABLISHED 1897"
+        },
+        {
+          "id": "t05.attr.gold",
+          "kind": "vqa",
+          "question": "Is the lettering hand-painted gold-leaf and black signwriting on shop window glass?"
+        },
+        {
+          "id": "t05.attr.victorian",
+          "kind": "vqa",
+          "question": "Is the lettering ornate Victorian signwriting with drop shadows?"
+        },
+        {
+          "id": "t05.attr.stack",
+          "kind": "vqa",
+          "question": "Are the three lines of lettering stacked vertically in decreasing size?"
+        },
+        {
+          "id": "t05.obj.shelves",
+          "kind": "vqa",
+          "question": "Are out-of-focus shelves of brass hinges and coils of rope visible through the glass behind the lettering?"
+        },
+        {
+          "id": "t05.obj.pillarbox",
+          "kind": "vqa",
+          "question": "Is a red pillar box reflected in the glass?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t06",
+      "items": [
+        {
+          "id": "t06.subj.luthier",
+          "kind": "vqa",
+          "question": "Is a woman in roughly her fifties working over a half-finished violin body clamped to a workbench?"
+        },
+        {
+          "id": "t06.attr.workshop",
+          "kind": "vqa",
+          "question": "Is the setting a sawdust-filled woodworking workshop?"
+        },
+        {
+          "id": "t06.attr.face",
+          "kind": "vqa",
+          "question": "Is her face in three-quarter profile with her brow furrowed in concentration?"
+        },
+        {
+          "id": "t06.obj.glasses",
+          "kind": "vqa",
+          "question": "Are reading glasses pushed up into her greying curly hair?"
+        },
+        {
+          "id": "t06.attr.hands",
+          "kind": "vqa",
+          "question": "Are both hands visible and anatomically correct, with five distinct fingers on each?"
+        },
+        {
+          "id": "t06.attr.lefthand",
+          "kind": "vqa",
+          "question": "Is her left hand steadying the violin's scroll?"
+        },
+        {
+          "id": "t06.attr.righthand",
+          "kind": "vqa",
+          "question": "Is her right hand drawing a small finger plane along the spruce top?"
+        },
+        {
+          "id": "t06.obj.shavings",
+          "kind": "vqa",
+          "question": "Are curls of wood shavings coming off the plane's blade?"
+        },
+        {
+          "id": "t06.attr.light",
+          "kind": "vqa",
+          "question": "Is light coming from a high window with dust motes visible in the air?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t07",
+      "items": [
+        {
+          "id": "t07.text.kobayashi",
+          "kind": "ocr",
+          "text": "KOBAYASHI"
+        },
+        {
+          "id": "t07.text.openlate",
+          "kind": "ocr",
+          "text": "OPEN LATE"
+        },
+        {
+          "id": "t07.text.izakaya",
+          "kind": "ocr",
+          "text": "居酒屋"
+        },
+        {
+          "id": "t07.text.basement",
+          "kind": "ocr",
+          "text": "BASEMENT"
+        },
+        {
+          "id": "t07.attr.night",
+          "kind": "vqa",
+          "question": "Is this a night photograph of a narrow alley crowded with layered neon signage?"
+        },
+        {
+          "id": "t07.attr.vertical",
+          "kind": "vqa",
+          "question": "Is the large KOBAYASHI sign vertical, red and white, reading from top to bottom?"
+        },
+        {
+          "id": "t07.attr.cyan",
+          "kind": "vqa",
+          "question": "Is the OPEN LATE sign horizontal and cyan?"
+        },
+        {
+          "id": "t07.attr.magenta",
+          "kind": "vqa",
+          "question": "Is there a smaller magenta sign with Japanese characters below the others?"
+        },
+        {
+          "id": "t07.obj.arrow",
+          "kind": "vqa",
+          "question": "Is there a yellow arrow sign pointing down toward a stairwell?"
+        },
+        {
+          "id": "t07.attr.puddles",
+          "kind": "vqa",
+          "question": "Are the signs reflected in wet puddles on the ground?"
+        },
+        {
+          "id": "t07.obj.steam",
+          "kind": "vqa",
+          "question": "Is steam drifting from a vent?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t08",
+      "items": [
+        {
+          "id": "t08.text.letterhead",
+          "kind": "ocr",
+          "text": "THE ORCHARD PRESS"
+        },
+        {
+          "id": "t08.text.opening",
+          "kind": "ocr",
+          "text": "Dear Margaret, I hope this finds you well"
+        },
+        {
+          "id": "t08.attr.topdown",
+          "kind": "vqa",
+          "question": "Is this an overhead, top-down view of a wooden desk?"
+        },
+        {
+          "id": "t08.attr.writing",
+          "kind": "vqa",
+          "question": "Is a woman's hand writing on cream paper with a black fountain pen?"
+        },
+        {
+          "id": "t08.attr.grip",
+          "kind": "vqa",
+          "question": "Is the pen held in a natural tripod grip by a correctly formed hand?"
+        },
+        {
+          "id": "t08.attr.otherhand",
+          "kind": "vqa",
+          "question": "Is the other hand resting flat and steadying the page, with all five fingers distinct?"
+        },
+        {
+          "id": "t08.attr.cursive",
+          "kind": "vqa",
+          "question": "Are there roughly four lines of neat cursive handwriting below the printed letterhead?"
+        },
+        {
+          "id": "t08.obj.opener",
+          "kind": "vqa",
+          "question": "Is there a brass letter opener on the desk?"
+        },
+        {
+          "id": "t08.obj.tea",
+          "kind": "vqa",
+          "question": "Is there a cup of tea on the desk?"
+        },
+        {
+          "id": "t08.obj.leaves",
+          "kind": "vqa",
+          "question": "Are dried pressed leaves scattered around the paper?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t09",
+      "items": [
+        {
+          "id": "t09.subj.handshake",
+          "kind": "vqa",
+          "question": "Are two men shaking hands across a market stall?"
+        },
+        {
+          "id": "t09.obj.fish",
+          "kind": "vqa",
+          "question": "Is the stall displaying fresh fish on crushed ice?"
+        },
+        {
+          "id": "t09.attr.vendor",
+          "kind": "vqa",
+          "question": "Is the man on the left middle-aged and ruddy, laughing with his eyes creased shut and teeth showing?"
+        },
+        {
+          "id": "t09.obj.apron",
+          "kind": "vqa",
+          "question": "Is the man on the left wearing a rubber apron?"
+        },
+        {
+          "id": "t09.attr.customer",
+          "kind": "vqa",
+          "question": "Is the man on the right older and silver-bearded, smiling more reservedly in three-quarter view?"
+        },
+        {
+          "id": "t09.attr.grip",
+          "kind": "vqa",
+          "question": "Are the clasped hands at the centre of the composition, correctly rendered with a readable interlocking grip and no extra fingers?"
+        },
+        {
+          "id": "t09.obj.awning",
+          "kind": "vqa",
+          "question": "Is there a striped awning over the stall?"
+        },
+        {
+          "id": "t09.attr.light",
+          "kind": "vqa",
+          "question": "Is the light cold and overcast, with wet reflective surfaces?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t10",
+      "items": [
+        {
+          "id": "t10.text.name",
+          "kind": "ocr",
+          "text": "KIRKWOOD JUNCTION"
+        },
+        {
+          "id": "t10.text.sub",
+          "kind": "ocr",
+          "text": "CHANGE HERE FOR THE COAST LINE"
+        },
+        {
+          "id": "t10.text.platform",
+          "kind": "ocr",
+          "text": "PLATFORM 3"
+        },
+        {
+          "id": "t10.obj.sign",
+          "kind": "vqa",
+          "question": "Is there a weathered enamel railway platform sign bolted to a brick wall?"
+        },
+        {
+          "id": "t10.attr.straighton",
+          "kind": "vqa",
+          "question": "Is the sign photographed straight on, flat to the camera?"
+        },
+        {
+          "id": "t10.attr.colours",
+          "kind": "vqa",
+          "question": "Is the sign deep blue with white capital lettering?"
+        },
+        {
+          "id": "t10.attr.yellow",
+          "kind": "vqa",
+          "question": "Is the PLATFORM 3 text yellow and in the bottom right corner of the sign?"
+        },
+        {
+          "id": "t10.attr.chips",
+          "kind": "vqa",
+          "question": "Is the enamel chipped in several places, exposing rust?"
+        },
+        {
+          "id": "t10.obj.bench",
+          "kind": "vqa",
+          "question": "Is a wooden bench visible at the edge of the frame?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t11",
+      "items": [
+        {
+          "id": "t11.text.title",
+          "kind": "ocr",
+          "text": "THE SUNDERED COAST"
+        },
+        {
+          "id": "t11.text.gallowmere",
+          "kind": "ocr",
+          "text": "Gallowmere"
+        },
+        {
+          "id": "t11.text.thistle",
+          "kind": "ocr",
+          "text": "Thistle Bay"
+        },
+        {
+          "id": "t11.text.banner",
+          "kind": "ocr",
+          "text": "HERE BE FOG"
+        },
+        {
+          "id": "t11.attr.style",
+          "kind": "vqa",
+          "question": "Is this an ink-and-watercolour illustration in the manner of an antique cartographer's plate?"
+        },
+        {
+          "id": "t11.subj.hands",
+          "kind": "vqa",
+          "question": "Are a mapmaker's hands spreading open a hand-drawn map across a cluttered oak table?"
+        },
+        {
+          "id": "t11.attr.anatomy",
+          "kind": "vqa",
+          "question": "Are both hands drawn with correct anatomy and five distinct fingers each?"
+        },
+        {
+          "id": "t11.obj.compass",
+          "kind": "vqa",
+          "question": "Is there a compass rose in the lower left of the map, lettered N, E, S and W?"
+        },
+        {
+          "id": "t11.obj.divider",
+          "kind": "vqa",
+          "question": "Is a brass divider weighting down the curling parchment?"
+        },
+        {
+          "id": "t11.attr.palette",
+          "kind": "vqa",
+          "question": "Is the palette muted sepia, indigo and ochre with visible crosshatched shadows?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t12",
+      "items": [
+        {
+          "id": "t12.subj.sorceress",
+          "kind": "vqa",
+          "question": "Is a sorceress standing mid-incantation in a ruined library?"
+        },
+        {
+          "id": "t12.attr.face",
+          "kind": "vqa",
+          "question": "Is her face shown in three-quarter view as the focal point, with high cheekbones?"
+        },
+        {
+          "id": "t12.attr.scar",
+          "kind": "vqa",
+          "question": "Is there a scar across the bridge of her nose?"
+        },
+        {
+          "id": "t12.attr.eyes",
+          "kind": "vqa",
+          "question": "Are her eyes amber and lit from beneath?"
+        },
+        {
+          "id": "t12.attr.expression",
+          "kind": "vqa",
+          "question": "Is her expression one of fierce concentration rather than calm serenity?"
+        },
+        {
+          "id": "t12.attr.hands",
+          "kind": "vqa",
+          "question": "Are both hands raised with five correct fingers each and palms turned inward?"
+        },
+        {
+          "id": "t12.attr.light",
+          "kind": "vqa",
+          "question": "Are thin ribbons of pale-gold light trailing from her fingertips and spiralling into a floating glyph between her hands?"
+        },
+        {
+          "id": "t12.obj.books",
+          "kind": "vqa",
+          "question": "Are torn spellbooks hovering in the air around her?"
+        },
+        {
+          "id": "t12.attr.style",
+          "kind": "vqa",
+          "question": "Is this a richly painted oil-painting-textured illustration with dramatic chiaroscuro?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t13",
+      "items": [
+        {
+          "id": "t13.text.title",
+          "kind": "ocr",
+          "text": "MONT SAVAREL"
+        },
+        {
+          "id": "t13.text.banner",
+          "kind": "ocr",
+          "text": "BY FUNICULAR ALL SEASONS"
+        },
+        {
+          "id": "t13.text.company",
+          "kind": "ocr",
+          "text": "CHEMIN DE FER DU SUD"
+        },
+        {
+          "id": "t13.attr.style",
+          "kind": "vqa",
+          "question": "Is this a flat-colour art-nouveau travel poster in a 1910s lithographic style with heavy organic outlines?"
+        },
+        {
+          "id": "t13.subj.funicular",
+          "kind": "vqa",
+          "question": "Is a mountain funicular railway depicted?"
+        },
+        {
+          "id": "t13.attr.arch",
+          "kind": "vqa",
+          "question": "Does the main title arch across the top of the poster in tall decorative capitals?"
+        },
+        {
+          "id": "t13.attr.ribbon",
+          "kind": "vqa",
+          "question": "Is there a ribbon banner carrying text across the lower third of the poster?"
+        },
+        {
+          "id": "t13.obj.woman",
+          "kind": "vqa",
+          "question": "Is a woman in a long teal coat with a parasol standing on the platform in the mid-ground?"
+        },
+        {
+          "id": "t13.attr.palette",
+          "kind": "vqa",
+          "question": "Is the palette limited to teal, mustard, cream and rust?"
+        },
+        {
+          "id": "t13.attr.border",
+          "kind": "vqa",
+          "question": "Is there a whiplash floral border around the poster?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t14",
+      "items": [
+        {
+          "id": "t14.subj.smith",
+          "kind": "vqa",
+          "question": "Is a broad-shouldered dwarven smith working at a forge?"
+        },
+        {
+          "id": "t14.attr.beard",
+          "kind": "vqa",
+          "question": "Does he have a plaited copper-coloured beard and a soot-streaked face?"
+        },
+        {
+          "id": "t14.obj.eyepatch",
+          "kind": "vqa",
+          "question": "Is he wearing a leather eyepatch?"
+        },
+        {
+          "id": "t14.attr.expression",
+          "kind": "vqa",
+          "question": "Is he caught mid-strike with his teeth clenched in effort?"
+        },
+        {
+          "id": "t14.attr.lefthand",
+          "kind": "vqa",
+          "question": "Is his left hand gripping long iron tongs that hold a glowing orange billet against the anvil?"
+        },
+        {
+          "id": "t14.attr.righthand",
+          "kind": "vqa",
+          "question": "Is his right hand swinging a heavy cross-peen hammer?"
+        },
+        {
+          "id": "t14.attr.fingers",
+          "kind": "vqa",
+          "question": "Are the fingers on both hands distinct and wrapped believably around each handle?"
+        },
+        {
+          "id": "t14.obj.runes",
+          "kind": "vqa",
+          "question": "Are runes glowing faintly along the base of the anvil?"
+        },
+        {
+          "id": "t14.obj.sparks",
+          "kind": "vqa",
+          "question": "Are sparks arcing through smoke?"
+        },
+        {
+          "id": "t14.attr.light",
+          "kind": "vqa",
+          "question": "Is the lighting a warm-cool split, with hard orange rim light from the forge and cold blue daylight from above?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t15",
+      "items": [
+        {
+          "id": "t15.text.sign",
+          "kind": "ocr",
+          "text": "THE FLOURING MOON"
+        },
+        {
+          "id": "t15.text.slate",
+          "kind": "ocr",
+          "text": "FRESH LOAVES 7am"
+        },
+        {
+          "id": "t15.attr.style",
+          "kind": "vqa",
+          "question": "Is this a soft, hand-painted storybook illustration with warm gouache textures and rounded architecture?"
+        },
+        {
+          "id": "t15.subj.bakery",
+          "kind": "vqa",
+          "question": "Is a hillside village bakery depicted?"
+        },
+        {
+          "id": "t15.obj.sign",
+          "kind": "vqa",
+          "question": "Is there a carved and painted wooden shop sign hanging from an iron bracket above the door?"
+        },
+        {
+          "id": "t15.obj.emblem",
+          "kind": "vqa",
+          "question": "Is there a small crescent-moon-and-wheat emblem beneath the shop sign's lettering?"
+        },
+        {
+          "id": "t15.obj.slate",
+          "kind": "vqa",
+          "question": "Is a smaller slate board propped by the step?"
+        },
+        {
+          "id": "t15.obj.ivy",
+          "kind": "vqa",
+          "question": "Is ivy climbing the plaster wall?"
+        },
+        {
+          "id": "t15.obj.geraniums",
+          "kind": "vqa",
+          "question": "Are there window boxes spilling with geraniums?"
+        },
+        {
+          "id": "t15.obj.cat",
+          "kind": "vqa",
+          "question": "Is a striped cat sleeping on the windowsill?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t16",
+      "items": [
+        {
+          "id": "t16.text.title",
+          "kind": "ocr",
+          "text": "THE CARTOGRAPHER"
+        },
+        {
+          "id": "t16.text.numeral",
+          "kind": "ocr",
+          "text": "XIII"
+        },
+        {
+          "id": "t16.attr.style",
+          "kind": "vqa",
+          "question": "Is this an ornate, symmetrical tarot card illustration in an art-deco-occult style with visible ink texture?"
+        },
+        {
+          "id": "t16.attr.banner",
+          "kind": "vqa",
+          "question": "Is the title lettering in a banner along the bottom of the card, in engraved serif capitals?"
+        },
+        {
+          "id": "t16.attr.numeral",
+          "kind": "vqa",
+          "question": "Is a roman numeral shown at the top of the card?"
+        },
+        {
+          "id": "t16.subj.figure",
+          "kind": "vqa",
+          "question": "Is the central figure a hooded woman seen frontally, her face half-lit and calm?"
+        },
+        {
+          "id": "t16.obj.sextant",
+          "kind": "vqa",
+          "question": "Is she holding a sextant in both hands?"
+        },
+        {
+          "id": "t16.attr.hands",
+          "kind": "vqa",
+          "question": "Are her fingers wrapped correctly around the instrument's frame, with one index finger extended along the sighting arm?"
+        },
+        {
+          "id": "t16.obj.border",
+          "kind": "vqa",
+          "question": "Do stylised stars, a crescent and a coiled sea-serpent fill the border?"
+        },
+        {
+          "id": "t16.attr.palette",
+          "kind": "vqa",
+          "question": "Are there gold-ink accents on a midnight-blue ground?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t17",
+      "items": [
+        {
+          "id": "t17.text.main",
+          "kind": "ocr",
+          "text": "RAMEN 8 CREDITS"
+        },
+        {
+          "id": "t17.text.small",
+          "kind": "ocr",
+          "text": "NO REFUNDS"
+        },
+        {
+          "id": "t17.text.strip",
+          "kind": "ocr",
+          "text": "24H"
+        },
+        {
+          "id": "t17.subj.stall",
+          "kind": "vqa",
+          "question": "Is this a cyberpunk street-food stall at night, shot slightly from the side?"
+        },
+        {
+          "id": "t17.subj.vendor",
+          "kind": "vqa",
+          "question": "Is the vendor an older woman with deep laugh lines, leaning over a steaming griddle?"
+        },
+        {
+          "id": "t17.obj.earpiece",
+          "kind": "vqa",
+          "question": "Is she wearing a headset earpiece?"
+        },
+        {
+          "id": "t17.attr.gaze",
+          "kind": "vqa",
+          "question": "Is she looking directly at the camera with a wry half-smile?"
+        },
+        {
+          "id": "t17.attr.underlight",
+          "kind": "vqa",
+          "question": "Is her face lit from below by the griddle?"
+        },
+        {
+          "id": "t17.attr.colours",
+          "kind": "vqa",
+          "question": "Are there magenta and cyan practical lights and rain-slicked asphalt?"
+        },
+        {
+          "id": "t17.attr.strip",
+          "kind": "vqa",
+          "question": "Is there a vertical strip sign to the left of the stall?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t18",
+      "items": [
+        {
+          "id": "t18.text.title",
+          "kind": "ocr",
+          "text": "ON THE MOTION OF TIDES"
+        },
+        {
+          "id": "t18.text.volume",
+          "kind": "ocr",
+          "text": "VOL. II"
+        },
+        {
+          "id": "t18.attr.style",
+          "kind": "vqa",
+          "question": "Is this a moody oil-painting still life in the Dutch golden-age manner with thick impasto highlights?"
+        },
+        {
+          "id": "t18.obj.book",
+          "kind": "vqa",
+          "question": "Is a leather-bound book lying open face-down with its spine turned toward the viewer?"
+        },
+        {
+          "id": "t18.attr.gilt",
+          "kind": "vqa",
+          "question": "Is the spine lettering gilt-stamped and readable?"
+        },
+        {
+          "id": "t18.obj.candle",
+          "kind": "vqa",
+          "question": "Is there a guttering beeswax candle?"
+        },
+        {
+          "id": "t18.obj.inkwell",
+          "kind": "vqa",
+          "question": "Is there a pewter inkwell holding a grey goose quill?"
+        },
+        {
+          "id": "t18.obj.walnuts",
+          "kind": "vqa",
+          "question": "Are there exactly three walnuts on the table?"
+        },
+        {
+          "id": "t18.obj.lemon",
+          "kind": "vqa",
+          "question": "Is there a half-peeled lemon with its rind spiralling off the table edge?"
+        },
+        {
+          "id": "t18.attr.light",
+          "kind": "vqa",
+          "question": "Is there a single warm light source from the upper left with deep umber shadows?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t19",
+      "items": [
+        {
+          "id": "t19.subj.bard",
+          "kind": "vqa",
+          "question": "Is a halfling bard sitting cross-legged on a table in a warmly lit tavern?"
+        },
+        {
+          "id": "t19.attr.face",
+          "kind": "vqa",
+          "question": "Is her face turned up with her mouth open mid-song, cheeks freckled and flushed?"
+        },
+        {
+          "id": "t19.attr.lefthand",
+          "kind": "vqa",
+          "question": "Are the fingers of her left hand pressing a chord high on the lute's neck, each fingertip placed distinctly on the strings?"
+        },
+        {
+          "id": "t19.attr.righthand",
+          "kind": "vqa",
+          "question": "Is her right hand caught mid-strum with the fingers gently curled?"
+        },
+        {
+          "id": "t19.obj.patrons",
+          "kind": "vqa",
+          "question": "Are exactly three patrons' faces visible reacting in the smoky middle distance?"
+        },
+        {
+          "id": "t19.attr.reactions",
+          "kind": "vqa",
+          "question": "Among those patrons, is one laughing, one clapping, and one asleep on folded arms?"
+        },
+        {
+          "id": "t19.attr.hearth",
+          "kind": "vqa",
+          "question": "Is there firelight from a hearth on the right of frame?"
+        },
+        {
+          "id": "t19.obj.lanterns",
+          "kind": "vqa",
+          "question": "Are lanterns hanging above the scene?"
+        },
+        {
+          "id": "t19.attr.palette",
+          "kind": "vqa",
+          "question": "Is the palette warm amber with cool blue window light behind?"
+        }
+      ]
+    },
+    {
+      "prompt_id": "t20",
+      "items": [
+        {
+          "id": "t20.text.xaxis",
+          "kind": "ocr",
+          "text": "TIME (h)"
+        },
+        {
+          "id": "t20.text.yaxis",
+          "kind": "ocr",
+          "text": "YIELD (%)"
+        },
+        {
+          "id": "t20.text.heading",
+          "kind": "ocr",
+          "text": "RUN 14 NOTES"
+        },
+        {
+          "id": "t20.text.firstline",
+          "kind": "ocr",
+          "text": "Repeated with fresh catalyst; see fig. 2."
+        },
+        {
+          "id": "t20.text.vial",
+          "kind": "ocr",
+          "text": "B-14"
+        },
+        {
+          "id": "t20.attr.topdown",
+          "kind": "vqa",
+          "question": "Is this a tightly framed top-down photograph of an open spiral-bound notebook on a stainless steel bench?"
+        },
+        {
+          "id": "t20.obj.graph",
+          "kind": "vqa",
+          "question": "Does the left page carry a hand-drawn graph with labelled horizontal and vertical axes?"
+        },
+        {
+          "id": "t20.attr.points",
+          "kind": "vqa",
+          "question": "Does the graph show a plotted curve with exactly three circled data points?"
+        },
+        {
+          "id": "t20.attr.boxed",
+          "kind": "vqa",
+          "question": "Does the right page have a boxed heading followed by about five lines of small neat handwriting?"
+        },
+        {
+          "id": "t20.obj.pencil",
+          "kind": "vqa",
+          "question": "Is there a retracted mechanical pencil beside the notebook?"
+        },
+        {
+          "id": "t20.obj.gloves",
+          "kind": "vqa",
+          "question": "Is there a pair of nitrile gloves beside the notebook?"
+        },
+        {
+          "id": "t20.obj.vial",
+          "kind": "vqa",
+          "question": "Is there a glass vial with a handwritten label beside the notebook?"
+        }
+      ]
+    }
+  ],
+  "edit": [
+    {
+      "edit_id": "e01",
+      "before_from": "t01",
+      "change": [
+        {
+          "id": "e01.c.newheading",
+          "kind": "ocr",
+          "text": "EVENING BAKE"
+        },
+        {
+          "id": "e01.c.oldheading",
+          "kind": "ocr",
+          "text": "MORNING BAKE",
+          "absent": true
+        },
+        {
+          "id": "e01.c.newfooter",
+          "kind": "ocr",
+          "text": "HALF PRICE AFTER SIX"
+        },
+        {
+          "id": "e01.c.oldfooter",
+          "kind": "ocr",
+          "text": "SOLD OUT BY NOON",
+          "absent": true
+        },
+        {
+          "id": "e01.c.underline",
+          "kind": "vqa",
+          "question": "In the after image, is the new bottom line still underlined?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "e01.p.line1",
+          "kind": "ocr",
+          "text": "SOURDOUGH 4.50"
+        },
+        {
+          "id": "e01.p.line2",
+          "kind": "ocr",
+          "text": "ALMOND CROISSANT 3.75"
+        },
+        {
+          "id": "e01.p.line3",
+          "kind": "ocr",
+          "text": "CARDAMOM BUN 4.20"
+        },
+        {
+          "id": "e01.p.style",
+          "kind": "vqa",
+          "question": "Is the chalk texture and hand-lettering style the same in both images?"
+        },
+        {
+          "id": "e01.p.wheat",
+          "kind": "vqa",
+          "question": "Is the chalk wheat-sheaf drawing still present in the lower right corner, unchanged?"
+        },
+        {
+          "id": "e01.p.scene",
+          "kind": "vqa",
+          "question": "Are the board's shape, position and the out-of-focus background unchanged between the two images?"
+        }
+      ]
+    },
+    {
+      "edit_id": "e02",
+      "before_from": "t03",
+      "change": [
+        {
+          "id": "e02.c.smile",
+          "kind": "vqa",
+          "question": "In the after image, is she smiling warmly, which she was not doing before?"
+        },
+        {
+          "id": "e02.c.eyes",
+          "kind": "vqa",
+          "question": "In the after image, are her eyes crinkling with the smile?"
+        },
+        {
+          "id": "e02.c.teeth",
+          "kind": "vqa",
+          "question": "In the after image, is a little of her teeth showing?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "e02.p.identity",
+          "kind": "vqa",
+          "question": "Is this recognisably the same woman in both images?"
+        },
+        {
+          "id": "e02.p.skin",
+          "kind": "vqa",
+          "question": "Are her skin texture and deep wrinkles preserved rather than smoothed?"
+        },
+        {
+          "id": "e02.p.scarf",
+          "kind": "vqa",
+          "question": "Is the navy headscarf identical in both images?"
+        },
+        {
+          "id": "e02.p.scar",
+          "kind": "vqa",
+          "question": "Is the small scar through her left eyebrow still present?"
+        },
+        {
+          "id": "e02.p.light",
+          "kind": "vqa",
+          "question": "Is the lighting setup and charcoal backdrop the same in both images?"
+        }
+      ]
+    },
+    {
+      "edit_id": "e03",
+      "before_from": "t06",
+      "change": [
+        {
+          "id": "e03.c.watercolour",
+          "kind": "vqa",
+          "question": "Is the after image a loose watercolour and ink illustration rather than a photograph?"
+        },
+        {
+          "id": "e03.c.paper",
+          "kind": "vqa",
+          "question": "Does the after image show visible paper texture?"
+        },
+        {
+          "id": "e03.c.bleeds",
+          "kind": "vqa",
+          "question": "Does the after image show soft colour bleeds characteristic of watercolour?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "e03.p.pose",
+          "kind": "vqa",
+          "question": "Is the luthier's pose the same in both images?"
+        },
+        {
+          "id": "e03.p.hands",
+          "kind": "vqa",
+          "question": "Are her hands in the same positions on the plane and the violin in both images?"
+        },
+        {
+          "id": "e03.p.composition",
+          "kind": "vqa",
+          "question": "Is the composition and framing the same in both images?"
+        },
+        {
+          "id": "e03.p.violin",
+          "kind": "vqa",
+          "question": "Is the half-finished violin body still clamped to the bench?"
+        }
+      ]
+    },
+    {
+      "edit_id": "e04",
+      "before_from": "t10",
+      "change": [
+        {
+          "id": "e04.c.cat",
+          "kind": "vqa",
+          "question": "In the after image, is a tabby cat sitting upright on the wooden bench, which was not there before?"
+        },
+        {
+          "id": "e04.c.gaze",
+          "kind": "vqa",
+          "question": "Is the cat looking toward the camera?"
+        },
+        {
+          "id": "e04.c.shadow",
+          "kind": "vqa",
+          "question": "Is the cat casting a soft shadow on the bench slats, lit consistently with the existing diffuse light?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "e04.p.name",
+          "kind": "ocr",
+          "text": "KIRKWOOD JUNCTION"
+        },
+        {
+          "id": "e04.p.sub",
+          "kind": "ocr",
+          "text": "CHANGE HERE FOR THE COAST LINE"
+        },
+        {
+          "id": "e04.p.platform",
+          "kind": "ocr",
+          "text": "PLATFORM 3"
+        },
+        {
+          "id": "e04.p.sign",
+          "kind": "vqa",
+          "question": "Is the enamel sign, including its chips and rust, unchanged between the two images?"
+        },
+        {
+          "id": "e04.p.wall",
+          "kind": "vqa",
+          "question": "Is the brick wall behind the sign unchanged?"
+        }
+      ]
+    },
+    {
+      "edit_id": "e05",
+      "before_from": "t07",
+      "change": [
+        {
+          "id": "e05.c.text",
+          "kind": "ocr",
+          "text": "BASEMENT",
+          "absent": true
+        },
+        {
+          "id": "e05.c.arrow",
+          "kind": "vqa",
+          "question": "In the after image, has the yellow arrow sign been removed completely?"
+        },
+        {
+          "id": "e05.c.fill",
+          "kind": "vqa",
+          "question": "Has the space where the arrow sign was been filled with plausible weathered brick wall and pipework?"
+        },
+        {
+          "id": "e05.c.reflection",
+          "kind": "vqa",
+          "question": "Has the yellow arrow sign's reflection been removed from the puddles below?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "e05.p.kobayashi",
+          "kind": "ocr",
+          "text": "KOBAYASHI"
+        },
+        {
+          "id": "e05.p.openlate",
+          "kind": "ocr",
+          "text": "OPEN LATE"
+        },
+        {
+          "id": "e05.p.izakaya",
+          "kind": "ocr",
+          "text": "居酒屋"
+        },
+        {
+          "id": "e05.p.signage",
+          "kind": "vqa",
+          "question": "Is all the other neon signage unchanged in position, colour and wording between the two images?"
+        },
+        {
+          "id": "e05.p.scene",
+          "kind": "vqa",
+          "question": "Is the alley still a wet night scene with steam and reflections in the puddles?"
+        }
+      ]
+    },
+    {
+      "edit_id": "e06",
+      "before_from": "t05",
+      "change": [
+        {
+          "id": "e06.c.night",
+          "kind": "vqa",
+          "question": "Is the after image a night scene, where the before image was daylight?"
+        },
+        {
+          "id": "e06.c.interior",
+          "kind": "vqa",
+          "question": "Is the shop interior dark behind the glass in the after image?"
+        },
+        {
+          "id": "e06.c.lamp",
+          "kind": "vqa",
+          "question": "Is the gold-leaf lettering catching warm light from a nearby street lamp?"
+        },
+        {
+          "id": "e06.c.street",
+          "kind": "vqa",
+          "question": "Is the reflected street lit by amber sodium lighting, with wet pavement?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "e06.p.line1",
+          "kind": "ocr",
+          "text": "H. WHITLOCK & SON"
+        },
+        {
+          "id": "e06.p.line2",
+          "kind": "ocr",
+          "text": "IRONMONGERS"
+        },
+        {
+          "id": "e06.p.line3",
+          "kind": "ocr",
+          "text": "ESTABLISHED 1897"
+        },
+        {
+          "id": "e06.p.layout",
+          "kind": "vqa",
+          "question": "Is the sign's layout, ornament and lettering style identical in both images?"
+        },
+        {
+          "id": "e06.p.stack",
+          "kind": "vqa",
+          "question": "Are the three lines still stacked in decreasing size?"
+        }
+      ]
+    },
+    {
+      "edit_id": "e07",
+      "before_from": "t15",
+      "change": [
+        {
+          "id": "e07.c.newtext",
+          "kind": "ocr",
+          "text": "THE COPPER KETTLE"
+        },
+        {
+          "id": "e07.c.oldtext",
+          "kind": "ocr",
+          "text": "THE FLOURING MOON",
+          "absent": true
+        },
+        {
+          "id": "e07.c.kettle",
+          "kind": "vqa",
+          "question": "In the after image, is there a small kettle emblem beneath the sign's lettering?"
+        },
+        {
+          "id": "e07.c.oldemblem",
+          "kind": "vqa",
+          "question": "Has the crescent-moon-and-wheat emblem been removed?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "e07.p.slate",
+          "kind": "ocr",
+          "text": "FRESH LOAVES 7am"
+        },
+        {
+          "id": "e07.p.material",
+          "kind": "vqa",
+          "question": "Is the sign still the same carved-and-painted wooden material in both images?"
+        },
+        {
+          "id": "e07.p.lettering",
+          "kind": "vqa",
+          "question": "Is the lettering still in the same friendly rounded style?"
+        },
+        {
+          "id": "e07.p.bracket",
+          "kind": "vqa",
+          "question": "Is the iron bracket holding the sign unchanged?"
+        },
+        {
+          "id": "e07.p.village",
+          "kind": "vqa",
+          "question": "Are the ivy, window-box geraniums and sleeping striped cat unchanged between the two images?"
+        }
+      ]
+    },
+    {
+      "edit_id": "e08",
+      "before_from": "t14",
+      "change": [
+        {
+          "id": "e08.c.mallet",
+          "kind": "vqa",
+          "question": "In the after image, is the smith's right hand holding a heavy wooden mallet?"
+        },
+        {
+          "id": "e08.c.hammer",
+          "kind": "vqa",
+          "question": "Has the metal cross-peen hammer been removed from the after image?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "e08.p.grip",
+          "kind": "vqa",
+          "question": "Is his grip on the new tool anatomically correct, with distinct fingers wrapped around the handle?"
+        },
+        {
+          "id": "e08.p.pose",
+          "kind": "vqa",
+          "question": "Is his arm in the same mid-swing position in both images?"
+        },
+        {
+          "id": "e08.p.billet",
+          "kind": "vqa",
+          "question": "Is the glowing orange billet still held against the anvil by the tongs in his left hand?"
+        },
+        {
+          "id": "e08.p.sparks",
+          "kind": "vqa",
+          "question": "Are the sparks and forge lighting unchanged between the two images?"
+        },
+        {
+          "id": "e08.p.identity",
+          "kind": "vqa",
+          "question": "Is this recognisably the same smith, with the same beard, eyepatch and soot-streaked face?"
+        }
+      ]
+    }
+  ]
+}

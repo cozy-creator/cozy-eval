@@ -1,0 +1,235 @@
+{
+ "checklist_set_id": "hard-video-v1",
+ "version": 1,
+ "prompt_set": "hard-video-v1",
+ "prompt_set_version": 1,
+ "created": "2026-07-28",
+ "purpose": "Authored element checklists for the hard-video-v1 t2v prompt set. Every entry is a motion/hold duality: 'motion' items assert the dynamics the prompt asked for (a perfectly rendered STILL fails all of them), 'hold' items assert what must stay constant across frames (identity drift, background reshuffling and camera indiscipline fail here). Items are judged on an ordered strip of frames sampled across the clip; ocr items are read on every sampled frame and must persist through motion.",
+ "item_kinds": {
+  "ocr": "the literal string must be readable; scored per sampled frame, verified when it passes on a majority of frames",
+  "vqa": "a yes/no question about the frame strip; YES means the prompt was obeyed"
+ },
+ "t2v_semantics": {
+  "motion": "what must HAPPEN across the frames; under-motion (a static clip) fails here",
+  "hold": "what must STAY the same across the frames; temporal instability fails here"
+ },
+ "default_weight": 1.0,
+ "t2v": [
+  {
+   "prompt_id": "v01",
+   "motion": [
+    {"id": "v01.motion.travel", "kind": "vqa", "question": "Does a red ball travel across the table and strike the yellow ball during the clip?"},
+    {"id": "v01.motion.transfer", "kind": "vqa", "question": "After the collision, does the yellow ball move away while the red ball slows almost to a stop?"},
+    {"id": "v01.motion.line", "kind": "vqa", "question": "Does the yellow ball leave toward the left, along roughly the same line the red ball was travelling?"},
+    {"id": "v01.motion.roll", "kind": "vqa", "question": "Do the balls visibly roll (rotate about their own axes) rather than slide without turning?"}
+   ],
+   "hold": [
+    {"id": "v01.hold.scene", "kind": "vqa", "question": "Do the cushion, the green baize and the pool of lamplight stay fixed, with nothing changing except the moving balls?"},
+    {"id": "v01.hold.count", "kind": "vqa", "question": "Are there exactly two balls, one red and one yellow, in every frame (no balls appearing, vanishing or changing colour)?"},
+    {"id": "v01.hold.shadow", "kind": "vqa", "question": "Does each ball keep a crisp shadow directly beneath it as it moves?"},
+    {"id": "v01.hold.camera", "kind": "vqa", "question": "Does the camera stay locked off, with no pan, zoom or cut?"}
+   ]
+  },
+  {
+   "prompt_id": "v02",
+   "motion": [
+    {"id": "v02.motion.dolly", "kind": "vqa", "question": "Does the camera move forward along the aisle, so the arched window at the far end grows over the course of the clip?"},
+    {"id": "v02.motion.parallax", "kind": "vqa", "question": "Do the shelves at the edges of frame sweep past with real parallax, as a physical camera move would produce (not a uniform zoom)?"},
+    {"id": "v02.motion.motes", "kind": "vqa", "question": "Do dust motes drift in the shaft of light from the window?"}
+   ],
+   "hold": [
+    {"id": "v02.hold.objects", "kind": "vqa", "question": "Do the book spines and shelves remain the same painted objects throughout, rather than being redrawn or re-imagined from frame to frame?"},
+    {"id": "v02.hold.ladder", "kind": "vqa", "question": "Is the ladder leaning at the left present for as long as its position remains in view?"},
+    {"id": "v02.hold.style", "kind": "vqa", "question": "Does the warm gouache style with visible brush texture and wobbling ink outlines hold across all frames?"},
+    {"id": "v02.hold.cut", "kind": "vqa", "question": "Is the clip one continuous shot with no cuts or scene changes?"}
+   ]
+  },
+  {
+   "prompt_id": "v03",
+   "motion": [
+    {"id": "v03.motion.turn", "kind": "vqa", "question": "Does the man turn his head from a three-quarter profile toward facing the camera directly over the course of the clip?"},
+    {"id": "v03.motion.smile", "kind": "vqa", "question": "Does he break into a genuine smile during the clip?"}
+   ],
+   "hold": [
+    {"id": "v03.hold.identity", "kind": "vqa", "question": "Is he unmistakably the SAME person in every frame — same bone structure, same short dark beard line?"},
+    {"id": "v03.hold.mole", "kind": "vqa", "question": "Does the small mole below his right eye stay present, on the same side of his face, throughout?"},
+    {"id": "v03.hold.tooth", "kind": "vqa", "question": "Once the smile reveals his teeth, is a chipped upper front tooth visible?"},
+    {"id": "v03.hold.backdrop", "kind": "vqa", "question": "Does the plain grey backdrop stay unchanged, with a single continuous shot and no cuts?"}
+   ]
+  },
+  {
+   "prompt_id": "v04",
+   "motion": [
+    {"id": "v04.motion.fall", "kind": "vqa", "question": "Does the silk fall downward through the frame over the course of the clip?"},
+    {"id": "v04.motion.billow", "kind": "vqa", "question": "Does the fabric billow into soft curved folds and ripple as it falls, the way light silk does, rather than dropping as a rigid plane?"},
+    {"id": "v04.motion.settle", "kind": "vqa", "question": "Does the silk reach the wood surface and begin spreading or settling by the end of the clip?"}
+   ],
+   "hold": [
+    {"id": "v04.hold.background", "kind": "vqa", "question": "Does the dark background stay dark and empty throughout?"},
+    {"id": "v04.hold.surface", "kind": "vqa", "question": "Does the polished dark wood surface at the bottom of frame stay fixed?"},
+    {"id": "v04.hold.colour", "kind": "vqa", "question": "Does the silk stay emerald green in every frame?"},
+    {"id": "v04.hold.camera", "kind": "vqa", "question": "Does the camera stay locked off, with no pan, zoom or cut?"}
+   ]
+  },
+  {
+   "prompt_id": "v05",
+   "motion": [
+    {"id": "v05.motion.glide", "kind": "vqa", "question": "Does the paper aeroplane enter from the lower left and travel up and to the right?"},
+    {"id": "v05.motion.bank", "kind": "vqa", "question": "Does the plane make one clear, decisive change of direction during the clip?"},
+    {"id": "v05.motion.nose", "kind": "vqa", "question": "Does the plane's nose rotate to point along its new direction of travel, rather than the plane sliding sideways?"}
+   ],
+   "hold": [
+    {"id": "v05.hold.trail", "kind": "vqa", "question": "Does the thin dashed motion trail stay attached along the path the plane has already flown, without detaching from it?"},
+    {"id": "v05.hold.style", "kind": "vqa", "question": "Does the artwork stay flat 2D vector style — clean navy line art, flat colour, no gradients or shading, constant line weight?"},
+    {"id": "v05.hold.stripe", "kind": "vqa", "question": "Does the plane keep its single orange wing stripe in every frame?"},
+    {"id": "v05.hold.background", "kind": "vqa", "question": "Does the pale cream background stay plain and unchanged?"}
+   ]
+  },
+  {
+   "prompt_id": "v06",
+   "motion": [
+    {"id": "v06.motion.orbit", "kind": "vqa", "question": "Does the camera arc laterally around the signpost, so the post is seen from a changing angle over the clip?"},
+    {"id": "v06.motion.parallax", "kind": "vqa", "question": "Do the hedgerow and fields behind the post swing through the frame with parallax while the post stays centred?"}
+   ],
+   "hold": [
+    {"id": "v06.text.name", "kind": "ocr", "text": "LOWER THORNBY"},
+    {"id": "v06.hold.lettering", "kind": "vqa", "question": "Does the sign's lettering stay sharp, correctly spelled and correctly shaped as its viewing angle changes — foreshortening with the board rather than warping, swimming or re-lettering?"},
+    {"id": "v06.hold.number", "kind": "vqa", "question": "Is a small distance marking reading 2½ visible beneath the place name?"},
+    {"id": "v06.hold.post", "kind": "vqa", "question": "Does the signpost remain the same cast-iron post with the same white finger board throughout?"}
+   ]
+  },
+  {
+   "prompt_id": "v07",
+   "motion": [
+    {"id": "v07.motion.rotate", "kind": "vqa", "question": "Do the windmill's four white sails rotate during the clip?"},
+    {"id": "v07.motion.steady", "kind": "vqa", "question": "Is the sails' rotation steady and continuous across the frames, rather than jumping or reversing?"}
+   ],
+   "hold": [
+    {"id": "v07.hold.only", "kind": "vqa", "question": "Is the sail rotation the ONLY motion in the shot — the tower, sheep, grass and clouds all holding still?"},
+    {"id": "v07.hold.sheep", "kind": "vqa", "question": "Are there exactly three sheep, standing in the same places, in every frame?"},
+    {"id": "v07.hold.crack", "kind": "vqa", "question": "Does the stone tower keep the same crack above the door throughout?"},
+    {"id": "v07.hold.painting", "kind": "vqa", "question": "Does the painted background stay one fixed painting — same brushstrokes, same cloud shapes — rather than quietly reshuffling behind the sails?"}
+   ]
+  },
+  {
+   "prompt_id": "v08",
+   "motion": [
+    {"id": "v08.motion.pour", "kind": "vqa", "question": "Does a thin stream of milk pour into the coffee continuously for the whole clip?"},
+    {"id": "v08.motion.bloom", "kind": "vqa", "question": "Does the milk bloom into pale turbulent curls that fold and marble through the dark coffee, rather than simply fading in as a flat lighter tint?"},
+    {"id": "v08.motion.ripples", "kind": "vqa", "question": "Does the surface dimple where the stream lands, with small ripples travelling outward?"},
+    {"id": "v08.motion.rise", "kind": "vqa", "question": "Does the liquid level in the cup visibly rise over the clip?"}
+   ],
+   "hold": [
+    {"id": "v08.hold.glass", "kind": "vqa", "question": "Does the clear glass cup keep the same shape and position throughout?"},
+    {"id": "v08.hold.scene", "kind": "vqa", "question": "Do the marble counter and the soft window lighting stay unchanged?"},
+    {"id": "v08.hold.camera", "kind": "vqa", "question": "Does the camera hold a locked-off side view, with no pan, zoom or cut?"}
+   ]
+  },
+  {
+   "prompt_id": "v09",
+   "motion": [
+    {"id": "v09.motion.wave", "kind": "vqa", "question": "Does a toppling wave travel along the domino line from left to right during the clip?"},
+    {"id": "v09.motion.sequential", "kind": "vqa", "question": "Do the dominoes fall one after another with a visible wave front, rather than all dropping simultaneously?"},
+    {"id": "v09.motion.rest", "kind": "vqa", "question": "Do already-fallen dominoes lie flat and stay at rest while the wave continues ahead of them?"}
+   ],
+   "hold": [
+    {"id": "v09.hold.line", "kind": "vqa", "question": "Does the line keep its alternating red and blue glossy dominoes, with none appearing, vanishing or changing colour?"},
+    {"id": "v09.hold.solid", "kind": "vqa", "question": "Do the falling tiles strike and lean on one another without passing through each other?"},
+    {"id": "v09.hold.camera", "kind": "vqa", "question": "Does the fixed isometric camera view hold, with no cuts or viewpoint jumps?"},
+    {"id": "v09.hold.floor", "kind": "vqa", "question": "Does the matte white floor with soft contact shadows stay unchanged?"}
+   ]
+  },
+  {
+   "prompt_id": "v10",
+   "motion": [
+    {"id": "v10.motion.pan", "kind": "vqa", "question": "Does the camera track laterally so the shopfronts slide evenly across the frame, moving right to left?"},
+    {"id": "v10.motion.carry", "kind": "vqa", "question": "Does the painted fascia board travel across the frame during the clip?"}
+   ],
+   "hold": [
+    {"id": "v10.text.name", "kind": "ocr", "text": "BARNABY & DAUGHTERS"},
+    {"id": "v10.text.sub", "kind": "ocr", "text": "FINE TEAS SINCE 1904"},
+    {"id": "v10.hold.glyphs", "kind": "vqa", "question": "Do the sign's letters stay stable, legible and correctly spelled for the whole time they are on screen — no smearing and no letters mutating into different letters as the sign moves?"},
+    {"id": "v10.hold.wet", "kind": "vqa", "question": "Does the street stay wet, with reflections sliding across the shop glass as the camera moves?"}
+   ]
+  },
+  {
+   "prompt_id": "v11",
+   "motion": [
+    {"id": "v11.motion.walk", "kind": "vqa", "question": "Does the girl walk steadily across the frame from left to right?"},
+    {"id": "v11.motion.gait", "kind": "vqa", "question": "Do her arms swing in natural opposition to her legs through the walk cycle?"}
+   ],
+   "hold": [
+    {"id": "v11.hold.hair", "kind": "vqa", "question": "Does she keep the same short asymmetric turquoise bob — same cut, same colour — in every frame?"},
+    {"id": "v11.hold.coat", "kind": "vqa", "question": "Does the raincoat stay the same yellow with the same collar shape throughout?"},
+    {"id": "v11.hold.pin", "kind": "vqa", "question": "Does the red star pin stay on the same lapel at the same size, never migrating, duplicating or vanishing?"},
+    {"id": "v11.hold.style", "kind": "vqa", "question": "Does the cel-shaded style with clean black outlines and flat colour fills hold across all frames?"}
+   ]
+  },
+  {
+   "prompt_id": "v12",
+   "motion": [
+    {"id": "v12.motion.stream", "kind": "vqa", "question": "Does sand run off the palm in a continuous falling stream through the clip?"},
+    {"id": "v12.motion.pile", "kind": "vqa", "question": "Does a small conical pile build up on the surface below as the sand falls?"},
+    {"id": "v12.motion.drain", "kind": "vqa", "question": "Does the mound of sand in the palm visibly slump and diminish as it drains?"}
+   ],
+   "hold": [
+    {"id": "v12.hold.hand", "kind": "vqa", "question": "Is the hand anatomically correct with five clearly separated fingers in every frame?"},
+    {"id": "v12.hold.tilt", "kind": "vqa", "question": "Does the hand hold one steady, slow tilt throughout, without jerking or re-posing?"},
+    {"id": "v12.hold.background", "kind": "vqa", "question": "Does the deep black background stay dark and unchanged?"}
+   ]
+  },
+  {
+   "prompt_id": "v13",
+   "motion": [
+    {"id": "v13.motion.approach", "kind": "vqa", "question": "Does the cyclist move toward the camera, growing larger over the course of the clip?"},
+    {"id": "v13.motion.accelerate", "kind": "vqa", "question": "Does the approach visibly speed up — the rider growing faster in the later frames than in the earlier ones?"},
+    {"id": "v13.motion.pedal", "kind": "vqa", "question": "Do the legs pedal and the wheels rotate at a rate consistent with the bicycle's speed over the ground?"}
+   ],
+   "hold": [
+    {"id": "v13.hold.upright", "kind": "vqa", "question": "Does the bicycle stay upright and rigid beneath the rider for the whole clip?"},
+    {"id": "v13.hold.line", "kind": "vqa", "question": "Does the painted black measurement line on the boards run straight and stay static?"},
+    {"id": "v13.hold.outfit", "kind": "vqa", "question": "Does the rider keep the same black skinsuit and white helmet in every frame?"},
+    {"id": "v13.hold.camera", "kind": "vqa", "question": "Does the wide shot stay fixed, with no pan, zoom or cut?"}
+   ]
+  },
+  {
+   "prompt_id": "v14",
+   "motion": [
+    {"id": "v14.motion.rise", "kind": "vqa", "question": "Does the viewpoint rise from ground level to looking down over the rooftops during the clip?"},
+    {"id": "v14.motion.tilt", "kind": "vqa", "question": "Does the camera tilt downward as it rises, as one continuous move rather than a jump or cut?"},
+    {"id": "v14.motion.reveal", "kind": "vqa", "question": "Are boats in the harbour revealed later in the clip that were hidden behind the buildings at the start?"}
+   ],
+   "hold": [
+    {"id": "v14.hold.rigid", "kind": "vqa", "question": "Does the village geometry stay rigid and identical — the same angular houses in the same places — with only the viewpoint changing?"},
+    {"id": "v14.hold.style", "kind": "vqa", "question": "Does the low-poly diorama style with flat pastel colours and no textures hold throughout?"},
+    {"id": "v14.hold.boats", "kind": "vqa", "question": "Once revealed, are there exactly three boats in the water?"}
+   ]
+  },
+  {
+   "prompt_id": "v15",
+   "motion": [
+    {"id": "v15.motion.flicker", "kind": "vqa", "question": "Does the candle flame flicker and lean, its bright core narrowing and swelling over time?"},
+    {"id": "v15.motion.smoke", "kind": "vqa", "question": "Does a thin thread of smoke rise and curl from the flame's tip?"},
+    {"id": "v15.motion.pool", "kind": "vqa", "question": "Does the pool of warm light on the table breathe with the flame?"}
+   ],
+   "hold": [
+    {"id": "v15.hold.candle", "kind": "vqa", "question": "Does the candle keep the same height and diameter across the clip, with the same wick?"},
+    {"id": "v15.hold.reflection", "kind": "vqa", "question": "Does the flame's reflection in the polished tabletop track the real flame — same lean, same brightness, at the same moments — rather than flickering on its own schedule?"},
+    {"id": "v15.hold.surround", "kind": "vqa", "question": "Does the dark surround stay black and unchanged?"}
+   ]
+  },
+  {
+   "prompt_id": "v16",
+   "motion": [
+    {"id": "v16.motion.ripple", "kind": "vqa", "question": "Does the banner ripple in broad travelling waves during the clip?"},
+    {"id": "v16.motion.edge", "kind": "vqa", "question": "Does the banner's lower edge lift and snap as folds open and close across the cloth?"}
+   ],
+   "hold": [
+    {"id": "v16.text.motto", "kind": "ocr", "text": "AD ASTRA"},
+    {"id": "v16.hold.deform", "kind": "vqa", "question": "Does the gold lettering deform WITH the cloth — bending and foreshortening over each fold — rather than sitting flat like a decal or dissolving as the fabric moves?"},
+    {"id": "v16.hold.star", "kind": "vqa", "question": "Does the stylised eight-pointed star stay present beneath the letters in every frame?"},
+    {"id": "v16.hold.scene", "kind": "vqa", "question": "Do the stone balcony and the warm raking light stay unchanged apart from the moving cloth?"}
+   ]
+  }
+ ]
+}

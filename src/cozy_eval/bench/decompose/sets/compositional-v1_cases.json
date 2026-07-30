@@ -1,0 +1,1986 @@
+{
+  "set_id": "compositional-v1",
+  "version": 1,
+  "cases": [
+    {
+      "case_id": "single_object_000",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "car",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 219376458
+    },
+    {
+      "case_id": "single_object_001",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "zebra",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1499047826
+    },
+    {
+      "case_id": "single_object_002",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "cat",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 381263025
+    },
+    {
+      "case_id": "single_object_003",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "boat",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 337876044
+    },
+    {
+      "case_id": "single_object_004",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "butterfly",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 841004457
+    },
+    {
+      "case_id": "single_object_005",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "cactus",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 711228524
+    },
+    {
+      "case_id": "single_object_006",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "cow",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 221731577
+    },
+    {
+      "case_id": "single_object_007",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "bicycle",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 2016224565
+    },
+    {
+      "case_id": "single_object_008",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "dog",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1164133194
+    },
+    {
+      "case_id": "single_object_009",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "train",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 622157164
+    },
+    {
+      "case_id": "single_object_010",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "horse",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 458475749
+    },
+    {
+      "case_id": "single_object_011",
+      "task": "single_object",
+      "entities": [
+        {
+          "name": "violin",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 875184357
+    },
+    {
+      "case_id": "counting_000",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "dolphin",
+          "count": 2,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 532689871
+    },
+    {
+      "case_id": "counting_001",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "cat",
+          "count": 5,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1543718852
+    },
+    {
+      "case_id": "counting_002",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "motorcycle",
+          "count": 5,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1375401730
+    },
+    {
+      "case_id": "counting_003",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "violin",
+          "count": 4,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 2005498475
+    },
+    {
+      "case_id": "counting_004",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "hedgehog",
+          "count": 6,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 410448881
+    },
+    {
+      "case_id": "counting_005",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "zebra",
+          "count": 7,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 277570073
+    },
+    {
+      "case_id": "counting_006",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "rabbit",
+          "count": 3,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 648899830
+    },
+    {
+      "case_id": "counting_007",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "penguin",
+          "count": 2,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1568421478
+    },
+    {
+      "case_id": "counting_008",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "rabbit",
+          "count": 7,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1471270147
+    },
+    {
+      "case_id": "counting_009",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "hedgehog",
+          "count": 7,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1993473254
+    },
+    {
+      "case_id": "counting_010",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "penguin",
+          "count": 6,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1841474303
+    },
+    {
+      "case_id": "counting_011",
+      "task": "counting",
+      "entities": [
+        {
+          "name": "couch",
+          "count": 3,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1695995324
+    },
+    {
+      "case_id": "colors_000",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "chair",
+          "count": 1,
+          "attribute": "yellow"
+        }
+      ],
+      "relations": [],
+      "seed": 1472893559
+    },
+    {
+      "case_id": "colors_001",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "bus",
+          "count": 1,
+          "attribute": "brown"
+        }
+      ],
+      "relations": [],
+      "seed": 1187255952
+    },
+    {
+      "case_id": "colors_002",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "typewriter",
+          "count": 1,
+          "attribute": "yellow"
+        }
+      ],
+      "relations": [],
+      "seed": 1027672118
+    },
+    {
+      "case_id": "colors_003",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "chair",
+          "count": 1,
+          "attribute": "blue"
+        }
+      ],
+      "relations": [],
+      "seed": 1844013639
+    },
+    {
+      "case_id": "colors_004",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "bicycle",
+          "count": 1,
+          "attribute": "red"
+        }
+      ],
+      "relations": [],
+      "seed": 1424085914
+    },
+    {
+      "case_id": "colors_005",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "train",
+          "count": 1,
+          "attribute": "white"
+        }
+      ],
+      "relations": [],
+      "seed": 1599676274
+    },
+    {
+      "case_id": "colors_006",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "motorcycle",
+          "count": 1,
+          "attribute": "purple"
+        }
+      ],
+      "relations": [],
+      "seed": 1287914852
+    },
+    {
+      "case_id": "colors_007",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "airplane",
+          "count": 1,
+          "attribute": "yellow"
+        }
+      ],
+      "relations": [],
+      "seed": 157813224
+    },
+    {
+      "case_id": "colors_008",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "train",
+          "count": 1,
+          "attribute": "white"
+        }
+      ],
+      "relations": [],
+      "seed": 1191151534
+    },
+    {
+      "case_id": "colors_009",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "anchor",
+          "count": 1,
+          "attribute": "purple"
+        }
+      ],
+      "relations": [],
+      "seed": 547612503
+    },
+    {
+      "case_id": "colors_010",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "windmill",
+          "count": 1,
+          "attribute": "brown"
+        }
+      ],
+      "relations": [],
+      "seed": 2051874210
+    },
+    {
+      "case_id": "colors_011",
+      "task": "colors",
+      "entities": [
+        {
+          "name": "bench",
+          "count": 1,
+          "attribute": "black"
+        }
+      ],
+      "relations": [],
+      "seed": 1806806646
+    },
+    {
+      "case_id": "materials_000",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "couch",
+          "count": 1,
+          "attribute": "plastic"
+        }
+      ],
+      "relations": [],
+      "seed": 2077903421
+    },
+    {
+      "case_id": "materials_001",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "bench",
+          "count": 1,
+          "attribute": "wooden"
+        }
+      ],
+      "relations": [],
+      "seed": 1805320349
+    },
+    {
+      "case_id": "materials_002",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "cactus",
+          "count": 1,
+          "attribute": "spotted"
+        }
+      ],
+      "relations": [],
+      "seed": 744301194
+    },
+    {
+      "case_id": "materials_003",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "car",
+          "count": 1,
+          "attribute": "metal"
+        }
+      ],
+      "relations": [],
+      "seed": 941394505
+    },
+    {
+      "case_id": "materials_004",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "lantern",
+          "count": 1,
+          "attribute": "checkered"
+        }
+      ],
+      "relations": [],
+      "seed": 1073756380
+    },
+    {
+      "case_id": "materials_005",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "windmill",
+          "count": 1,
+          "attribute": "wooden"
+        }
+      ],
+      "relations": [],
+      "seed": 1726900403
+    },
+    {
+      "case_id": "materials_006",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "airplane",
+          "count": 1,
+          "attribute": "wicker"
+        }
+      ],
+      "relations": [],
+      "seed": 2147138511
+    },
+    {
+      "case_id": "materials_007",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "typewriter",
+          "count": 1,
+          "attribute": "spotted"
+        }
+      ],
+      "relations": [],
+      "seed": 750384559
+    },
+    {
+      "case_id": "materials_008",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "lantern",
+          "count": 1,
+          "attribute": "metal"
+        }
+      ],
+      "relations": [],
+      "seed": 455805256
+    },
+    {
+      "case_id": "materials_009",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "bench",
+          "count": 1,
+          "attribute": "stone"
+        }
+      ],
+      "relations": [],
+      "seed": 1727987112
+    },
+    {
+      "case_id": "materials_010",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "cactus",
+          "count": 1,
+          "attribute": "metal"
+        }
+      ],
+      "relations": [],
+      "seed": 878600581
+    },
+    {
+      "case_id": "materials_011",
+      "task": "materials",
+      "entities": [
+        {
+          "name": "lantern",
+          "count": 1,
+          "attribute": "checkered"
+        }
+      ],
+      "relations": [],
+      "seed": 1297072311
+    },
+    {
+      "case_id": "two_object_000",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "rabbit",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "bear",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 62861325
+    },
+    {
+      "case_id": "two_object_001",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "cow",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "frog",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 275673625
+    },
+    {
+      "case_id": "two_object_002",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "giraffe",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "chair",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 2074428561
+    },
+    {
+      "case_id": "two_object_003",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "chair",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "violin",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1721619534
+    },
+    {
+      "case_id": "two_object_004",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "cat",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "owl",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1647355792
+    },
+    {
+      "case_id": "two_object_005",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "bicycle",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "owl",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 209589304
+    },
+    {
+      "case_id": "two_object_006",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "butterfly",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "giraffe",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 9565541
+    },
+    {
+      "case_id": "two_object_007",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "telescope",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "bus",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 652010563
+    },
+    {
+      "case_id": "two_object_008",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "bear",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "motorcycle",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 616564978
+    },
+    {
+      "case_id": "two_object_009",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "motorcycle",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "cactus",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 329041131
+    },
+    {
+      "case_id": "two_object_010",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "teapot",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "hedgehog",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 1261671123
+    },
+    {
+      "case_id": "two_object_011",
+      "task": "two_object",
+      "entities": [
+        {
+          "name": "windmill",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "penguin",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [],
+      "seed": 2121639016
+    },
+    {
+      "case_id": "color_attr_000",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "dolphin",
+          "count": 1,
+          "attribute": "orange"
+        },
+        {
+          "name": "telescope",
+          "count": 1,
+          "attribute": "pink"
+        }
+      ],
+      "relations": [],
+      "seed": 1523332379
+    },
+    {
+      "case_id": "color_attr_001",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "horse",
+          "count": 1,
+          "attribute": "brown"
+        },
+        {
+          "name": "butterfly",
+          "count": 1,
+          "attribute": "yellow"
+        }
+      ],
+      "relations": [],
+      "seed": 2128778511
+    },
+    {
+      "case_id": "color_attr_002",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "cat",
+          "count": 1,
+          "attribute": "pink"
+        },
+        {
+          "name": "squirrel",
+          "count": 1,
+          "attribute": "green"
+        }
+      ],
+      "relations": [],
+      "seed": 2013497344
+    },
+    {
+      "case_id": "color_attr_003",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "bird",
+          "count": 1,
+          "attribute": "pink"
+        },
+        {
+          "name": "bear",
+          "count": 1,
+          "attribute": "black"
+        }
+      ],
+      "relations": [],
+      "seed": 1798252646
+    },
+    {
+      "case_id": "color_attr_004",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "dog",
+          "count": 1,
+          "attribute": "green"
+        },
+        {
+          "name": "giraffe",
+          "count": 1,
+          "attribute": "red"
+        }
+      ],
+      "relations": [],
+      "seed": 268499821
+    },
+    {
+      "case_id": "color_attr_005",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "chair",
+          "count": 1,
+          "attribute": "black"
+        },
+        {
+          "name": "dolphin",
+          "count": 1,
+          "attribute": "brown"
+        }
+      ],
+      "relations": [],
+      "seed": 1221002355
+    },
+    {
+      "case_id": "color_attr_006",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "cactus",
+          "count": 1,
+          "attribute": "orange"
+        },
+        {
+          "name": "cow",
+          "count": 1,
+          "attribute": "pink"
+        }
+      ],
+      "relations": [],
+      "seed": 726214190
+    },
+    {
+      "case_id": "color_attr_007",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "train",
+          "count": 1,
+          "attribute": "pink"
+        },
+        {
+          "name": "hedgehog",
+          "count": 1,
+          "attribute": "purple"
+        }
+      ],
+      "relations": [],
+      "seed": 1960225522
+    },
+    {
+      "case_id": "color_attr_008",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "drum",
+          "count": 1,
+          "attribute": "brown"
+        },
+        {
+          "name": "bus",
+          "count": 1,
+          "attribute": "blue"
+        }
+      ],
+      "relations": [],
+      "seed": 764901329
+    },
+    {
+      "case_id": "color_attr_009",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "penguin",
+          "count": 1,
+          "attribute": "pink"
+        },
+        {
+          "name": "violin",
+          "count": 1,
+          "attribute": "brown"
+        }
+      ],
+      "relations": [],
+      "seed": 67894156
+    },
+    {
+      "case_id": "color_attr_010",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "penguin",
+          "count": 1,
+          "attribute": "blue"
+        },
+        {
+          "name": "couch",
+          "count": 1,
+          "attribute": "black"
+        }
+      ],
+      "relations": [],
+      "seed": 60168625
+    },
+    {
+      "case_id": "color_attr_011",
+      "task": "color_attr",
+      "entities": [
+        {
+          "name": "cactus",
+          "count": 1,
+          "attribute": "red"
+        },
+        {
+          "name": "chair",
+          "count": 1,
+          "attribute": "purple"
+        }
+      ],
+      "relations": [],
+      "seed": 89111866
+    },
+    {
+      "case_id": "position_000",
+      "task": "position",
+      "entities": [
+        {
+          "name": "chair",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "dog",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "above",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 1268253867
+    },
+    {
+      "case_id": "position_001",
+      "task": "position",
+      "entities": [
+        {
+          "name": "teapot",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "train",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "below",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 1297124668
+    },
+    {
+      "case_id": "position_002",
+      "task": "position",
+      "entities": [
+        {
+          "name": "windmill",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "horse",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "below",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 20940524
+    },
+    {
+      "case_id": "position_003",
+      "task": "position",
+      "entities": [
+        {
+          "name": "horse",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "dog",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "above",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 1164472113
+    },
+    {
+      "case_id": "position_004",
+      "task": "position",
+      "entities": [
+        {
+          "name": "telescope",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "bear",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "above",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 918127889
+    },
+    {
+      "case_id": "position_005",
+      "task": "position",
+      "entities": [
+        {
+          "name": "violin",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "owl",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "below",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 171845694
+    },
+    {
+      "case_id": "position_006",
+      "task": "position",
+      "entities": [
+        {
+          "name": "anchor",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "violin",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "right of",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 294907364
+    },
+    {
+      "case_id": "position_007",
+      "task": "position",
+      "entities": [
+        {
+          "name": "typewriter",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "car",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "below",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 97195760
+    },
+    {
+      "case_id": "position_008",
+      "task": "position",
+      "entities": [
+        {
+          "name": "violin",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "owl",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "below",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 60959505
+    },
+    {
+      "case_id": "position_009",
+      "task": "position",
+      "entities": [
+        {
+          "name": "bicycle",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "violin",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "above",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 1267712101
+    },
+    {
+      "case_id": "position_010",
+      "task": "position",
+      "entities": [
+        {
+          "name": "dolphin",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "cat",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "above",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 485831849
+    },
+    {
+      "case_id": "position_011",
+      "task": "position",
+      "entities": [
+        {
+          "name": "cactus",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "bench",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "below",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 180772761
+    },
+    {
+      "case_id": "relation_000",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "duck",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "train",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "under",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 1097379125
+    },
+    {
+      "case_id": "relation_001",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "hedgehog",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "wheelbarrow",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "next to",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 1751163346
+    },
+    {
+      "case_id": "relation_002",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "airplane",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "bench",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "under",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 210841479
+    },
+    {
+      "case_id": "relation_003",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "bird",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "couch",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "in front of",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 98894743
+    },
+    {
+      "case_id": "relation_004",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "cow",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "hedgehog",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "under",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 1324778137
+    },
+    {
+      "case_id": "relation_005",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "cow",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "dolphin",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "under",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 759720157
+    },
+    {
+      "case_id": "relation_006",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "chair",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "bus",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "next to",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 1455336696
+    },
+    {
+      "case_id": "relation_007",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "anchor",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "owl",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "facing",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 610401702
+    },
+    {
+      "case_id": "relation_008",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "dog",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "boat",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "next to",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 858704321
+    },
+    {
+      "case_id": "relation_009",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "lantern",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "dolphin",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "next to",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 1061248203
+    },
+    {
+      "case_id": "relation_010",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "bear",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "horse",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "under",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 1446352689
+    },
+    {
+      "case_id": "relation_011",
+      "task": "relation",
+      "entities": [
+        {
+          "name": "violin",
+          "count": 1,
+          "attribute": ""
+        },
+        {
+          "name": "elephant",
+          "count": 1,
+          "attribute": ""
+        }
+      ],
+      "relations": [
+        {
+          "kind": "chasing",
+          "subject": 0,
+          "object": 1
+        }
+      ],
+      "seed": 1701536417
+    },
+    {
+      "case_id": "composite_000",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "lantern",
+          "count": 1,
+          "attribute": "purple"
+        },
+        {
+          "name": "zebra",
+          "count": 2,
+          "attribute": ""
+        },
+        {
+          "name": "train",
+          "count": 1,
+          "attribute": "wicker"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "inside",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 1892969961
+    },
+    {
+      "case_id": "composite_001",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "owl",
+          "count": 1,
+          "attribute": "yellow"
+        },
+        {
+          "name": "hedgehog",
+          "count": 3,
+          "attribute": ""
+        },
+        {
+          "name": "bus",
+          "count": 1,
+          "attribute": "stone"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "left of",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 1077056167
+    },
+    {
+      "case_id": "composite_002",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "couch",
+          "count": 1,
+          "attribute": "yellow"
+        },
+        {
+          "name": "teapot",
+          "count": 3,
+          "attribute": ""
+        },
+        {
+          "name": "duck",
+          "count": 1,
+          "attribute": "metal"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "behind",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 2026484320
+    },
+    {
+      "case_id": "composite_003",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "bench",
+          "count": 1,
+          "attribute": "yellow"
+        },
+        {
+          "name": "rabbit",
+          "count": 2,
+          "attribute": ""
+        },
+        {
+          "name": "penguin",
+          "count": 1,
+          "attribute": "wooden"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "right of",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 739066929
+    },
+    {
+      "case_id": "composite_004",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "cow",
+          "count": 1,
+          "attribute": "red"
+        },
+        {
+          "name": "bench",
+          "count": 3,
+          "attribute": ""
+        },
+        {
+          "name": "windmill",
+          "count": 1,
+          "attribute": "wicker"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "facing",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 23513596
+    },
+    {
+      "case_id": "composite_005",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "motorcycle",
+          "count": 1,
+          "attribute": "pink"
+        },
+        {
+          "name": "bench",
+          "count": 2,
+          "attribute": ""
+        },
+        {
+          "name": "violin",
+          "count": 1,
+          "attribute": "stone"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "chasing",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 62072753
+    },
+    {
+      "case_id": "composite_006",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "bicycle",
+          "count": 1,
+          "attribute": "purple"
+        },
+        {
+          "name": "typewriter",
+          "count": 3,
+          "attribute": ""
+        },
+        {
+          "name": "lantern",
+          "count": 1,
+          "attribute": "wooden"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "in front of",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 2114455606
+    },
+    {
+      "case_id": "composite_007",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "boat",
+          "count": 1,
+          "attribute": "black"
+        },
+        {
+          "name": "sheep",
+          "count": 3,
+          "attribute": ""
+        },
+        {
+          "name": "bird",
+          "count": 1,
+          "attribute": "glass"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "in front of",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 124929958
+    },
+    {
+      "case_id": "composite_008",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "boat",
+          "count": 1,
+          "attribute": "white"
+        },
+        {
+          "name": "fox",
+          "count": 3,
+          "attribute": ""
+        },
+        {
+          "name": "chair",
+          "count": 1,
+          "attribute": "plastic"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "facing",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 1618161467
+    },
+    {
+      "case_id": "composite_009",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "cow",
+          "count": 1,
+          "attribute": "red"
+        },
+        {
+          "name": "rabbit",
+          "count": 2,
+          "attribute": ""
+        },
+        {
+          "name": "bird",
+          "count": 1,
+          "attribute": "plastic"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "below",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 1810961542
+    },
+    {
+      "case_id": "composite_010",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "cat",
+          "count": 1,
+          "attribute": "red"
+        },
+        {
+          "name": "wheelbarrow",
+          "count": 2,
+          "attribute": ""
+        },
+        {
+          "name": "cactus",
+          "count": 1,
+          "attribute": "wooden"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "facing",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 1926598888
+    },
+    {
+      "case_id": "composite_011",
+      "task": "composite",
+      "entities": [
+        {
+          "name": "chair",
+          "count": 1,
+          "attribute": "green"
+        },
+        {
+          "name": "bear",
+          "count": 2,
+          "attribute": ""
+        },
+        {
+          "name": "couch",
+          "count": 1,
+          "attribute": "glass"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "on top of",
+          "subject": 0,
+          "object": 2
+        }
+      ],
+      "seed": 1279537973
+    }
+  ]
+}

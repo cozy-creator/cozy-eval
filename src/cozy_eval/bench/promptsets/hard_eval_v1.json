@@ -1,0 +1,295 @@
+{
+  "set_id": "hard-eval-v1",
+  "version": 1,
+  "created": "2026-07-26",
+  "purpose": "A deliberately hard text-to-image and image-edit prompt set. Long, highly specific prompts covering readable in-image text, hands, and human faces across both photoreal and stylized registers, with a fixed seed per prompt so any run reproduces the same render. Edit cases name the t2i prompt whose render is their BEFORE image, so every edit is judged as a before/instruction/after triad.",
+  "coverage_legend": {
+    "text": "prompt demands specific readable glyphs in-image",
+    "hands": "prompt demands visible hands/fingers doing something",
+    "face": "prompt demands a human face at judgeable scale",
+    "photoreal": "photographic register",
+    "stylized": "illustration / painting / fantasy register"
+  },
+  "recipe": {
+    "note": "The recipe this set was calibrated against. Informational: a benchmark run should record the recipe it used, but this set does not require it.",
+    "num_inference_steps": 30,
+    "true_cfg_scale": 4.0,
+    "negative_prompt": " ",
+    "resolution": [
+      1328,
+      1328
+    ],
+    "aspect_ratio": "1:1",
+    "megapixels": 2
+  },
+  "t2i": [
+    {
+      "id": "t01",
+      "seed": 101,
+      "tags": [
+        "text",
+        "photoreal"
+      ],
+      "prompt": "A photograph of a small neighbourhood bakery's chalkboard A-frame sign standing on wet pavement at eight in the morning. The board is hand-lettered in white and pale-yellow chalk and reads, on five clearly separated lines: \"MORNING BAKE\" as a heading, then \"SOURDOUGH  4.50\", then \"ALMOND CROISSANT  3.75\", then \"CARDAMOM BUN  4.20\", and at the bottom, underlined, \"SOLD OUT BY NOON\". A small chalk drawing of a wheat sheaf sits in the lower right corner of the board. Shallow depth of field, the bakery's warm interior glowing out of focus behind it, overcast daylight, 50mm lens, fine grain."
+    },
+    {
+      "id": "t02",
+      "seed": 102,
+      "tags": [
+        "text",
+        "hands",
+        "photoreal"
+      ],
+      "prompt": "A close-up documentary photograph of a man's weathered hands holding an open broadsheet newspaper at a cafe table. The visible headline reads \"HARBOUR BRIDGE REOPENS\" in heavy black serif capitals, with a smaller subheading beneath reading \"After nineteen months of repairs\", and two columns of small grey body text below that. His fingers are clearly articulated, five on each hand, thumb creasing the paper's edge, a plain steel wedding band on the left ring finger. A half-finished espresso and a folded pair of reading glasses sit beside the paper. Hard morning window light raking across the page, visible paper texture, 35mm."
+    },
+    {
+      "id": "t03",
+      "seed": 103,
+      "tags": [
+        "face",
+        "photoreal"
+      ],
+      "prompt": "An intimate studio portrait of an eighty-year-old Portuguese fisherwoman against a deep charcoal seamless backdrop. Her face fills most of the frame: deeply sun-creased skin, a constellation of small sunspots across her cheekbones, pale grey-green eyes with clearly defined catchlights, sparse silver eyebrows, a small healed scar through her left eyebrow, and dry lips slightly parted as if mid-sentence. Individual white hairs escape from a navy headscarf. Single large softbox at forty-five degrees camera left with a subtle silver reflector filling the shadow side, 85mm at f/4, sharp on the iris, medium-format tonality."
+    },
+    {
+      "id": "t04",
+      "seed": 104,
+      "tags": [
+        "text",
+        "hands",
+        "face",
+        "photoreal"
+      ],
+      "prompt": "A photograph inside a specialty coffee bar: a young barista with short bleached hair and a nose ring, seen from the chest up, looking down in concentration as she pours a rosetta pattern of steamed milk into a white ceramic cup she is holding. Both hands are clearly visible and correctly formed — the left gripping the cup's handle, the right tilting a steel pitcher, fingers wrapped naturally around it. Behind her shoulder a small black chalkboard reads \"SINGLE ORIGIN\" on the first line and \"ETHIOPIA — GUJI\" on the second. Warm tungsten light mixed with cool daylight from a window on the right, 35mm, natural skin texture with visible pores."
+    },
+    {
+      "id": "t05",
+      "seed": 105,
+      "tags": [
+        "text",
+        "photoreal"
+      ],
+      "prompt": "A photograph of a hand-painted gold-leaf and black window sign on the glass front of an old-fashioned ironmonger's shop. The lettering is ornate Victorian signwriting with drop shadows and reads, in three stacked lines of decreasing size: \"H. WHITLOCK & SON\", then \"IRONMONGERS\", then \"ESTABLISHED 1897\". Through the glass behind the lettering, out of focus, are shelves of brass hinges and coils of rope. Reflections of a narrow cobbled street and a red pillar box are visible in the glass. Late afternoon sun catching the gold leaf, 50mm, high micro-contrast."
+    },
+    {
+      "id": "t06",
+      "seed": 106,
+      "tags": [
+        "hands",
+        "face",
+        "photoreal"
+      ],
+      "prompt": "A documentary photograph of a luthier in her fifties in a sawdust-filled workshop, bent over a half-finished violin body clamped to a bench. Her face is in three-quarter profile, brow furrowed in concentration, reading glasses pushed up into greying curly hair. Both hands are prominent and anatomically correct: the left steadying the instrument's scroll, the right drawing a small finger plane along the spruce top, curls of shavings coming off the blade. Afternoon light from a high dusty window, motes visible in the air, warm wood tones, 35mm, f/2.8."
+    },
+    {
+      "id": "t07",
+      "seed": 107,
+      "tags": [
+        "text",
+        "photoreal"
+      ],
+      "prompt": "A night photograph of a narrow alley crowded with layered neon signage in two scripts. A large vertical red-and-white neon sign reads \"KOBAYASHI\" from top to bottom; beside it a horizontal cyan sign reads \"OPEN LATE\"; a smaller magenta sign below reads \"居酒屋\"; and a yellow arrow sign points down a stairwell with the word \"BASEMENT\" beside it. Rain has just stopped, so every sign is doubled in the puddles underfoot. Steam drifts from a vent. Anamorphic flares, deep blacks, slight chromatic aberration, 40mm, handheld at 1/60."
+    },
+    {
+      "id": "t08",
+      "seed": 108,
+      "tags": [
+        "hands",
+        "text",
+        "photoreal"
+      ],
+      "prompt": "An overhead photograph of a wooden desk where a woman's hands are writing a letter with a black fountain pen. The visible portion of the cream writing paper carries a printed letterhead reading \"THE ORCHARD PRESS\" in small copperplate capitals, and below it four lines of neat cursive handwriting beginning \"Dear Margaret, I hope this finds you well —\". The writing hand is correctly formed with the pen held in a natural tripod grip; the other hand rests flat, steadying the page, all five fingers distinct. A brass letter opener, a cup of tea, and a scattering of dried pressed leaves surround the paper. Soft north-facing window light, 50mm, top-down."
+    },
+    {
+      "id": "t09",
+      "seed": 109,
+      "tags": [
+        "face",
+        "hands",
+        "photoreal"
+      ],
+      "prompt": "A candid photograph of two men shaking hands across a market stall of fresh fish on crushed ice. The vendor on the left, mid-forties, ruddy complexion, laughing with his eyes creased shut and teeth showing, wears a rubber apron. The customer on the right, older, silver-bearded, smiles more reservedly in three-quarter view. Their clasped hands are the compositional centre and are clearly and correctly rendered — the interlocking grip readable, knuckles and tendons visible, no extra fingers. Cold overcast light under a striped awning, wet reflective surfaces, 35mm, f/4, decisive-moment framing."
+    },
+    {
+      "id": "t10",
+      "seed": 110,
+      "tags": [
+        "text",
+        "photoreal"
+      ],
+      "prompt": "A photograph of a weathered enamel railway platform sign bolted to a brick wall, photographed straight on. The sign is deep blue with white capitals reading \"KIRKWOOD JUNCTION\" across the centre, with smaller text beneath reading \"CHANGE HERE FOR THE COAST LINE\" and, in the bottom right corner in yellow, \"PLATFORM 3\". The enamel is chipped in several places exposing rust; a small bird has left a mark on the upper edge. Diffuse morning light, a sliver of the empty platform and a wooden bench visible at the frame's edge, 50mm, documentary flatness."
+    },
+    {
+      "id": "t11",
+      "seed": 111,
+      "tags": [
+        "text",
+        "hands",
+        "stylized"
+      ],
+      "prompt": "A detailed ink-and-watercolour illustration, in the manner of an antique cartographer's plate, of a mapmaker's hands spreading open a hand-drawn map across a cluttered oak table. The map's calligraphic labels are legible: \"THE SUNDERED COAST\" arcs across the top in decorative capitals, \"Gallowmere\" and \"Thistle Bay\" mark two inlets, a compass rose in the lower left is lettered \"N\" \"E\" \"S\" \"W\", and a banner in the corner reads \"HERE BE FOG\". Both hands are carefully drawn with correct anatomy, one weighting the curling parchment with a brass divider. Sepia washes, crosshatched shadows, visible paper tooth, muted indigo and ochre palette."
+    },
+    {
+      "id": "t12",
+      "seed": 112,
+      "tags": [
+        "face",
+        "hands",
+        "stylized"
+      ],
+      "prompt": "A richly painted fantasy illustration of a sorceress standing in a ruined library, mid-incantation. Her face is the focal point, three-quarter view, high cheekbones, a scar across the bridge of her nose, amber eyes lit from beneath by the spell, expression of fierce concentration rather than serenity. Both hands are raised and clearly articulated with five correct fingers each, palms turned inward, fingertips trailing thin ribbons of pale-gold light that spiral into a floating glyph between them. Torn spellbooks hover around her; dust and vellum fragments catch the light. Oil-painting texture, dramatic chiaroscuro, deep viridian and old-gold palette, painterly brushwork visible in the robes."
+    },
+    {
+      "id": "t13",
+      "seed": 113,
+      "tags": [
+        "text",
+        "stylized"
+      ],
+      "prompt": "An art-nouveau travel poster illustration of a mountain funicular railway, in the flat-colour lithographic style of the 1910s with heavy organic outlines. Stylised lettering is integral to the design: \"MONT SAVAREL\" arches across the top in tall decorative art-nouveau capitals, a ribbon banner across the lower third reads \"BY FUNICULAR — ALL SEASONS\", and a small block in the bottom right corner reads \"CHEMIN DE FER DU SUD\". A woman in a long teal coat with a parasol stands on the platform in the mid-ground. Limited palette of teal, mustard, cream and rust; visible lithographic registration texture; whiplash floral border."
+    },
+    {
+      "id": "t14",
+      "seed": 114,
+      "tags": [
+        "hands",
+        "face",
+        "stylized"
+      ],
+      "prompt": "A dwarven forge rendered as a highly detailed fantasy painting. A broad-shouldered dwarven smith with a plaited copper beard, soot-streaked face and a leather eyepatch is caught mid-strike, his expression set in effort, teeth clenched. His hands are the technical centrepiece and must be correct: the left gripping long iron tongs that hold a glowing orange billet against the anvil, the right swinging a heavy cross-peen hammer, every finger distinct and wrapped believably around each handle. Runes glow faintly along the anvil's base. Sparks arc through the smoke; the forge mouth throws hard orange rim light while cold blue daylight leaks from a shaft above. Painterly realism, heavy texture, warm-cool split lighting."
+    },
+    {
+      "id": "t15",
+      "seed": 115,
+      "tags": [
+        "text",
+        "stylized"
+      ],
+      "prompt": "A whimsical hand-painted illustration of a hillside village bakery in a soft anime-adjacent storybook style, with rounded architecture and warm gouache textures. A carved and painted wooden shop sign hangs on an iron bracket above the door, clearly lettered \"THE FLOURING MOON\" in friendly rounded capitals with a small crescent-moon-and-wheat emblem beneath, and a smaller propped slate by the step reads \"FRESH LOAVES 7am\". Ivy climbs the plaster, window boxes spill with geraniums, and a striped cat sleeps on the sill. Late golden-hour light, visible brush and pencil under-drawing, pastel-warm palette, gentle rim light on the rooftops."
+    },
+    {
+      "id": "t16",
+      "seed": 116,
+      "tags": [
+        "text",
+        "hands",
+        "stylized"
+      ],
+      "prompt": "An ornate tarot card illustration in a symmetrical art-deco-occult style, printed look with visible ink texture. The card's title banner along the bottom reads \"THE CARTOGRAPHER\" in engraved serif capitals, and the top of the card carries the roman numeral \"XIII\". The central figure is a hooded woman seen frontally, her face half-lit and calm, holding a sextant in both hands — hands drawn with deliberate correctness, fingers wrapped around the instrument's frame and index finger extended along the sighting arm. Stylised stars, a crescent, and a coiled sea-serpent border fill the negative space. Gold-ink accents on a midnight-blue ground, cream card stock edges, fine linework."
+    },
+    {
+      "id": "t17",
+      "seed": 117,
+      "tags": [
+        "text",
+        "face",
+        "photoreal"
+      ],
+      "prompt": "A photograph of a cyberpunk street-food stall at night, shot slightly from the side. The vendor, an older woman with deep laugh lines and a headset earpiece, leans over a steaming griddle and looks directly at the camera with a wry half-smile; her face is lit from below by the griddle and from the side by signage. The stall's illuminated header board is legible: \"RAMEN 8 CREDITS\" in white LED capitals on the top line, with \"NO REFUNDS\" in smaller red text beneath, and a vertical strip sign to the left reading \"24H\". Volumetric steam, magenta and cyan practicals, rain-slicked asphalt, 35mm, f/2, shallow focus falling off behind her."
+    },
+    {
+      "id": "t18",
+      "seed": 118,
+      "tags": [
+        "text",
+        "stylized"
+      ],
+      "prompt": "A moody oil-painting still life on a dark walnut table, in the Dutch golden-age manner with thick impasto highlights. At the centre a leather-bound book lies open face-down, its spine turned to the viewer with gilt-stamped lettering clearly readable as \"ON THE MOTION OF TIDES\" above a smaller stamped line reading \"VOL. II\". Beside it sit a guttering beeswax candle, a pewter inkwell with a grey goose quill, three walnuts, and a half-peeled lemon with its rind spiralling off the table edge. Single warm light source from the upper left, deep umber shadows, glazed reflections in the pewter, visible canvas weave and cracked varnish."
+    },
+    {
+      "id": "t19",
+      "seed": 119,
+      "tags": [
+        "face",
+        "hands",
+        "stylized"
+      ],
+      "prompt": "A warmly lit fantasy tavern interior painted in a detailed illustrative style. In the foreground a halfling bard sits cross-legged on a table, mid-song, her face turned up and mouth open in a laughing note, freckled cheeks flushed. Her hands are the anatomical showpiece: the left fingers pressing a chord high on a lute's neck with each fingertip placed distinctly on the strings, the right caught mid-strum with fingers gently curled. Behind her, three patrons' faces react in the smoky middle distance — one laughing, one clapping, one asleep on folded arms. Firelight from a hearth camera right, hanging lanterns above, warm amber palette with cool blue window light behind, rich painterly texture."
+    },
+    {
+      "id": "t20",
+      "seed": 120,
+      "tags": [
+        "text",
+        "photoreal"
+      ],
+      "prompt": "A tightly framed photograph of a scientist's spiral-bound lab notebook lying open on a stainless steel bench under bright even light. The left page carries a hand-drawn graph with labelled axes reading \"TIME (h)\" horizontally and \"YIELD (%)\" vertically, with a plotted curve and three circled data points. The right page has a boxed heading reading \"RUN 14 — NOTES\" followed by five lines of small neat handwriting, the first of which reads \"Repeated with fresh catalyst; see fig. 2.\" A retracted mechanical pencil, a pair of nitrile gloves, and a glass vial with a handwritten label reading \"B-14\" lie alongside. Clinical daylight-balanced light, 50mm macro, crisp paper fibre detail, top-down."
+    }
+  ],
+  "edit": [
+    {
+      "id": "e01",
+      "seed": 201,
+      "tags": [
+        "text"
+      ],
+      "before_from": "t01",
+      "instruction": "Change the heading on the chalkboard from \"MORNING BAKE\" to \"EVENING BAKE\" and change the bottom underlined line to read \"HALF PRICE AFTER SIX\". Keep the chalk texture, handwriting style, and everything else in the scene identical."
+    },
+    {
+      "id": "e02",
+      "seed": 202,
+      "tags": [
+        "face"
+      ],
+      "before_from": "t03",
+      "instruction": "Make her smile warmly with her eyes crinkling, showing a little of her teeth, while keeping her identity, skin texture, wrinkles, headscarf and the lighting setup exactly the same."
+    },
+    {
+      "id": "e03",
+      "seed": 203,
+      "tags": [
+        "style"
+      ],
+      "before_from": "t06",
+      "instruction": "Repaint this scene as a loose watercolour and ink illustration with visible paper texture and soft colour bleeds, while preserving the luthier's pose, her hands' exact positions on the plane and the violin, and the composition."
+    },
+    {
+      "id": "e04",
+      "seed": 204,
+      "tags": [
+        "object-add"
+      ],
+      "before_from": "t10",
+      "instruction": "Add a tabby cat sitting upright on the wooden bench at the edge of the frame, looking toward the camera, lit consistently with the existing diffuse morning light and casting a soft shadow on the bench slats. Do not alter the sign or its lettering."
+    },
+    {
+      "id": "e05",
+      "seed": 205,
+      "tags": [
+        "object-remove"
+      ],
+      "before_from": "t07",
+      "instruction": "Remove the yellow arrow sign and its \"BASEMENT\" text completely from the alley, filling the space with plausible weathered brick wall and pipework, and remove its reflection from the puddles below. Leave all other signage untouched."
+    },
+    {
+      "id": "e06",
+      "seed": 206,
+      "tags": [
+        "relight"
+      ],
+      "before_from": "t05",
+      "instruction": "Relight this shopfront as a night scene: the gold-leaf lettering now catching warm light from a nearby street lamp, the shop interior dark behind the glass, and the reflected street lit by amber sodium lighting with wet pavement. Preserve the sign's exact wording, layout and ornament."
+    },
+    {
+      "id": "e07",
+      "seed": 207,
+      "tags": [
+        "text",
+        "material"
+      ],
+      "before_from": "t15",
+      "instruction": "Change the carved wooden shop sign so it reads \"THE COPPER KETTLE\" instead of \"THE FLOURING MOON\", and replace the crescent-moon-and-wheat emblem beneath it with a small kettle emblem. Keep the same carved-and-painted wooden material, the same friendly rounded lettering style, the iron bracket, and the rest of the village scene unchanged."
+    },
+    {
+      "id": "e08",
+      "seed": 208,
+      "tags": [
+        "hands",
+        "object-swap"
+      ],
+      "before_from": "t14",
+      "instruction": "Replace the cross-peen hammer in the smith's right hand with a heavy wooden mallet, keeping his grip anatomically correct and his arm in the same mid-swing position, and keep the glowing billet, tongs, sparks and forge lighting exactly as they are."
+    }
+  ]
+}

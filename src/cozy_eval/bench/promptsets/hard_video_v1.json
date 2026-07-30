@@ -1,0 +1,185 @@
+{
+ "set_id": "hard-video-v1",
+ "version": 1,
+ "created": "2026-07-28",
+ "purpose": "Durable hard prompt set for text-to-video quality evaluation. An image prompt set stresses readable text, hands and faces; driving a video model with it produces clean numbers that measure nothing about motion. This set stresses the axes video actually has: object motion, camera movement, temporal consistency of identity and scene, and physics/deformation. Long, highly specific prompts; fixed seed per prompt; every prompt is one continuous action that reads within about a second of footage.",
+ "provenance": "Rows, ids, seeds and prompt texts are byte-identical to the frozen internal source set (cozy-hard-video-v1 v1); the set_id is renamed for public release and the surrounding notes are rewritten, the sixteen rows are not.",
+ "frozen": true,
+ "frozen_policy": "This set is FROZEN. Rows, seeds and ids are immutable so any run reproduces the same clips and rows stay comparable across time. Adding, removing, reordering or rewording a row requires a NEW set_id/version (hard-video-v2), never an edit in place. Fixing a typo is still a new version.",
+ "coverage_legend": {
+  "motion": "prompt demands specific object motion — a named speed, a direction change, or a collision with momentum transfer",
+  "camera": "prompt demands a named camera move (dolly, pan, orbit, crane, tilt) and nothing else moving the frame",
+  "temporal": "prompt demands identity or scene stability across the clip — a subject that must stay the same person/object frame to frame",
+  "physics": "prompt demands correct deformation or bulk behaviour — cloth, fluid, granular flow, gravity",
+  "text": "prompt demands specific readable glyphs that must stay legible and stable WHILE the frame or the object moves",
+  "photoreal": "photographic register",
+  "stylized": "illustration / animation / painterly register"
+ },
+ "recipe": {
+  "note": "There is deliberately NO cross-family video recipe here: steps, guidance and resolution are model-family-owned and must come from the family being evaluated; inventing a shared number contaminates comparisons. What this block DOES fix is the set-level shape: the frame count and the seeds.",
+  "num_frames": 17,
+  "num_frames_grid_note": "17 is the smallest frame count that satisfies both common temporal grids: 4k+1 (17 = 4*4+1) and 8k+1 (17 = 8*2+1), so one render count fits both Wan-class and LTX-class families.",
+  "clip_seconds_at_native_fps": {
+   "16 fps": "17 frames = 1.06 s",
+   "24 fps": "17 frames = 0.71 s"
+  },
+  "motion_legibility_warning": "A 0.7-1.1 s clip is SHORT. Every prompt in this set is therefore written as ONE continuous action that reads inside about a second - no shot changes, no multi-beat narratives, no 'then'. A prompt that needs three seconds to express its motion would score noise. Read this before adding rows in a v2.",
+  "recommended_next_frame_rung": 33,
+  "recommended_next_frame_rung_note": "33 also satisfies both grids (4*8+1 and 8*4+1) and buys 2.06 s at 16 fps / 1.38 s at 24 fps, where these motion prompts become comfortably legible rather than marginally so - at roughly 2x the render cost.",
+  "seeds": "Fixed per prompt (301-316), disjoint from hard-eval-v1's ranges (t2i 101-120, edit 201-208) so a mixed evidence directory can never collide on seed."
+ },
+ "t2v": [
+  {
+   "id": "v01",
+   "seed": 301,
+   "tags": [
+    "motion",
+    "physics",
+    "photoreal"
+   ],
+   "prompt": "A locked-off macro shot of a snooker table under a low hanging lamp. A red ball enters from the right edge of frame travelling fast across the green baize, strikes a stationary yellow ball dead centre, and transfers its momentum: the red ball slows almost to a stop at the point of contact while the yellow ball accelerates away to the left along the same line. Both balls spin visibly about their own axes as they roll, and the small specular highlight from the lamp tracks across each ball's curved surface as it turns. The cushion, the chalk dust on the baize, and the lamp's pool of light are completely static. Shallow depth of field, 100mm macro, crisp shadow directly beneath each ball."
+  },
+  {
+   "id": "v02",
+   "seed": 302,
+   "tags": [
+    "camera",
+    "temporal",
+    "stylized"
+   ],
+   "prompt": "A slow, perfectly straight DOLLY-IN along the central aisle of a hand-painted storybook library — the camera physically translates forward at a constant walking pace, it does not zoom, so the shelves at the edges of frame sweep past with real parallax while the tall arched window at the far end grows only slowly. Painted in warm gouache with visible brush texture and slightly wobbling ink outlines. Dust motes drift in the shaft of light from the window. Nothing else in the scene moves: every book spine, every shelf bracket and the ladder leaning at the left must remain the same painted object throughout, not re-imagined from frame to frame."
+  },
+  {
+   "id": "v03",
+   "seed": 303,
+   "tags": [
+    "temporal",
+    "photoreal"
+   ],
+   "prompt": "A tight studio portrait of a man in his early thirties with a short dark beard, a small mole below his right eye, and one noticeably chipped upper front tooth, against a plain grey backdrop. Over the course of the clip he turns his head slowly from three-quarter profile to face the lens directly, and breaks into a genuine smile that reaches his eyes. He must remain unmistakably the SAME person from the first frame to the last — same bone structure, same beard line, same mole on the same side, same chipped tooth once the smile reveals it. Single softbox camera left, 85mm at f/2.8, natural skin texture with visible pores, no cuts."
+  },
+  {
+   "id": "v04",
+   "seed": 304,
+   "tags": [
+    "physics",
+    "photoreal"
+   ],
+   "prompt": "A locked-off shot against a dark background of a large square of emerald silk released from a hand just above the top of frame. The fabric falls under gravity but slowly, the way light silk actually falls — catching air, billowing outward into soft curved folds, one corner lagging and twisting behind the rest, the whole sheet rippling rather than dropping like a solid plane. It settles across a polished dark wood surface at the bottom of frame, the folds spreading and then coming to rest. Raking side light from the left picks out the sheen running along each fold as it moves. 50mm, high shutter speed, no motion blur smear."
+  },
+  {
+   "id": "v05",
+   "seed": 305,
+   "tags": [
+    "motion",
+    "stylized"
+   ],
+   "prompt": "A flat 2D vector animation on a pale cream background. A single folded paper aeroplane, drawn in clean navy line art with one orange wing stripe, glides in from the lower left travelling up and to the right, then banks hard — a clear, decisive change of direction — and exits toward the upper left, its nose rotating to point along the new heading exactly as a real glider's would rather than sliding sideways. A thin dashed motion trail marks the path it has already flown and does not detach from the plane. Crisp flat colour, no gradients, no shading, constant line weight throughout."
+  },
+  {
+   "id": "v06",
+   "seed": 306,
+   "tags": [
+    "camera",
+    "text",
+    "photoreal"
+   ],
+   "prompt": "A smooth ORBIT: the camera arcs laterally around a cast-iron village signpost standing at a crossroads, keeping the post centred while the hedgerow and open fields behind it swing through the frame with strong parallax. The signpost's white-painted finger board carries raised black capitals reading \"LOWER THORNBY\" with a smaller \"2½\" beneath, and the lettering must stay sharp, correctly spelled and correctly shaped as its viewing angle changes through the arc — the text foreshortens with the board, it does not warp, swim, or re-letter itself. Overcast afternoon light, 35mm, faint rust bleeding through the paint at the post's base."
+  },
+  {
+   "id": "v07",
+   "seed": 307,
+   "tags": [
+    "temporal",
+    "stylized"
+   ],
+   "prompt": "A wide painterly illustration of a hillside windmill at dusk in the style of a children's picture book, thick visible oil-paint strokes. The mill's four white sails rotate steadily clockwise at a slow constant rate — that is the ONLY motion in the shot. Everything else must hold absolutely still and identical frame to frame: the same stone tower with the same crack above the door, the same three sheep standing in the same places on the same tufts of grass, the same stack of orange cloud on the horizon, the same brushstrokes in the field. The test is whether the painted background stays one fixed painting while the sails turn, or quietly reshuffles itself behind them."
+  },
+  {
+   "id": "v08",
+   "seed": 308,
+   "tags": [
+    "physics",
+    "photoreal"
+   ],
+   "prompt": "A close, locked-off side view of a clear glass cup of black coffee on a marble counter. A thin steady stream of cold milk pours in from the top right, striking the surface and plunging beneath it, where it blooms into pale turbulent curls that fold, stretch and marble through the dark liquid rather than simply fading in as a flat lighter tint. The surface dimples where the stream lands and small concentric ripples travel outward to the glass wall and reflect back. The pour is continuous throughout and the milk volume in the cup visibly rises. Bright soft window light from the left, 100mm macro, sharp on the near glass wall."
+  },
+  {
+   "id": "v09",
+   "seed": 309,
+   "tags": [
+    "motion",
+    "physics",
+    "stylized"
+   ],
+   "prompt": "A clean isometric 3D-rendered scene on a matte white infinite floor, toy-like materials with soft ambient occlusion. A neat line of twelve glossy dominoes in alternating red and blue stands across the frame; the leftmost is nudged and the topple propagates rightward along the line at a steady rate, each domino rotating about its lower leading edge, striking the next, and coming to rest flat before the wave has reached the far end. The falling tiles must not pass through one another and must not all drop simultaneously — the wave front is the whole point. Fixed camera, soft key light from upper left, crisp contact shadows."
+  },
+  {
+   "id": "v10",
+   "seed": 310,
+   "tags": [
+    "camera",
+    "text",
+    "photoreal"
+   ],
+   "prompt": "A steady lateral tracking PAN moving right to left along the front of a row of Victorian shopfronts on a wet high street, the camera holding a constant distance so the facades slide evenly through frame. The pan carries a hand-painted fascia board fully across the frame; its gold serif capitals read \"BARNABY & DAUGHTERS\" on the upper line and \"FINE TEAS SINCE 1904\" in smaller letters beneath. Every glyph must stay stable, legible and correctly spelled for the whole time it is on screen — no smearing, no letters mutating into different letters as the sign moves. Reflections of the wet pavement and a passing red umbrella slide across the shop glass. Late afternoon, 35mm, fine rain in the air."
+  },
+  {
+   "id": "v11",
+   "seed": 311,
+   "tags": [
+    "temporal",
+    "motion",
+    "stylized"
+   ],
+   "prompt": "A side-on anime-style walk cycle, cel-shaded with clean black outlines and flat colour fills. A teenage girl with a short asymmetric turquoise bob, a yellow raincoat, and a single red enamel pin shaped like a star on her left lapel walks steadily across the frame from left to right against a softly blurred rainy-street background. She must remain the SAME character in every frame: the hair keeps the same asymmetric cut and the same turquoise, the raincoat stays the same yellow with the same collar shape, and the red star pin stays on the same lapel at the same size and never migrates, duplicates, or vanishes. Her stride is even, her arms swing in natural opposition to her legs."
+  },
+  {
+   "id": "v12",
+   "seed": 312,
+   "tags": [
+    "physics",
+    "photoreal"
+   ],
+   "prompt": "A tight, locked-off shot against deep black of a cupped human hand, palm up, slowly tilting so that fine pale sand runs off the heel of the palm in a continuous stream. The sand behaves as a granular bulk: the mound in the palm slumps and its slope collapses to the angle of repose as it drains, the falling stream widens and disperses slightly as it descends, and a small conical pile builds on the dark surface below with grains skittering down its flanks. Individual grains catch the hard light near the top of the stream. The hand itself is anatomically correct with five clearly separated fingers and holds a steady slow tilt throughout. 100mm macro, single hard light from the right."
+  },
+  {
+   "id": "v13",
+   "seed": 313,
+   "tags": [
+    "motion",
+    "photoreal"
+   ],
+   "prompt": "A fixed wide shot down a long empty concrete velodrome straight. A track cyclist in a black skinsuit and a white aero helmet enters at the far end already moving and ACCELERATES visibly toward the camera — the cadence of the legs rises, the gap to the camera closes at an increasing rate, and the apparent size of the rider grows faster in the second half of the clip than the first. The bicycle wheels rotate at a rate consistent with the ground speed and the machine stays upright and rigid beneath the rider. The painted black measurement line on the boards runs dead straight and static beneath. Bright even indoor arena light, 85mm, motion blur only on the spokes."
+  },
+  {
+   "id": "v14",
+   "seed": 314,
+   "tags": [
+    "camera",
+    "stylized"
+   ],
+   "prompt": "A CRANE-UP combined with a downward TILT, rendered as a stylised low-poly diorama with flat pastel colours and no textures. The camera begins at ground level looking horizontally across a tiny harbour village of angular houses, then rises smoothly and continuously while tilting down, so that by the end of the clip it looks steeply over the rooftops and the harbour wall, revealing three simple boats in the water that were hidden behind the buildings at the start. The rise and the tilt happen together as one continuous move, never as a jump or a cut. The village geometry stays rigid and identical throughout — only the viewpoint changes. Soft flat lighting, long clean shadows."
+  },
+  {
+   "id": "v15",
+   "seed": 315,
+   "tags": [
+    "temporal",
+    "physics",
+    "photoreal"
+   ],
+   "prompt": "A very tight, locked-off shot of a single beeswax candle burning on a dark polished tabletop in an otherwise unlit room. The flame flickers and leans gently, its bright core narrowing and swelling, and a thin thread of smoke rises and curls from the tip. Everything else must stay rigid and constant: the candle's height and diameter do not visibly change, the wick stays the same wick, and the candle's mirror reflection in the polished tabletop must track the real flame faithfully — same lean, same brightness, same moment — rather than flickering on its own schedule. The pool of warm light thrown on the table breathes with the flame. 100mm macro, f/2.8, deep black surround."
+  },
+  {
+   "id": "v16",
+   "seed": 316,
+   "tags": [
+    "physics",
+    "text",
+    "stylized"
+   ],
+   "prompt": "A painterly illustration of a heavy crimson banner hanging from a stone castle balcony, rendered with visible canvas texture and rich impasto highlights. A gust catches the banner and it unfurls and ripples: the cloth deforms in broad travelling waves, its lower edge lifting and snapping, folds opening and closing across the surface. Embroidered in gold thread across the banner are the block capitals \"AD ASTRA\" above a stylised eight-pointed star. The lettering is part of the cloth and must deform WITH it — bending and foreshortening over each fold while staying correctly spelled and readable — rather than sitting flat like a decal or dissolving as the fabric moves. Warm late sun raking from the left, deep shadow inside the folds."
+  }
+ ]
+}

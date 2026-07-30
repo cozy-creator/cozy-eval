@@ -1,0 +1,14 @@
+{
+  "metric": "niqe",
+  "oracle": "pyiqa==0.1.16, CPU, dev-only venv — never a dependency of this package",
+  "generated": "2026-07-27",
+  "regenerate": "parity/run_oracle.py",
+  "tolerance_rel": 0.05,
+  "note": "residual deviation vs the Matlab-convention oracle comes from resize and filter-border choices (PIL bicubic vs imresize, nearest-edge correlate); measured max 2.4% on these fixtures",
+  "values": {
+    "scene": 8.822328884922484,
+    "scene_blur": 16.880004222903032,
+    "scene_noise": 17.199715474751457,
+    "whitenoise": 27.36572732144088
+  }
+}

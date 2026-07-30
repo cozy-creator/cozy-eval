@@ -1,0 +1,658 @@
+{
+  "checklist_set_id": "magicbrush-edit-v1-checklists",
+  "version": 1,
+  "prompt_set": "magicbrush-edit-v1",
+  "prompt_set_version": 1,
+  "created": "2026-07-27",
+  "purpose": "Element fidelity over a magicbrush-style edit corpus: short single-clause instructions over real photographs. Change/preserve authored separately so under-edit and over-edit fail different halves.",
+  "authoring_note": "The BEFORE images are arbitrary real photographs from the magicbrush corpus, so `preserve` items are deliberately global-consistency questions (identity, composition, untouched regions, photographic register) rather than named background objects — an author who has not seen every before image must not invent scene detail. `change` items are specific, because the instruction fully determines them. This asymmetry is the honest one: compliance is crisply checkable, preservation is checked as 'nothing else moved'.",
+  "default_weight": 1.0,
+  "t2i": [],
+  "edit": [
+    {
+      "edit_id": "m00",
+      "before_from": "",
+      "instruction": "let the skateboard read JESUS",
+      "change": [
+        {
+          "id": "m00.c.text",
+          "kind": "ocr",
+          "text": "JESUS"
+        },
+        {
+          "id": "m00.c.placed",
+          "kind": "vqa",
+          "question": "In the after image, does the skateboard carry the readable word JESUS on it?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m00.p.board",
+          "kind": "vqa",
+          "question": "Is the skateboard the same shape and in the same position in both images?"
+        },
+        {
+          "id": "m00.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the lettering on the skateboard, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m00.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m01",
+      "before_from": "",
+      "instruction": "Put a plate under the pancakes.",
+      "change": [
+        {
+          "id": "m01.c.plate",
+          "kind": "vqa",
+          "question": "In the after image, is there a plate underneath the pancakes that was not there before?"
+        },
+        {
+          "id": "m01.c.under",
+          "kind": "vqa",
+          "question": "Are the pancakes actually resting on top of that plate, rather than the plate floating or overlapping them?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m01.p.pancakes",
+          "kind": "vqa",
+          "question": "Are the pancakes themselves unchanged in number, shape and appearance?"
+        },
+        {
+          "id": "m01.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the added plate, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m01.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m02",
+      "before_from": "",
+      "instruction": "Add a doll next to the teddy bear",
+      "change": [
+        {
+          "id": "m02.c.doll",
+          "kind": "vqa",
+          "question": "In the after image, is there a doll that was not present in the before image?"
+        },
+        {
+          "id": "m02.c.next",
+          "kind": "vqa",
+          "question": "Is that doll positioned next to the teddy bear?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m02.p.bear",
+          "kind": "vqa",
+          "question": "Is the teddy bear unchanged in appearance and position between the two images?"
+        },
+        {
+          "id": "m02.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the added doll, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m02.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m03",
+      "before_from": "",
+      "instruction": "change the green train into a smoke train",
+      "change": [
+        {
+          "id": "m03.c.smoke",
+          "kind": "vqa",
+          "question": "In the after image, is the train emitting smoke or steam?"
+        },
+        {
+          "id": "m03.c.kind",
+          "kind": "vqa",
+          "question": "Does the train in the after image read as a steam/smoke train rather than the plain green train of the before image?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m03.p.position",
+          "kind": "vqa",
+          "question": "Is the train in the same position and orientation in both images?"
+        },
+        {
+          "id": "m03.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the train and its smoke, is the surrounding scene unchanged between the two images?"
+        },
+        {
+          "id": "m03.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m04",
+      "before_from": "",
+      "instruction": "make the toilet leak",
+      "change": [
+        {
+          "id": "m04.c.leak",
+          "kind": "vqa",
+          "question": "In the after image, is water visibly leaking or spilling from the toilet?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m04.p.toilet",
+          "kind": "vqa",
+          "question": "Is the toilet itself the same model and in the same position in both images?"
+        },
+        {
+          "id": "m04.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the added water, is the rest of the bathroom unchanged between the two images?"
+        },
+        {
+          "id": "m04.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m05",
+      "before_from": "",
+      "instruction": "change the pliers to a hammer",
+      "change": [
+        {
+          "id": "m05.c.hammer",
+          "kind": "vqa",
+          "question": "In the after image, is there a hammer where the pliers were?"
+        },
+        {
+          "id": "m05.c.gone",
+          "kind": "vqa",
+          "question": "Have the pliers been removed from the after image?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m05.p.position",
+          "kind": "vqa",
+          "question": "Is the replacement tool in the same position and orientation the pliers occupied?"
+        },
+        {
+          "id": "m05.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the swapped tool, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m05.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m06",
+      "before_from": "",
+      "instruction": "change the cat for a tiger",
+      "change": [
+        {
+          "id": "m06.c.tiger",
+          "kind": "vqa",
+          "question": "In the after image, is there a tiger where the cat was?"
+        },
+        {
+          "id": "m06.c.gone",
+          "kind": "vqa",
+          "question": "Has the ordinary cat been replaced, so it is no longer present in the after image?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m06.p.pose",
+          "kind": "vqa",
+          "question": "Is the animal in the same pose and position the cat occupied in the before image?"
+        },
+        {
+          "id": "m06.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the swapped animal, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m06.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m07",
+      "before_from": "",
+      "instruction": "make the ground rocky",
+      "change": [
+        {
+          "id": "m07.c.rocky",
+          "kind": "vqa",
+          "question": "In the after image, is the ground surface rocky, where it was not in the before image?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m07.p.subject",
+          "kind": "vqa",
+          "question": "Are the main subjects standing on or above the ground unchanged in appearance and position?"
+        },
+        {
+          "id": "m07.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the ground surface, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m07.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m08",
+      "before_from": "",
+      "instruction": "Have the street be paved with gold.",
+      "change": [
+        {
+          "id": "m08.c.gold",
+          "kind": "vqa",
+          "question": "In the after image, is the street surface gold or gold-paved?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m08.p.surrounds",
+          "kind": "vqa",
+          "question": "Are the buildings, vehicles and people alongside the street unchanged between the two images?"
+        },
+        {
+          "id": "m08.p.geometry",
+          "kind": "vqa",
+          "question": "Does the street follow the same path and perspective in both images?"
+        },
+        {
+          "id": "m08.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m09",
+      "before_from": "",
+      "instruction": "change the plant into an xmas tree",
+      "change": [
+        {
+          "id": "m09.c.tree",
+          "kind": "vqa",
+          "question": "In the after image, is the plant now a Christmas tree?"
+        },
+        {
+          "id": "m09.c.decor",
+          "kind": "vqa",
+          "question": "Does that tree carry Christmas decoration such as baubles, lights or tinsel?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m09.p.position",
+          "kind": "vqa",
+          "question": "Is the tree in the same position the plant occupied in the before image?"
+        },
+        {
+          "id": "m09.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the plant becoming a tree, is the rest of the room unchanged between the two images?"
+        },
+        {
+          "id": "m09.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m10",
+      "before_from": "",
+      "instruction": "let there be a bowl of mushroom soup",
+      "change": [
+        {
+          "id": "m10.c.bowl",
+          "kind": "vqa",
+          "question": "In the after image, is there a bowl of soup that was not present before?"
+        },
+        {
+          "id": "m10.c.mushroom",
+          "kind": "vqa",
+          "question": "Does that soup read as mushroom soup?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m10.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the added bowl of soup, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m10.p.surface",
+          "kind": "vqa",
+          "question": "Are the other items on the same surface unchanged in position and appearance?"
+        },
+        {
+          "id": "m10.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m11",
+      "before_from": "",
+      "instruction": "Have the person be holding a pineapple",
+      "change": [
+        {
+          "id": "m11.c.pineapple",
+          "kind": "vqa",
+          "question": "In the after image, is the person holding a pineapple?"
+        },
+        {
+          "id": "m11.c.grip",
+          "kind": "vqa",
+          "question": "Is the pineapple actually held in their hand, rather than floating or merely nearby?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m11.p.identity",
+          "kind": "vqa",
+          "question": "Is this recognisably the same person, with the same face and clothing, in both images?"
+        },
+        {
+          "id": "m11.p.pose",
+          "kind": "vqa",
+          "question": "Is the person's pose otherwise the same in both images?"
+        },
+        {
+          "id": "m11.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m12",
+      "before_from": "",
+      "instruction": "remove the street lamp",
+      "change": [
+        {
+          "id": "m12.c.gone",
+          "kind": "vqa",
+          "question": "In the after image, has the street lamp been completely removed?"
+        },
+        {
+          "id": "m12.c.fill",
+          "kind": "vqa",
+          "question": "Is the space where the street lamp stood filled with plausible background, with no smear, stump or ghost left behind?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m12.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the removed street lamp, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m12.p.others",
+          "kind": "vqa",
+          "question": "Are any other street fixtures still present and unchanged?"
+        },
+        {
+          "id": "m12.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m13",
+      "before_from": "",
+      "instruction": "Make the pizza square-shaped.",
+      "change": [
+        {
+          "id": "m13.c.square",
+          "kind": "vqa",
+          "question": "In the after image, is the pizza square-shaped rather than round?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m13.p.toppings",
+          "kind": "vqa",
+          "question": "Are the pizza's toppings substantially the same as in the before image?"
+        },
+        {
+          "id": "m13.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the pizza's shape, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m13.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m14",
+      "before_from": "",
+      "instruction": "Change the child's shirt to be blue",
+      "change": [
+        {
+          "id": "m14.c.blue",
+          "kind": "vqa",
+          "question": "In the after image, is the child's shirt blue?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m14.p.identity",
+          "kind": "vqa",
+          "question": "Is this recognisably the same child, with the same face and hair, in both images?"
+        },
+        {
+          "id": "m14.p.garment",
+          "kind": "vqa",
+          "question": "Is it the same garment — same cut, same fit — with only its colour changed?"
+        },
+        {
+          "id": "m14.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the shirt's colour, is the rest of the scene unchanged between the two images?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m15",
+      "before_from": "",
+      "instruction": "add a red wine glass",
+      "change": [
+        {
+          "id": "m15.c.glass",
+          "kind": "vqa",
+          "question": "In the after image, is there a wine glass that was not present before?"
+        },
+        {
+          "id": "m15.c.red",
+          "kind": "vqa",
+          "question": "Does that glass contain red wine?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m15.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the added wine glass, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m15.p.items",
+          "kind": "vqa",
+          "question": "Are the other objects on the same surface unchanged in position and appearance?"
+        },
+        {
+          "id": "m15.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m16",
+      "before_from": "",
+      "instruction": "Have the woman wear a leather jacket.",
+      "change": [
+        {
+          "id": "m16.c.jacket",
+          "kind": "vqa",
+          "question": "In the after image, is the woman wearing a leather jacket?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m16.p.identity",
+          "kind": "vqa",
+          "question": "Is this recognisably the same woman, with the same face and hair, in both images?"
+        },
+        {
+          "id": "m16.p.pose",
+          "kind": "vqa",
+          "question": "Is her pose and position the same in both images?"
+        },
+        {
+          "id": "m16.p.scene",
+          "kind": "vqa",
+          "question": "Apart from her jacket, is the rest of the scene unchanged between the two images?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m17",
+      "before_from": "",
+      "instruction": "Have there be a rack of bikes on the other side of the street",
+      "change": [
+        {
+          "id": "m17.c.rack",
+          "kind": "vqa",
+          "question": "In the after image, is there a rack of bicycles that was not present before?"
+        },
+        {
+          "id": "m17.c.side",
+          "kind": "vqa",
+          "question": "Is that bike rack on the far side of the street from the camera?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m17.p.near",
+          "kind": "vqa",
+          "question": "Is the near side of the street unchanged between the two images?"
+        },
+        {
+          "id": "m17.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the added bike rack, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m17.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m18",
+      "before_from": "",
+      "instruction": "Add a person next to the sheep.",
+      "change": [
+        {
+          "id": "m18.c.person",
+          "kind": "vqa",
+          "question": "In the after image, is there a person who was not present in the before image?"
+        },
+        {
+          "id": "m18.c.next",
+          "kind": "vqa",
+          "question": "Is that person standing next to the sheep?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m18.p.sheep",
+          "kind": "vqa",
+          "question": "Are the sheep unchanged in number, position and appearance between the two images?"
+        },
+        {
+          "id": "m18.p.scene",
+          "kind": "vqa",
+          "question": "Apart from the added person, is the rest of the scene unchanged between the two images?"
+        },
+        {
+          "id": "m18.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    },
+    {
+      "edit_id": "m19",
+      "before_from": "",
+      "instruction": "the floor should be of wood.",
+      "change": [
+        {
+          "id": "m19.c.wood",
+          "kind": "vqa",
+          "question": "In the after image, is the floor made of wood?"
+        }
+      ],
+      "preserve": [
+        {
+          "id": "m19.p.furniture",
+          "kind": "vqa",
+          "question": "Is the furniture unchanged in position and appearance between the two images?"
+        },
+        {
+          "id": "m19.p.room",
+          "kind": "vqa",
+          "question": "Apart from the floor surface, is the rest of the room unchanged between the two images?"
+        },
+        {
+          "id": "m19.p.register",
+          "kind": "vqa",
+          "question": "Is the after image still a photograph in the same style and lighting as the before image?"
+        }
+      ]
+    }
+  ]
+}

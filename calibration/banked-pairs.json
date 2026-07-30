@@ -1,0 +1,3224 @@
+{
+ "library": "cozy-media-metrics",
+ "what": "calibration evidence: three benchmarks on known-clean and known-degraded pairs",
+ "clip_scores": {
+  "ltx8:A-comp:forge": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.18838087808002124,
+   "sharpness_p10": 61.15940475463867,
+   "sharpness": 68.68770309322136,
+   "hf_ratio": 0.0011104601228509622,
+   "local_contrast": 0.004402486465040071,
+   "contrast": 0.23083266468087504,
+   "saturation": 0.09569697174405263,
+   "detail_entropy": 4.800293087036744,
+   "jerk_ratio": 1.4572891080584855,
+   "shimmer": 0.3617940022964132,
+   "flicker": 7.013602489534805,
+   "motion_energy": 5.191473244456574
+  },
+  "ltx8:C2-comp:forge": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.19232829961894957,
+   "sharpness_p10": 53.11012268066406,
+   "sharpness": 60.49442436281315,
+   "hf_ratio": 0.0010283810624367874,
+   "local_contrast": 0.0042750286515648205,
+   "contrast": 0.22608373295669712,
+   "saturation": 0.10584130255151386,
+   "detail_entropy": 4.901585856155398,
+   "jerk_ratio": 1.479898297175989,
+   "shimmer": 0.37271203101844486,
+   "flicker": 6.128128889734972,
+   "motion_energy": 5.40952943416778
+  },
+  "ltx8:A-comp:chef": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.44175694525734455,
+   "sharpness_p10": 138.55307006835938,
+   "sharpness": 153.6236118285124,
+   "hf_ratio": 0.0039822863730455725,
+   "local_contrast": 0.006672693077813496,
+   "contrast": 0.23304948210716248,
+   "saturation": 0.22716222949757064,
+   "detail_entropy": 5.774510939432834,
+   "jerk_ratio": 1.2638834509090102,
+   "shimmer": 0.6059276097047506,
+   "flicker": 1.736372080090905,
+   "motion_energy": 2.9724918197025545
+  },
+  "ltx8:C2-comp:chef": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.44961991315045635,
+   "sharpness_p10": 123.32686614990234,
+   "sharpness": 150.13241816749257,
+   "hf_ratio": 0.0030396431049501352,
+   "local_contrast": 0.006708036757974832,
+   "contrast": 0.2516442972027566,
+   "saturation": 0.21408759008261782,
+   "detail_entropy": 5.841462593822164,
+   "jerk_ratio": 1.2622595802225487,
+   "shimmer": 0.6999345606689571,
+   "flicker": 1.2559875714724615,
+   "motion_energy": 3.8325657132663764
+  },
+  "ltx8:A-comp:market": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.29892665443341593,
+   "sharpness_p10": 263.9515686035156,
+   "sharpness": 354.93392313807465,
+   "hf_ratio": 0.003107743666792088,
+   "local_contrast": 0.00919687627499138,
+   "contrast": 0.3109293082528863,
+   "saturation": 0.12542512144677895,
+   "detail_entropy": 5.24955576076909,
+   "jerk_ratio": 1.4469242707683445,
+   "shimmer": 0.959682432984508,
+   "flicker": 14.097341716733375,
+   "motion_energy": 14.732162972912192
+  },
+  "ltx8:C2-comp:market": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.29680607769607514,
+   "sharpness_p10": 274.893798828125,
+   "sharpness": 389.42789616860637,
+   "hf_ratio": 0.0036877134510831648,
+   "local_contrast": 0.009648061045714893,
+   "contrast": 0.30500232483729844,
+   "saturation": 0.13115087773435372,
+   "detail_entropy": 5.328303792471004,
+   "jerk_ratio": 1.4454696707558274,
+   "shimmer": 0.9787461323670658,
+   "flicker": 14.90805295054058,
+   "motion_energy": 14.666344210971147
+  },
+  "ltx8:A-comp:portrait": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.3993052207241374,
+   "sharpness_p10": 68.5982437133789,
+   "sharpness": 113.23447342549474,
+   "hf_ratio": 0.001764049776637357,
+   "local_contrast": 0.00610733824620439,
+   "contrast": 0.2942215792896334,
+   "saturation": 0.09151283565385282,
+   "detail_entropy": 5.741104293618146,
+   "jerk_ratio": 1.1462128578840045,
+   "shimmer": 0.8504329423915324,
+   "flicker": 1.8344173669870827,
+   "motion_energy": 4.6141210842179134
+  },
+  "ltx8:C2-comp:portrait": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.39815559933993444,
+   "sharpness_p10": 60.70254898071289,
+   "sharpness": 103.35820672531759,
+   "hf_ratio": 0.0016980627801823469,
+   "local_contrast": 0.005845062069071472,
+   "contrast": 0.2928013045433139,
+   "saturation": 0.09531210510691335,
+   "detail_entropy": 5.7845596849540675,
+   "jerk_ratio": 1.1783467179971767,
+   "shimmer": 0.8896462921701574,
+   "flicker": 2.0649060533701147,
+   "motion_energy": 4.689876229851507
+  },
+  "ltx8:A-comp:fabric": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.38611211264429013,
+   "sharpness_p10": 297.1970520019531,
+   "sharpness": 337.1843983043324,
+   "hf_ratio": 0.0024519238297727483,
+   "local_contrast": 0.009408915222984208,
+   "contrast": 0.32818422066278696,
+   "saturation": 0.29932637623518954,
+   "detail_entropy": 5.45948272278943,
+   "jerk_ratio": 1.2537369373479474,
+   "shimmer": 0.27265215371862805,
+   "flicker": 0.8052942341431779,
+   "motion_energy": 2.4819703077955637
+  },
+  "ltx8:C2-comp:fabric": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.38932725688642705,
+   "sharpness_p10": 309.31329345703125,
+   "sharpness": 345.07071074178396,
+   "hf_ratio": 0.0026120183439078655,
+   "local_contrast": 0.00942184630596687,
+   "contrast": 0.32799606308464174,
+   "saturation": 0.30161690046964595,
+   "detail_entropy": 5.461349381230077,
+   "jerk_ratio": 1.2867498644830773,
+   "shimmer": 0.2612410132402637,
+   "flicker": 0.6412027341424474,
+   "motion_energy": 2.6748595756362192
+  },
+  "ltx8:A-comp:street": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.18816510754183305,
+   "sharpness_p10": 87.76979064941406,
+   "sharpness": 110.09816300573428,
+   "hf_ratio": 0.0023293419469779066,
+   "local_contrast": 0.005392911116600283,
+   "contrast": 0.20957821324344508,
+   "saturation": 0.09228185890627301,
+   "detail_entropy": 4.695068967323134,
+   "jerk_ratio": 1.3988927654315337,
+   "shimmer": 0.9669677141659914,
+   "flicker": 8.653921329432706,
+   "motion_energy": 5.666570067405701
+  },
+  "ltx8:C2-comp:street": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.190759986885323,
+   "sharpness_p10": 87.74305725097656,
+   "sharpness": 107.39560932758425,
+   "hf_ratio": 0.002312578594750794,
+   "local_contrast": 0.005382990857109058,
+   "contrast": 0.20878375032223945,
+   "saturation": 0.09540757302902947,
+   "detail_entropy": 4.727344390323613,
+   "jerk_ratio": 1.3828798157179376,
+   "shimmer": 0.9758479126625725,
+   "flicker": 9.33374922187524,
+   "motion_energy": 5.583543994114734
+  },
+  "ltx8:A-comp:water": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.6196960427544334,
+   "sharpness_p10": 83.48619842529297,
+   "sharpness": 97.5244669007861,
+   "hf_ratio": 0.0018618962388824332,
+   "local_contrast": 0.004015320194269385,
+   "contrast": 0.2840169478546489,
+   "saturation": 0.014501067840548094,
+   "detail_entropy": 5.159982951372105,
+   "jerk_ratio": 1.418285681761649,
+   "shimmer": 0.8790237792790625,
+   "flicker": 1.6389156232011606,
+   "motion_energy": 8.385858366149478
+  },
+  "ltx8:C2-comp:water": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.6170407513941615,
+   "sharpness_p10": 87.1158676147461,
+   "sharpness": 101.88587440932092,
+   "hf_ratio": 0.00188020895685508,
+   "local_contrast": 0.004062550686961733,
+   "contrast": 0.28172229464389076,
+   "saturation": 0.016081560587833735,
+   "detail_entropy": 5.119034040476405,
+   "jerk_ratio": 1.4411626270413616,
+   "shimmer": 0.9017991842606125,
+   "flicker": 1.9712588451281352,
+   "motion_energy": 7.862069635884836
+  },
+  "ltx8:A-comp:forest": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.31290691302827567,
+   "sharpness_p10": 925.025634765625,
+   "sharpness": 1154.2249397719202,
+   "hf_ratio": 0.010878314818294087,
+   "local_contrast": 0.01613581046646784,
+   "contrast": 0.31659173866934026,
+   "saturation": 0.09176809229880326,
+   "detail_entropy": 5.258691893138549,
+   "jerk_ratio": 1.2525451784092863,
+   "shimmer": 0.8091913686503814,
+   "flicker": 7.428610969474661,
+   "motion_energy": 7.169071261072531
+  },
+  "ltx8:C2-comp:forest": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.3181125115264546,
+   "sharpness_p10": 1030.2724609375,
+   "sharpness": 1258.690640031799,
+   "hf_ratio": 0.011464570868329322,
+   "local_contrast": 0.016793126263463302,
+   "contrast": 0.31995578664393465,
+   "saturation": 0.08972800449152624,
+   "detail_entropy": 5.23794977709818,
+   "jerk_ratio": 1.266109322730416,
+   "shimmer": 0.8393886976498625,
+   "flicker": 7.648938038893258,
+   "motion_energy": 7.36469393549487
+  },
+  "ltx1:A-eager": {
+   "n_frames": 241,
+   "width": 1920,
+   "height": 1088,
+   "brightness": 0.2203965428211877,
+   "sharpness_p10": 4.022482872009277,
+   "sharpness": 11.205835062438522,
+   "hf_ratio": 0.0006228537022554474,
+   "local_contrast": 0.0017379624759430584,
+   "contrast": 0.20997417078225938,
+   "saturation": 0.0830350277705806,
+   "detail_entropy": 4.814160462258462,
+   "jerk_ratio": 1.4256589502405186,
+   "shimmer": 1.4602279651469745,
+   "flicker": 47.83705375256538,
+   "motion_energy": 10.969391534017632
+  },
+  "ltx1:A-comp": {
+   "n_frames": 241,
+   "width": 1920,
+   "height": 1088,
+   "brightness": 0.21985682140247456,
+   "sharpness_p10": 4.344034671783447,
+   "sharpness": 11.175869822007492,
+   "hf_ratio": 0.0005931260764789169,
+   "local_contrast": 0.001719646375622461,
+   "contrast": 0.20583017318822536,
+   "saturation": 0.08086921382865471,
+   "detail_entropy": 4.771653062848978,
+   "jerk_ratio": 1.4256711842880272,
+   "shimmer": 1.462225871631092,
+   "flicker": 47.49198747682222,
+   "motion_energy": 10.667503214033786
+  },
+  "ltx1:C2-eager": {
+   "n_frames": 241,
+   "width": 1920,
+   "height": 1088,
+   "brightness": 0.2276672573752423,
+   "sharpness_p10": 4.624819278717041,
+   "sharpness": 10.207382941147104,
+   "hf_ratio": 0.0005587856432604623,
+   "local_contrast": 0.0016913559167989803,
+   "contrast": 0.20500828158805973,
+   "saturation": 0.08698446588026537,
+   "detail_entropy": 4.84625316760392,
+   "jerk_ratio": 1.4063377960861152,
+   "shimmer": 1.4524994150447292,
+   "flicker": 48.81997227306751,
+   "motion_energy": 10.118961686239345
+  },
+  "ltx1:C2-comp": {
+   "n_frames": 241,
+   "width": 1920,
+   "height": 1088,
+   "brightness": 0.22070967947051734,
+   "sharpness_p10": 4.5320634841918945,
+   "sharpness": 8.744184925348431,
+   "hf_ratio": 0.0005740849470286881,
+   "local_contrast": 0.001629793193844375,
+   "contrast": 0.19956052018893705,
+   "saturation": 0.08694849722860265,
+   "detail_entropy": 4.7891635847322265,
+   "jerk_ratio": 1.4042679588908813,
+   "shimmer": 1.4382757518534777,
+   "flicker": 48.1399445008786,
+   "motion_energy": 9.758835003100103
+  },
+  "ltx1:B-eager": {
+   "n_frames": 241,
+   "width": 1920,
+   "height": 1088,
+   "brightness": 0.20909671674007202,
+   "sharpness_p10": 3.796262741088867,
+   "sharpness": 11.802244066697433,
+   "hf_ratio": 0.00048546369265546613,
+   "local_contrast": 0.0017326568278456995,
+   "contrast": 0.21728862067723176,
+   "saturation": 0.08368333045748755,
+   "detail_entropy": 4.642853616642074,
+   "jerk_ratio": 1.410469134764902,
+   "shimmer": 1.4559329662349787,
+   "flicker": 55.36137007812522,
+   "motion_energy": 10.919021889567375
+  },
+  "fp8ab:bw4_p1_bf16c": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.6034875997790584,
+   "sharpness_p10": 141.16102600097656,
+   "sharpness": 155.10754884319542,
+   "hf_ratio": 0.003767998624639011,
+   "local_contrast": 0.007298875479372563,
+   "contrast": 0.2024171968669067,
+   "saturation": 0.13507877087887424,
+   "detail_entropy": 5.609632133792716,
+   "jerk_ratio": 1.5825947596971082,
+   "shimmer": 0.8883968218121958,
+   "flicker": 0.48171044086371023,
+   "motion_energy": 6.158710879739374
+  },
+  "fp8ab:bw4_p0_fp8c": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.28718114156781893,
+   "sharpness_p10": 74.57444763183594,
+   "sharpness": 84.92514970567491,
+   "hf_ratio": 0.0023693214458079988,
+   "local_contrast": 0.005742253936873174,
+   "contrast": 0.1666622014693272,
+   "saturation": 0.1142309722893032,
+   "detail_entropy": 5.238243039026875,
+   "jerk_ratio": 1.6444591190751179,
+   "shimmer": 1.2712848287608836,
+   "flicker": 2.6613148126335986,
+   "motion_energy": 13.29794445564039
+  },
+  "fp8ab:bw4_p1_fp8c": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.5815715892815295,
+   "sharpness_p10": 110.03535461425781,
+   "sharpness": 119.84515380859375,
+   "hf_ratio": 0.0034336580084291875,
+   "local_contrast": 0.006141560865037235,
+   "contrast": 0.19919962813088923,
+   "saturation": 0.11049720286219208,
+   "detail_entropy": 5.597531871792299,
+   "jerk_ratio": 1.5806472658355415,
+   "shimmer": 0.7926611367547403,
+   "flicker": 0.3787733072868807,
+   "motion_energy": 4.763646283827256
+  },
+  "fp8ab:ag12_p1_bf16c": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.5029658049712946,
+   "sharpness_p10": 179.4175567626953,
+   "sharpness": 191.6309228590977,
+   "hf_ratio": 0.003859426596282441,
+   "local_contrast": 0.006567399937337563,
+   "contrast": 0.2920009799209642,
+   "saturation": 0.125879233174118,
+   "detail_entropy": 5.68894602887315,
+   "jerk_ratio": 1.7993170937920244,
+   "shimmer": 0.8766429761342497,
+   "flicker": 0.6682958980507043,
+   "motion_energy": 7.072786471660947
+  },
+  "fp8ab:ag12_p1_fp8c": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.4876990531697685,
+   "sharpness_p10": 189.10511779785156,
+   "sharpness": 205.50021155086566,
+   "hf_ratio": 0.003717055271184187,
+   "local_contrast": 0.00647411595478102,
+   "contrast": 0.3148682180010242,
+   "saturation": 0.12450697732928359,
+   "detail_entropy": 5.602198219317047,
+   "jerk_ratio": 1.8083964323199457,
+   "shimmer": 0.9287365641313752,
+   "flicker": 0.6708085957476991,
+   "motion_energy": 7.990958571812372
+  },
+  "show:basewan4_p0": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.3337396044790009,
+   "sharpness_p10": 169.22622680664062,
+   "sharpness": 200.39724392361111,
+   "hf_ratio": 0.004262496449950116,
+   "local_contrast": 0.00817275722798558,
+   "contrast": 0.19212246437867483,
+   "saturation": 0.1300901222376176,
+   "detail_entropy": 5.490782827413871,
+   "jerk_ratio": 1.623519281663214,
+   "shimmer": 1.3724315280277868,
+   "flicker": 3.624004424413728,
+   "motion_energy": 16.99977931100875
+  },
+  "show:basewan4_p1": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.5947687383051272,
+   "sharpness_p10": 164.2350616455078,
+   "sharpness": 179.84066282672646,
+   "hf_ratio": 0.004141536388937154,
+   "local_contrast": 0.007695454879905339,
+   "contrast": 0.2044919114789845,
+   "saturation": 0.12998903938281683,
+   "detail_entropy": 5.62285554802435,
+   "jerk_ratio": 1.5455030903581755,
+   "shimmer": 0.8496408884068324,
+   "flicker": 0.3439119406819009,
+   "motion_energy": 5.715347179211676
+  },
+  "show:turbo4_buggy_p0": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.191281141690266,
+   "sharpness_p10": 37.8703498840332,
+   "sharpness": 79.0049702797407,
+   "hf_ratio": 0.005810565957627086,
+   "local_contrast": 0.004999850395158577,
+   "contrast": 0.09315322054389083,
+   "saturation": 0.22461957898404863,
+   "detail_entropy": 4.461915370036745,
+   "jerk_ratio": 1.849781851782241,
+   "shimmer": 1.2699518524869848,
+   "flicker": 6.880522033506896,
+   "motion_energy": 6.769529225653969
+  },
+  "show:turbo4_corrected_s3_p0": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.18339347269064116,
+   "sharpness_p10": 114.08704376220703,
+   "sharpness": 210.05063798692493,
+   "hf_ratio": 0.010445480775318029,
+   "local_contrast": 0.006577042529336464,
+   "contrast": 0.12128692506640046,
+   "saturation": 0.27729646640795247,
+   "detail_entropy": 4.769947701562539,
+   "jerk_ratio": 1.7569862139438643,
+   "shimmer": 1.5005054670219056,
+   "flicker": 9.751722172187346,
+   "motion_energy": 12.94967274251394
+  },
+  "show:turbo8_buggy_p0": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.19631964317810388,
+   "sharpness_p10": 220.3756103515625,
+   "sharpness": 312.1650285132137,
+   "hf_ratio": 0.008746786370735478,
+   "local_contrast": 0.008065864673735183,
+   "contrast": 0.16158143017027113,
+   "saturation": 0.3119262339156351,
+   "detail_entropy": 5.014841522379067,
+   "jerk_ratio": 1.78545346232942,
+   "shimmer": 1.5731452177592462,
+   "flicker": 12.097668629536306,
+   "motion_energy": 20.41707564960234
+  },
+  "show:turbo8_corrected_p0": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.20118946112968303,
+   "sharpness_p10": 215.20460510253906,
+   "sharpness": 294.02419177396797,
+   "hf_ratio": 0.007793954524705991,
+   "local_contrast": 0.008010551942811335,
+   "contrast": 0.16567688113377418,
+   "saturation": 0.312404798504747,
+   "detail_entropy": 5.043447884990543,
+   "jerk_ratio": 1.8017570538546164,
+   "shimmer": 1.5684701925358286,
+   "flicker": 13.736922511316255,
+   "motion_energy": 21.017719477415085
+  },
+  "show:turbo12_buggy_p0": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.21096172284932785,
+   "sharpness_p10": 246.5076141357422,
+   "sharpness": 302.929904702269,
+   "hf_ratio": 0.005898881499529069,
+   "local_contrast": 0.008630811231049858,
+   "contrast": 0.18834473671000682,
+   "saturation": 0.33870104396784745,
+   "detail_entropy": 5.089855298513951,
+   "jerk_ratio": 1.7888307721722774,
+   "shimmer": 1.51436484197504,
+   "flicker": 16.6538627732561,
+   "motion_energy": 24.3528362007346
+  },
+  "show:turbo12_corrected_p0": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.21500691238008898,
+   "sharpness_p10": 231.55955505371094,
+   "sharpness": 289.9450527238257,
+   "hf_ratio": 0.0052864811552780465,
+   "local_contrast": 0.008329927599356498,
+   "contrast": 0.19458625382847256,
+   "saturation": 0.33969722669801594,
+   "detail_entropy": 5.1114065612693205,
+   "jerk_ratio": 1.7743095621578706,
+   "shimmer": 1.5231635338188318,
+   "flicker": 17.51226866290614,
+   "motion_energy": 25.029728387715295
+  },
+  "probe:seko2_p0": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.21229669690868,
+   "sharpness_p10": 225.00990295410156,
+   "sharpness": 256.7160893192998,
+   "hf_ratio": 0.004117792242287118,
+   "local_contrast": 0.00829998137038431,
+   "contrast": 0.21214676565594143,
+   "saturation": 0.14221423662003177,
+   "detail_entropy": 5.11704854505345,
+   "jerk_ratio": 1.5884921091217412,
+   "shimmer": 1.3155203745833788,
+   "flicker": 3.1067271931242595,
+   "motion_energy": 12.57824731618166
+  },
+  "probe:naive_seko2_p0": {
+   "n_frames": 81,
+   "width": 1280,
+   "height": 720,
+   "brightness": 0.21250512110598294,
+   "sharpness_p10": 219.70826721191406,
+   "sharpness": 245.26904654797212,
+   "hf_ratio": 0.0041624072933408585,
+   "local_contrast": 0.007819075493808881,
+   "contrast": 0.20803779510804166,
+   "saturation": 0.14015621728735206,
+   "detail_entropy": 5.12502731886048,
+   "jerk_ratio": 1.60344469690608,
+   "shimmer": 1.329165097396732,
+   "flicker": 2.600506333735241,
+   "motion_energy": 11.584147788234986
+  },
+  "syn:soften50:forge": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.18838087647907004,
+   "sharpness_p10": 37.89411163330078,
+   "sharpness": 42.58217652376033,
+   "hf_ratio": 0.0006940509259993257,
+   "local_contrast": 0.0034870826812414837,
+   "contrast": 0.23013791035522113,
+   "saturation": 0.09557325977924441,
+   "detail_entropy": 4.8070793576862405,
+   "jerk_ratio": 1.4478011573599439,
+   "shimmer": 0.3140952818432202,
+   "flicker": 7.013601500226733,
+   "motion_energy": 5.158811810077168
+  },
+  "syn:soften50:chef": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.44175694304064284,
+   "sharpness_p10": 78.99321746826172,
+   "sharpness": 86.03725130695942,
+   "hf_ratio": 0.00256623749328731,
+   "local_contrast": 0.005127627517997234,
+   "contrast": 0.2320663512738283,
+   "saturation": 0.2270276470125214,
+   "detail_entropy": 5.7801558942944125,
+   "jerk_ratio": 1.2231219268142581,
+   "shimmer": 0.5361237589148219,
+   "flicker": 1.7363726000799,
+   "motion_energy": 2.788475979701616
+  },
+  "syn:soften50:market": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.2989266522167143,
+   "sharpness_p10": 154.9496612548828,
+   "sharpness": 206.13932258038483,
+   "hf_ratio": 0.001690920343245418,
+   "local_contrast": 0.007288976861087005,
+   "contrast": 0.30909359208808457,
+   "saturation": 0.1250972703468701,
+   "detail_entropy": 5.273226427895977,
+   "jerk_ratio": 1.4275716469352875,
+   "shimmer": 0.8958864116202885,
+   "flicker": 14.097341960500351,
+   "motion_energy": 14.365547957830131
+  },
+  "syn:soften50:portrait": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.39930521456663276,
+   "sharpness_p10": 46.66740798950195,
+   "sharpness": 73.23504358086704,
+   "hf_ratio": 0.0013749713081989653,
+   "local_contrast": 0.004997726524063994,
+   "contrast": 0.29335758533359557,
+   "saturation": 0.09141365198557042,
+   "detail_entropy": 5.754649704012346,
+   "jerk_ratio": 1.0957456375574532,
+   "shimmer": 0.7530610983806459,
+   "flicker": 1.8344175826477085,
+   "motion_energy": 4.373497370106634
+  },
+  "syn:soften50:fabric": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.38611210722568606,
+   "sharpness_p10": 185.60557556152344,
+   "sharpness": 208.2133051344186,
+   "hf_ratio": 0.00139376642432618,
+   "local_contrast": 0.007810810730938823,
+   "contrast": 0.32600419087843463,
+   "saturation": 0.2993135760145739,
+   "detail_entropy": 5.471214206781841,
+   "jerk_ratio": 1.23350255076913,
+   "shimmer": 0.2228666951423983,
+   "flicker": 0.8052939026076797,
+   "motion_energy": 2.383263668860309
+  },
+  "syn:soften50:street": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.18816510754183305,
+   "sharpness_p10": 50.414207458496094,
+   "sharpness": 63.54558563232422,
+   "hf_ratio": 0.0012721855266496908,
+   "local_contrast": 0.004210240444291599,
+   "contrast": 0.20869810805340444,
+   "saturation": 0.0921007565969278,
+   "detail_entropy": 4.705470867188058,
+   "jerk_ratio": 1.3611225198060375,
+   "shimmer": 0.8971585430250189,
+   "flicker": 8.653920855823745,
+   "motion_energy": 5.450857184245251
+  },
+  "syn:soften50:water": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.6196960437396342,
+   "sharpness_p10": 43.887184143066406,
+   "sharpness": 51.007896612498385,
+   "hf_ratio": 0.0014123046541709668,
+   "local_contrast": 0.0030639584422542535,
+   "contrast": 0.2834583188384032,
+   "saturation": 0.014416406138930932,
+   "detail_entropy": 5.15967854713021,
+   "jerk_ratio": 1.4060195670010487,
+   "shimmer": 0.8356422468709668,
+   "flicker": 1.638916278695393,
+   "motion_energy": 8.276227292139083
+  },
+  "syn:soften50:forest": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.312906910811574,
+   "sharpness_p10": 495.5014953613281,
+   "sharpness": 596.0744306075671,
+   "hf_ratio": 0.005285904917881386,
+   "local_contrast": 0.012168005116530194,
+   "contrast": 0.31268692927912245,
+   "saturation": 0.09172264966836646,
+   "detail_entropy": 5.292203410959371,
+   "jerk_ratio": 1.1769213452335547,
+   "shimmer": 0.7415514805839174,
+   "flicker": 7.428610556123077,
+   "motion_energy": 6.497953885467723
+  },
+  "syn:soften25:forge": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.18838087783372107,
+   "sharpness_p10": 48.38117599487305,
+   "sharpness": 54.36310035138091,
+   "hf_ratio": 0.0008796214939995614,
+   "local_contrast": 0.003927852791033624,
+   "contrast": 0.2304774888537147,
+   "saturation": 0.09563244300440324,
+   "detail_entropy": 4.805050138587525,
+   "jerk_ratio": 1.452422054680074,
+   "shimmer": 0.3405000870750758,
+   "flicker": 7.013602086181163,
+   "motion_energy": 5.174261276377365
+  },
+  "syn:soften25:chef": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.4417569413165416,
+   "sharpness_p10": 106.44828796386719,
+   "sharpness": 116.53673900257458,
+   "hf_ratio": 0.0032028642306027332,
+   "local_contrast": 0.005872394885744684,
+   "contrast": 0.2325401796289712,
+   "saturation": 0.2270918444168469,
+   "detail_entropy": 5.778375704267774,
+   "jerk_ratio": 1.2435532222699086,
+   "shimmer": 0.5759343022711638,
+   "flicker": 1.7363721006177932,
+   "motion_energy": 2.8757343074539676
+  },
+  "syn:soften25:market": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.2989266514778137,
+   "sharpness_p10": 204.48460388183594,
+   "sharpness": 273.39050456906153,
+   "hf_ratio": 0.0023284346126943582,
+   "local_contrast": 0.00820488921820748,
+   "contrast": 0.3099825199970529,
+   "saturation": 0.12525061998239234,
+   "detail_entropy": 5.262873502887664,
+   "jerk_ratio": 1.4374213620950267,
+   "shimmer": 0.9315136758034613,
+   "flicker": 14.097341982166483,
+   "motion_energy": 14.538869260810316
+  },
+  "syn:soften25:portrait": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.39930521456663276,
+   "sharpness_p10": 56.59003829956055,
+   "sharpness": 91.47521171885089,
+   "hf_ratio": 0.001550269345868348,
+   "local_contrast": 0.005533171555966385,
+   "contrast": 0.29377971552620247,
+   "saturation": 0.09146176882026609,
+   "detail_entropy": 5.748736889187211,
+   "jerk_ratio": 1.1207586260043332,
+   "shimmer": 0.8061312130843158,
+   "flicker": 1.8344169783645268,
+   "motion_energy": 4.489499331684783
+  },
+  "syn:soften25:fabric": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.3861121104275885,
+   "sharpness_p10": 236.35105895996094,
+   "sharpness": 266.7425805714505,
+   "hf_ratio": 0.0018700985642042289,
+   "local_contrast": 0.008580804071273686,
+   "contrast": 0.32706915445564205,
+   "saturation": 0.2993196950963706,
+   "detail_entropy": 5.4662380881857935,
+   "jerk_ratio": 1.24320419058836,
+   "shimmer": 0.24978933310067739,
+   "flicker": 0.8052939615762759,
+   "motion_energy": 2.429893086926313
+  },
+  "syn:soften25:street": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.1881651081575835,
+   "sharpness_p10": 66.88218688964844,
+   "sharpness": 84.5602542782618,
+   "hf_ratio": 0.0017472487703073492,
+   "local_contrast": 0.004780833592084198,
+   "contrast": 0.20912462854680935,
+   "saturation": 0.0921878635513881,
+   "detail_entropy": 4.700526376077255,
+   "jerk_ratio": 1.3800558807301735,
+   "shimmer": 0.9364647298702985,
+   "flicker": 8.653920829824255,
+   "motion_energy": 5.553190678590909
+  },
+  "syn:soften25:water": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.6196960442322345,
+   "sharpness_p10": 61.56666946411133,
+   "sharpness": 71.70631941487966,
+   "hf_ratio": 0.001612678883127745,
+   "local_contrast": 0.0035198197203634447,
+   "contrast": 0.28372953524274275,
+   "saturation": 0.014458332241566714,
+   "detail_entropy": 5.158054866780939,
+   "jerk_ratio": 1.4120039031848741,
+   "shimmer": 0.860262009808136,
+   "flicker": 1.6389157939990346,
+   "motion_energy": 8.329511759686284
+  },
+  "syn:soften25:forest": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.31290691007267346,
+   "sharpness_p10": 688.5746459960938,
+   "sharpness": 845.736242625339,
+   "hf_ratio": 0.007809794861977258,
+   "local_contrast": 0.014075609485903555,
+   "contrast": 0.31455290539205566,
+   "saturation": 0.091745158180225,
+   "detail_entropy": 5.274827112682054,
+   "jerk_ratio": 1.2172044302960343,
+   "shimmer": 0.7809300947318238,
+   "flicker": 7.428611943452711,
+   "motion_energy": 6.807589715113863
+  },
+  "syn:desat92:forge": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.18838087660222014,
+   "sharpness_p10": 61.15940475463867,
+   "sharpness": 68.68770312474778,
+   "hf_ratio": 0.0011104601348773384,
+   "local_contrast": 0.004402486491979153,
+   "contrast": 0.2308326639419745,
+   "saturation": 0.08804121558084961,
+   "detail_entropy": 4.800293094920449,
+   "jerk_ratio": 1.4572891016993632,
+   "shimmer": 0.3617940053565907,
+   "flicker": 7.013602772004121,
+   "motion_energy": 5.191473206854425
+  },
+  "syn:desat92:chef": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.44175694180914193,
+   "sharpness_p10": 138.5530548095703,
+   "sharpness": 153.62361283735797,
+   "hf_ratio": 0.003982286451938601,
+   "local_contrast": 0.00667269303163221,
+   "contrast": 0.23304948050621127,
+   "saturation": 0.2089892539603651,
+   "detail_entropy": 5.774510939432834,
+   "jerk_ratio": 1.2638834477491723,
+   "shimmer": 0.6059276078255728,
+   "flicker": 1.7363723612893918,
+   "motion_energy": 2.9724917939747684
+  },
+  "syn:desat92:market": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.2989266524630145,
+   "sharpness_p10": 263.9515686035156,
+   "sharpness": 354.93392086817215,
+   "hf_ratio": 0.0031077437062386024,
+   "local_contrast": 0.009196876209567894,
+   "contrast": 0.31092930628248483,
+   "saturation": 0.1153911134181929,
+   "detail_entropy": 5.2495557642362645,
+   "jerk_ratio": 1.4469242861770983,
+   "shimmer": 0.9596824343878785,
+   "flicker": 14.097341800425085,
+   "motion_energy": 14.732162782922387
+  },
+  "syn:desat92:portrait": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.3993052185074357,
+   "sharpness_p10": 68.5982437133789,
+   "sharpness": 113.23447601066148,
+   "hf_ratio": 0.0017640498026143298,
+   "local_contrast": 0.0061073383424154,
+   "contrast": 0.2942215790433332,
+   "saturation": 0.08419181012417659,
+   "detail_entropy": 5.741104293618146,
+   "jerk_ratio": 1.146212860379656,
+   "shimmer": 0.8504329380818522,
+   "flicker": 1.8344176687748577,
+   "motion_energy": 4.614121102029458
+  },
+  "syn:desat92:fabric": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.38611211018128827,
+   "sharpness_p10": 297.1970520019531,
+   "sharpness": 337.1844028441374,
+   "hf_ratio": 0.0024519238759540328,
+   "local_contrast": 0.00940891523068109,
+   "contrast": 0.3281842191849858,
+   "saturation": 0.2753802673383193,
+   "detail_entropy": 5.45948272278943,
+   "jerk_ratio": 1.2537369420968552,
+   "shimmer": 0.27265215650474417,
+   "flicker": 0.8052943854103803,
+   "motion_energy": 2.481970280088717
+  },
+  "syn:desat92:street": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.18816510729553285,
+   "sharpness_p10": 87.769775390625,
+   "sharpness": 110.09816124025456,
+   "hf_ratio": 0.002329341893099741,
+   "local_contrast": 0.005392911016540833,
+   "contrast": 0.20957821324344508,
+   "saturation": 0.0848993127626821,
+   "detail_entropy": 4.695068967323134,
+   "jerk_ratio": 1.398892778769677,
+   "shimmer": 0.9669677225515472,
+   "flicker": 8.653920993196571,
+   "motion_energy": 5.666570047615096
+  },
+  "syn:desat92:water": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.6196960447248349,
+   "sharpness_p10": 83.48619842529297,
+   "sharpness": 97.52446866626582,
+   "hf_ratio": 0.001861896264859406,
+   "local_contrast": 0.0040153207176572775,
+   "contrast": 0.2840169468694482,
+   "saturation": 0.013340990659434442,
+   "detail_entropy": 5.159982951372105,
+   "jerk_ratio": 1.4182857034565701,
+   "shimmer": 0.879023698150222,
+   "flicker": 1.6389157108606869,
+   "motion_energy": 8.385858316672966
+  },
+  "syn:desat92:forest": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.31290690982637326,
+   "sharpness_p10": 925.025634765625,
+   "sharpness": 1154.224944816148,
+   "hf_ratio": 0.010878314906808217,
+   "local_contrast": 0.0161358102432583,
+   "contrast": 0.31659173719153916,
+   "saturation": 0.0844266470675626,
+   "detail_entropy": 5.258691893138549,
+   "jerk_ratio": 1.2525451838068418,
+   "shimmer": 0.8091913807432155,
+   "flicker": 7.428611042801814,
+   "motion_energy": 7.169071233365685
+  },
+  "syn:flicker2:forge": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.1883020473659531,
+   "sharpness_p10": 60.21894454956055,
+   "sharpness": 68.76561298843258,
+   "hf_ratio": 0.001115455406656381,
+   "local_contrast": 0.004401324959548791,
+   "contrast": 0.23042282166559835,
+   "saturation": 0.09561070541212381,
+   "detail_entropy": 4.799755279082037,
+   "jerk_ratio": 1.4876058705821715,
+   "shimmer": 0.3744224104415373,
+   "flicker": 7.1279103732162215,
+   "motion_energy": 5.8367486738134176
+  },
+  "syn:flicker2:chef": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.4406705173579129,
+   "sharpness_p10": 136.68426513671875,
+   "sharpness": 152.94665615617737,
+   "hf_ratio": 0.003989961766060595,
+   "local_contrast": 0.006650482962477552,
+   "contrast": 0.23212933614234293,
+   "saturation": 0.2264705689485408,
+   "detail_entropy": 5.772771824671894,
+   "jerk_ratio": 1.47226392597269,
+   "shimmer": 0.6105850122251884,
+   "flicker": 2.637309263749348,
+   "motion_energy": 4.624719736748375
+  },
+  "syn:flicker2:market": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.29805032330111036,
+   "sharpness_p10": 261.10345458984375,
+   "sharpness": 353.21657972099365,
+   "hf_ratio": 0.0031106746053199998,
+   "local_contrast": 0.009157720187386451,
+   "contrast": 0.3098876968888212,
+   "saturation": 0.12485640846993312,
+   "detail_entropy": 5.228880059441114,
+   "jerk_ratio": 1.4585853620986295,
+   "shimmer": 0.9620054627306528,
+   "flicker": 14.113212055849889,
+   "motion_energy": 15.121328788343817
+  },
+  "syn:flicker2:portrait": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.39862082787781705,
+   "sharpness_p10": 69.86444091796875,
+   "sharpness": 113.13995786934845,
+   "hf_ratio": 0.0017670330597272467,
+   "local_contrast": 0.006090736405323606,
+   "contrast": 0.2936068433375398,
+   "saturation": 0.09125757346714823,
+   "detail_entropy": 5.7383571718761175,
+   "jerk_ratio": 1.3039565526434942,
+   "shimmer": 0.8524064378965226,
+   "flicker": 2.724056836408226,
+   "motion_energy": 5.742927912157029
+  },
+  "syn:flicker2:fabric": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.3860030804783845,
+   "sharpness_p10": 295.8551940917969,
+   "sharpness": 337.3365027057238,
+   "hf_ratio": 0.002461650512712307,
+   "local_contrast": 0.009395932948047464,
+   "contrast": 0.32791169714336554,
+   "saturation": 0.29876773219463254,
+   "detail_entropy": 5.446269690384354,
+   "jerk_ratio": 1.4364940547067007,
+   "shimmer": 0.28075269606903164,
+   "flicker": 1.9770967950931992,
+   "motion_energy": 3.848116821143776
+  },
+  "syn:flicker2:street": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.1876827798599054,
+   "sharpness_p10": 87.65921020507812,
+   "sharpness": 109.59418632570377,
+   "hf_ratio": 0.0023293258248989986,
+   "local_contrast": 0.005379440528456091,
+   "contrast": 0.20904956622557205,
+   "saturation": 0.09204306133276174,
+   "detail_entropy": 4.693271875671903,
+   "jerk_ratio": 1.4392884950222,
+   "shimmer": 0.9679565185023297,
+   "flicker": 8.76641952723972,
+   "motion_energy": 6.175363672198728
+  },
+  "syn:flicker2:water": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.6197373059170306,
+   "sharpness_p10": 83.64334106445312,
+   "sharpness": 97.55271571135718,
+   "hf_ratio": 0.0018619397955307784,
+   "local_contrast": 0.004014030606909232,
+   "contrast": 0.28401656116335844,
+   "saturation": 0.014495125625374888,
+   "detail_entropy": 5.141813255476327,
+   "jerk_ratio": 1.5107725585714757,
+   "shimmer": 0.8856139327152031,
+   "flicker": 2.8697133003052344,
+   "motion_energy": 10.937843720428646
+  },
+  "syn:flicker2:forest": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.3118868494821974,
+   "sharpness_p10": 931.0037841796875,
+   "sharpness": 1145.6919318585356,
+   "hf_ratio": 0.010878099401843203,
+   "local_contrast": 0.016058001936651953,
+   "contrast": 0.31539981030235603,
+   "saturation": 0.091345435824276,
+   "detail_entropy": 5.241230620218554,
+   "jerk_ratio": 1.3110408468266257,
+   "shimmer": 0.8105994867353229,
+   "flicker": 7.795493379582837,
+   "motion_energy": 7.98958219611086
+  },
+  "syn:flicker1:forge": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.18848294007384087,
+   "sharpness_p10": 61.03770446777344,
+   "sharpness": 68.78780699170325,
+   "hf_ratio": 0.0011122924937628025,
+   "local_contrast": 0.00440380564498261,
+   "contrast": 0.2308170152597191,
+   "saturation": 0.09572964463352172,
+   "detail_entropy": 4.802204702719121,
+   "jerk_ratio": 1.4678247957533797,
+   "shimmer": 0.3670533477762376,
+   "flicker": 7.195110420547753,
+   "motion_energy": 5.444780372199602
+  },
+  "syn:flicker1:chef": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.44064219480703687,
+   "sharpness_p10": 137.1415557861328,
+   "sharpness": 152.91059005358989,
+   "hf_ratio": 0.003984989277048667,
+   "local_contrast": 0.006652761500882955,
+   "contrast": 0.23232650239605548,
+   "saturation": 0.226542429613673,
+   "detail_entropy": 5.77529948101716,
+   "jerk_ratio": 1.348209646840485,
+   "shimmer": 0.6080029774793134,
+   "flicker": 2.088384345545604,
+   "motion_energy": 3.6865392857580446
+  },
+  "syn:flicker1:market": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.2986678274209834,
+   "sharpness_p10": 261.70513916015625,
+   "sharpness": 354.2060072717588,
+   "hf_ratio": 0.003107064942375195,
+   "local_contrast": 0.009182047903199087,
+   "contrast": 0.31063506893875187,
+   "saturation": 0.12522776073907033,
+   "detail_entropy": 5.2393342169183095,
+   "jerk_ratio": 1.45273363236683,
+   "shimmer": 0.9604714887485677,
+   "flicker": 14.04791844504672,
+   "motion_energy": 14.904100136831403
+  },
+  "syn:flicker1:portrait": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.39863566401576206,
+   "sharpness_p10": 68.77718353271484,
+   "sharpness": 112.8181820703932,
+   "hf_ratio": 0.0017650696143030752,
+   "local_contrast": 0.006095678364657913,
+   "contrast": 0.2937100288296534,
+   "saturation": 0.09133127177796088,
+   "detail_entropy": 5.749456223393927,
+   "jerk_ratio": 1.2395009021901164,
+   "shimmer": 0.8512429065165031,
+   "flicker": 2.256537364900136,
+   "motion_energy": 5.214395873656031
+  },
+  "syn:flicker1:fabric": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.3859687999260327,
+   "sharpness_p10": 292.5166931152344,
+   "sharpness": 337.0636444091797,
+   "hf_ratio": 0.002455721633347167,
+   "local_contrast": 0.009401529234610805,
+   "contrast": 0.3280043303966522,
+   "saturation": 0.2990415293323107,
+   "detail_entropy": 5.453418615070963,
+   "jerk_ratio": 1.3516666868082443,
+   "shimmer": 0.27624296764976203,
+   "flicker": 1.2546114677873932,
+   "motion_energy": 3.130603739671642
+  },
+  "syn:flicker1:street": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.18814097000055077,
+   "sharpness_p10": 87.5241470336914,
+   "sharpness": 110.07433937009701,
+   "hf_ratio": 0.002329328722774613,
+   "local_contrast": 0.005391897148768272,
+   "contrast": 0.20953346739623172,
+   "saturation": 0.09226802059195259,
+   "detail_entropy": 4.697070993259885,
+   "jerk_ratio": 1.408230523278039,
+   "shimmer": 0.9674006811432514,
+   "flicker": 8.840259333628763,
+   "motion_energy": 5.851475563365966
+  },
+  "syn:flicker1:water": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.6197362685006512,
+   "sharpness_p10": 83.24026489257812,
+   "sharpness": 97.5884505342846,
+   "hf_ratio": 0.0018618541292476753,
+   "local_contrast": 0.004015001643464462,
+   "contrast": 0.2840620932007624,
+   "saturation": 0.014500269750979814,
+   "detail_entropy": 5.143085541477844,
+   "jerk_ratio": 1.4429699152030304,
+   "shimmer": 0.8814199393584679,
+   "flicker": 1.8021489801287083,
+   "motion_energy": 9.303334285272285
+  },
+  "syn:flicker1:forest": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.3125747725490696,
+   "sharpness_p10": 943.769287109375,
+   "sharpness": 1150.9178032993286,
+   "hf_ratio": 0.010875449208003924,
+   "local_contrast": 0.016104551124548123,
+   "contrast": 0.31616423814749917,
+   "saturation": 0.0916249946621824,
+   "detail_entropy": 5.252736259218418,
+   "jerk_ratio": 1.285630834184119,
+   "shimmer": 0.8100215719055329,
+   "flicker": 7.700134795454446,
+   "motion_energy": 7.546007820637897
+  },
+  "syn:noise02:forge": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.18914446714988425,
+   "sharpness_p10": 263.6864318847656,
+   "sharpness": 274.59045990242447,
+   "hf_ratio": 0.00339152912747823,
+   "local_contrast": 0.011322646194006785,
+   "contrast": 0.2301221078585002,
+   "saturation": 0.10293031557778681,
+   "detail_entropy": 4.849186406412913,
+   "jerk_ratio": 1.5612781254236137,
+   "shimmer": 1.2071269585212197,
+   "flicker": 6.919914396375713,
+   "motion_energy": 7.894857625244185
+  },
+  "syn:noise02:chef": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.4416553786963471,
+   "sharpness_p10": 362.985107421875,
+   "sharpness": 378.07770859899597,
+   "hf_ratio": 0.006358869881792502,
+   "local_contrast": 0.01332736948951463,
+   "contrast": 0.2326965909605184,
+   "saturation": 0.2303485427020995,
+   "detail_entropy": 5.803297572850117,
+   "jerk_ratio": 1.5303877058697934,
+   "shimmer": 1.1464730202265558,
+   "flicker": 1.7346364378855794,
+   "motion_energy": 5.573913183296099
+  },
+  "syn:noise02:market": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.3000329229211019,
+   "sharpness_p10": 449.2801208496094,
+   "sharpness": 550.114175591587,
+   "hf_ratio": 0.004243837525175253,
+   "local_contrast": 0.015103882017029712,
+   "contrast": 0.3096100833297761,
+   "saturation": 0.13327165988604883,
+   "detail_entropy": 5.324079171600815,
+   "jerk_ratio": 1.4897328168970145,
+   "shimmer": 1.1652293529874846,
+   "flicker": 13.930853224501977,
+   "motion_energy": 16.050888179801404
+  },
+  "syn:noise02:portrait": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.39968124105910624,
+   "sharpness_p10": 287.98553466796875,
+   "sharpness": 331.71715501517303,
+   "hf_ratio": 0.003202268218790943,
+   "local_contrast": 0.012615806584762147,
+   "contrast": 0.29376519465249434,
+   "saturation": 0.09741222809168919,
+   "detail_entropy": 5.807374467917823,
+   "jerk_ratio": 1.394615493537086,
+   "shimmer": 1.233643063419528,
+   "flicker": 1.8275982486485234,
+   "motion_energy": 6.7458696705289185
+  },
+  "syn:noise02:fabric": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.38625978142761985,
+   "sharpness_p10": 517.6448364257812,
+   "sharpness": 557.4193425454384,
+   "hf_ratio": 0.003639285583510872,
+   "local_contrast": 0.015712526288222183,
+   "contrast": 0.3277046099182003,
+   "saturation": 0.29785425899442564,
+   "detail_entropy": 5.531574135173162,
+   "jerk_ratio": 1.5434174603890072,
+   "shimmer": 0.9292089981302131,
+   "flicker": 0.8023121577647747,
+   "motion_energy": 5.398342274362221
+  },
+  "syn:noise02:street": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.1889731561349443,
+   "sharpness_p10": 286.8281555175781,
+   "sharpness": 319.42808671431106,
+   "hf_ratio": 0.005079401014295737,
+   "local_contrast": 0.012133097576269927,
+   "contrast": 0.20932578991267306,
+   "saturation": 0.0996485381456446,
+   "detail_entropy": 4.740301608366788,
+   "jerk_ratio": 1.5253754667721915,
+   "shimmer": 1.274217470374317,
+   "flicker": 8.533738866305015,
+   "motion_energy": 7.746577797923237
+  },
+  "syn:noise02:water": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.6196860070070944,
+   "sharpness_p10": 315.69720458984375,
+   "sharpness": 329.7496168908994,
+   "hf_ratio": 0.0032251133672000208,
+   "local_contrast": 0.011731575805047327,
+   "contrast": 0.284316596659747,
+   "saturation": 0.037966146510987245,
+   "detail_entropy": 5.2675574999536,
+   "jerk_ratio": 1.4971588739688024,
+   "shimmer": 1.3014462304130472,
+   "flicker": 1.6386217357517385,
+   "motion_energy": 10.608259760774672
+  },
+  "syn:noise02:forest": {
+   "n_frames": 121,
+   "width": 1280,
+   "height": 704,
+   "brightness": 0.3128204121569957,
+   "sharpness_p10": 1149.3597412109375,
+   "sharpness": 1376.0728230121706,
+   "hf_ratio": 0.012079348795362248,
+   "local_contrast": 0.022316175289759953,
+   "contrast": 0.3164479510843261,
+   "saturation": 0.10316984651009899,
+   "detail_entropy": 5.331271967913916,
+   "jerk_ratio": 1.400290325996575,
+   "shimmer": 1.0176062756200823,
+   "flicker": 7.416799322996762,
+   "motion_energy": 9.46886799717322
+  }
+ },
+ "pairs": {
+  "LTX 2.3 w8a8-pcs compiled vs bf16 compiled": {
+   "expectation": "CLEAN",
+   "note": "the shipped LTX recipe; n=8, H100, 1280x704x121f, both compiled",
+   "n": 8,
+   "clips": [
+    {
+     "reference": "ltx8:A-comp:forge",
+     "candidate": "ltx8:C2-comp:forge"
+    },
+    {
+     "reference": "ltx8:A-comp:chef",
+     "candidate": "ltx8:C2-comp:chef"
+    },
+    {
+     "reference": "ltx8:A-comp:market",
+     "candidate": "ltx8:C2-comp:market"
+    },
+    {
+     "reference": "ltx8:A-comp:portrait",
+     "candidate": "ltx8:C2-comp:portrait"
+    },
+    {
+     "reference": "ltx8:A-comp:fabric",
+     "candidate": "ltx8:C2-comp:fabric"
+    },
+    {
+     "reference": "ltx8:A-comp:street",
+     "candidate": "ltx8:C2-comp:street"
+    },
+    {
+     "reference": "ltx8:A-comp:water",
+     "candidate": "ltx8:C2-comp:water"
+    },
+    {
+     "reference": "ltx8:A-comp:forest",
+     "candidate": "ltx8:C2-comp:forest"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": true,
+     "values": {
+      "imaging_index": 1.0054843013324148,
+      "imaging_worst_prompt": 0.9410712404909695,
+      "detail_retention": 1.0015599798015393,
+      "tonal_retention": 1.0133791335799975,
+      "ratio_sharpness": 1.0000657815279548,
+      "ratio_hf_ratio": 1.0012832434040084,
+      "ratio_local_contrast": 1.0033336370252894,
+      "ratio_contrast": 0.9956908656863609,
+      "ratio_saturation": 1.0376867743089944,
+      "ratio_detail_entropy": 1.0072216865725532
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 1.0054843013324148,
+       "passed": true,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.9410712404909695,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": 0.013169200948428772,
+      "jerk_ratio": 1.0131692009484288,
+      "flicker_ratio": 1.0434907738887178,
+      "shimmer_ratio": 1.0280414645115508,
+      "motion_ratio": 1.0218381196263098
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": 0.013169200948428772,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 1.0434907738887178,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": true,
+     "values": {
+      "n": 8.0,
+      "significant_features": 0.0,
+      "rms_effect_size": 0.3512517904774086,
+      "max_effect_size": 0.6264076698980513,
+      "population_frechet": 0.06816397842207597,
+      "population_frechet_worst": 0.42145972220543376,
+      "dz_sharpness": -0.03127131685354212,
+      "dz_hf_ratio": -0.0931037436171474,
+      "dz_local_contrast": 0.1252326337696041,
+      "dz_contrast": 0.12024341258221911,
+      "dz_saturation": 0.5550607712771949,
+      "dz_detail_entropy": 0.6264076698980513,
+      "holm_p_detail_entropy": 0.6645138986947323,
+      "holm_p_saturation": 0.8020907298830953,
+      "holm_p_local_contrast": 1.0,
+      "holm_p_contrast": 1.0,
+      "holm_p_hf_ratio": 1.0,
+      "holm_p_sharpness": 1.0
+     },
+     "budgets": [
+      {
+       "budget": "significant_features <= 0.0",
+       "value": 0.0,
+       "passed": true,
+       "provenance": "count of imaging features with Holm-adjusted paired p<0.05 AND a >=2% median effect. Clean n=8 = 0; synthetic 8% desaturation = 1 (and that case passes BOTH other benchmarks: imaging index 0.991, jerk 1.000); synthetic 25% blur = 3."
+      },
+      {
+       "budget": "population_frechet <= 0.2",
+       "value": 0.06816397842207597,
+       "passed": true,
+       "provenance": "paired per-frame Frechet distance on the six signal features, whitened by the reference population. Clean n=8 = 0.068; synthetic 25% blur = 0.286; per-pixel noise = 4.792. PROVISIONAL: one clean population only \u2014 re-estimate as more clean arms bank."
+      }
+     ],
+     "notes": []
+    }
+   }
+  },
+  "  ^ the same recipe judged on ONE prompt": {
+   "expectation": "CLEAN (n=1 trap)",
+   "note": "1920x1088; a single prompt reads as a 22% sharpness loss that eight prompts show is take noise",
+   "n": 1,
+   "clips": [
+    {
+     "reference": "ltx1:A-comp",
+     "candidate": "ltx1:C2-comp"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": true,
+     "values": {
+      "imaging_index": 0.9336259532511489,
+      "imaging_worst_prompt": 0.9336259532511489,
+      "detail_retention": 0.8953376152497187,
+      "tonal_retention": 1.015184752745656,
+      "ratio_sharpness": 0.7824164977413576,
+      "ratio_hf_ratio": 0.9678969949133477,
+      "ratio_local_contrast": 0.9477490354692476,
+      "ratio_contrast": 0.9695396797166619,
+      "ratio_saturation": 1.075174261157388,
+      "ratio_detail_entropy": 1.0036696971998198
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.9336259532511489,
+       "passed": true,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.9336259532511489,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": -0.015012736199640941,
+      "jerk_ratio": 0.9849872638003591,
+      "flicker_ratio": 1.0136435019564638,
+      "shimmer_ratio": 0.9836207796331093,
+      "motion_ratio": 0.9148190356541658
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": -0.015012736199640941,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 1.0136435019564638,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": null,
+     "values": {
+      "n": 1.0
+     },
+     "budgets": [],
+     "notes": [
+      "not evaluated: a population test needs n>=6 paired prompts (protocol calls for 8), got 1."
+     ]
+    }
+   }
+  },
+  "LTX compile-only control (no quant at all)": {
+   "expectation": "CLEAN control",
+   "note": "the pair that scores LPIPS 0.196-0.249, consuming the whole fp8 reference budget",
+   "n": 1,
+   "clips": [
+    {
+     "reference": "ltx1:A-eager",
+     "candidate": "ltx1:A-comp"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": true,
+     "values": {
+      "imaging_index": 0.9802438177023319,
+      "imaging_worst_prompt": 0.9802438177023319,
+      "detail_retention": 0.9794876019356747,
+      "tonal_retention": 0.9817580012010223,
+      "ratio_sharpness": 0.9973259252644657,
+      "ratio_hf_ratio": 0.952271896805169,
+      "ratio_local_contrast": 0.9894611646832832,
+      "ratio_contrast": 0.9802642507000001,
+      "ratio_saturation": 0.9739168637612808,
+      "ratio_detail_entropy": 0.9911703401366181
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.9802438177023319,
+       "passed": true,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.9802438177023319,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": 8.581328309054115e-06,
+      "jerk_ratio": 1.000008581328309,
+      "flicker_ratio": 0.9927866319374934,
+      "shimmer_ratio": 1.001368215464848,
+      "motion_ratio": 0.9724790277521185
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": 8.581328309054115e-06,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 0.9927866319374934,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": null,
+     "values": {
+      "n": 1.0
+     },
+     "budgets": [],
+     "notes": [
+      "not evaluated: a population test needs n>=6 paired prompts (protocol calls for 8), got 1."
+     ]
+    }
+   }
+  },
+  "LTX fp8-storage cast (demoted rung)": {
+   "expectation": "n=1 observation",
+   "note": "",
+   "n": 1,
+   "clips": [
+    {
+     "reference": "ltx1:A-eager",
+     "candidate": "ltx1:B-eager"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": true,
+     "values": {
+      "imaging_index": 0.9570568482553597,
+      "imaging_worst_prompt": 0.9570568482553597,
+      "detail_retention": 0.9353792749692299,
+      "tonal_retention": 1.00193078191126,
+      "ratio_sharpness": 1.0532230753831142,
+      "ratio_hf_ratio": 0.7794184908872319,
+      "ratio_local_contrast": 0.9969472021572388,
+      "ratio_contrast": 1.034834998360619,
+      "ratio_saturation": 1.007807580780224,
+      "ratio_detail_entropy": 0.9644160499095572
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.9570568482553597,
+       "passed": true,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.9570568482553597,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": -0.010654592722231238,
+      "jerk_ratio": 0.9893454072777688,
+      "flicker_ratio": 1.157290546455452,
+      "shimmer_ratio": 0.9970586791826278,
+      "motion_ratio": 0.9954081642273362
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": -0.010654592722231238,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 1.157290546455452,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": null,
+     "values": {
+      "n": 1.0
+     },
+     "budgets": [],
+     "notes": [
+      "not evaluated: a population test needs n>=6 paired prompts (protocol calls for 8), got 1."
+     ]
+    }
+   }
+  },
+  "Wan 2.2 4-step per-tensor fp8": {
+   "expectation": "DEGRADED",
+   "note": "torchao Float8DynamicActivationFloat8WeightConfig() defaults: per-TENSOR both sides; cross-run reference, same recipe/seed/steps",
+   "n": 2,
+   "clips": [
+    {
+     "reference": "show:basewan4_p0",
+     "candidate": "fp8ab:bw4_p0_fp8c"
+    },
+    {
+     "reference": "show:basewan4_p1",
+     "candidate": "fp8ab:bw4_p1_fp8c"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": false,
+     "values": {
+      "imaging_index": 0.7266475218925409,
+      "imaging_worst_prompt": 0.6471403889196274,
+      "detail_retention": 0.6464453586971628,
+      "tonal_retention": 0.9181375447248955,
+      "ratio_sharpness": 0.5314208377082275,
+      "ratio_hf_ratio": 0.6788561479349369,
+      "ratio_local_contrast": 0.7488229218815258,
+      "ratio_contrast": 0.9192543150225271,
+      "ratio_saturation": 0.8639568469589585,
+      "ratio_detail_entropy": 0.974530673515356
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.7266475218925409,
+       "passed": false,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.6471403889196274,
+       "passed": false,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": 0.017806824686077638,
+      "jerk_ratio": 1.0178068246860776,
+      "flicker_ratio": 0.8993315337530954,
+      "shimmer_ratio": 0.9296129599274873,
+      "motion_ratio": 0.8074563612221436
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": 0.017806824686077638,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 0.8993315337530954,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": null,
+     "values": {
+      "n": 2.0
+     },
+     "budgets": [],
+     "notes": [
+      "not evaluated: a population test needs n>=6 paired prompts (protocol calls for 8), got 2."
+     ]
+    }
+   }
+  },
+  "Wan 2.2 4-step per-tensor fp8 (same-pod ref)": {
+   "expectation": "DEGRADED",
+   "note": "the tightest available degraded observation: one prompt, one pod",
+   "n": 1,
+   "clips": [
+    {
+     "reference": "fp8ab:bw4_p1_bf16c",
+     "candidate": "fp8ab:bw4_p1_fp8c"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": false,
+     "values": {
+      "imaging_index": 0.8687783246522754,
+      "imaging_worst_prompt": 0.8687783246522754,
+      "detail_retention": 0.839883178740199,
+      "tonal_retention": 0.9295851230040022,
+      "ratio_sharpness": 0.7726584212206856,
+      "ratio_hf_ratio": 0.9112683815690472,
+      "ratio_local_contrast": 0.8414393261529083,
+      "ratio_contrast": 0.9841042718414232,
+      "ratio_saturation": 0.81802049384411,
+      "ratio_detail_entropy": 0.9978429491075672
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.8687783246522754,
+       "passed": false,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.8687783246522754,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": -0.0012305701441469585,
+      "jerk_ratio": 0.998769429855853,
+      "flicker_ratio": 0.7863091084505818,
+      "shimmer_ratio": 0.8922376997452904,
+      "motion_ratio": 0.7734810704458407
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": -0.0012305701441469585,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 0.7863091084505818,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": [
+      "motion_energy fell to 0.773x the reference \u2014 advisory, not a budget: motion energy is content-driven and its per-prompt spread on the clean population is sigma_log 0.095. The animegen 4-step mush scores 0.523 here and the degraded Wan fp8 population 0.807."
+     ]
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": null,
+     "values": {
+      "n": 1.0
+     },
+     "budgets": [],
+     "notes": [
+      "not evaluated: a population test needs n>=6 paired prompts (protocol calls for 8), got 1."
+     ]
+    }
+   }
+  },
+  "Wan 2.2 12-step per-tensor fp8": {
+   "expectation": "CLEAN",
+   "note": "same quantization, more steps - the damage is step-count dependent",
+   "n": 1,
+   "clips": [
+    {
+     "reference": "fp8ab:ag12_p1_bf16c",
+     "candidate": "fp8ab:ag12_p1_fp8c"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": true,
+     "values": {
+      "imaging_index": 1.0094932116565405,
+      "imaging_worst_prompt": 1.0094932116565405,
+      "detail_retention": 1.0060123408735262,
+      "tonal_retention": 1.016491127041241,
+      "ratio_sharpness": 1.072375003391106,
+      "ratio_hf_ratio": 0.9631107571172899,
+      "ratio_local_contrast": 0.9857959034859143,
+      "ratio_contrast": 1.0783121963708804,
+      "ratio_saturation": 0.9890986319964605,
+      "ratio_detail_entropy": 0.9847515147593542
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 1.0094932116565405,
+       "passed": true,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 1.0094932116565405,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": 0.005045991370418612,
+      "jerk_ratio": 1.0050459913704186,
+      "flicker_ratio": 1.0037598580274454,
+      "shimmer_ratio": 1.0594239495613638,
+      "motion_ratio": 1.129817590822278
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": 0.005045991370418612,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 1.0037598580274454,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": null,
+     "values": {
+      "n": 1.0
+     },
+     "budgets": [],
+     "notes": [
+      "not evaluated: a population test needs n>=6 paired prompts (protocol calls for 8), got 1."
+     ]
+    }
+   }
+  },
+  "animegen 4-step double-shift mush": {
+   "expectation": "SEVERELY BAD",
+   "note": "diffusers set_timesteps double-shift; the worst banked failure",
+   "n": 1,
+   "clips": [
+    {
+     "reference": "show:turbo4_corrected_s3_p0",
+     "candidate": "show:turbo4_buggy_p0"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": false,
+     "values": {
+      "imaging_index": 0.6258109487450148,
+      "imaging_worst_prompt": 0.6258109487450148,
+      "detail_retention": 0.5418123789587509,
+      "tonal_retention": 0.8348945467697753,
+      "ratio_sharpness": 0.3761234483118235,
+      "ratio_hf_ratio": 0.556275587750548,
+      "ratio_local_contrast": 0.7601973642191112,
+      "ratio_contrast": 0.7680400875270984,
+      "ratio_saturation": 0.8100340472914402,
+      "ratio_detail_entropy": 0.9354222832621647
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.6258109487450148,
+       "passed": false,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.6258109487450148,
+       "passed": false,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": false,
+     "values": {
+      "jerk_excess": 0.05281523389422649,
+      "jerk_ratio": 1.0528152338942265,
+      "flicker_ratio": 0.7055699405722067,
+      "shimmer_ratio": 0.846349367195238,
+      "motion_ratio": 0.5227567800558788
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": 0.05281523389422649,
+       "passed": false,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 0.7055699405722067,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": [
+      "motion_energy fell to 0.523x the reference \u2014 advisory, not a budget: motion energy is content-driven and its per-prompt spread on the clean population is sigma_log 0.095. The animegen 4-step mush scores 0.523 here and the degraded Wan fp8 population 0.807.",
+      "fine-detail shimmer moved 0.846x \u2014 advisory: shimmer also falls under simple softening, so it does not separate temporal from imaging damage on its own."
+     ]
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": null,
+     "values": {
+      "n": 1.0
+     },
+     "budgets": [],
+     "notes": [
+      "not evaluated: a population test needs n>=6 paired prompts (protocol calls for 8), got 1."
+     ]
+    }
+   }
+  },
+  "animegen 8-step double-shift": {
+   "expectation": "near-null",
+   "note": "same bug, enough steps to absorb it",
+   "n": 1,
+   "clips": [
+    {
+     "reference": "show:turbo8_corrected_p0",
+     "candidate": "show:turbo8_buggy_p0"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": true,
+     "values": {
+      "imaging_index": 1.0375693135990334,
+      "imaging_worst_prompt": 1.0375693135990334,
+      "detail_retention": 1.0625762595760508,
+      "tonal_retention": 0.989307131169329,
+      "ratio_sharpness": 1.061698449470415,
+      "ratio_hf_ratio": 1.122252682256371,
+      "ratio_local_contrast": 1.0069049837412871,
+      "ratio_contrast": 0.9752804921514896,
+      "ratio_saturation": 0.9984681266376111,
+      "ratio_detail_entropy": 0.9943280146312983
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 1.0375693135990334,
+       "passed": true,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 1.0375693135990334,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": -0.009048718022397595,
+      "jerk_ratio": 0.9909512819776024,
+      "flicker_ratio": 0.8806680404268454,
+      "shimmer_ratio": 1.0029806273945565,
+      "motion_ratio": 0.9714220266162474
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": -0.009048718022397595,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 0.8806680404268454,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": null,
+     "values": {
+      "n": 1.0
+     },
+     "budgets": [],
+     "notes": [
+      "not evaluated: a population test needs n>=6 paired prompts (protocol calls for 8), got 1."
+     ]
+    }
+   }
+  },
+  "animegen 12-step double-shift": {
+   "expectation": "near-null",
+   "note": "",
+   "n": 1,
+   "clips": [
+    {
+     "reference": "show:turbo12_corrected_p0",
+     "candidate": "show:turbo12_buggy_p0"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": true,
+     "values": {
+      "imaging_index": 1.0382747189557997,
+      "imaging_worst_prompt": 1.0382747189557997,
+      "detail_retention": 1.064992640679271,
+      "tonal_retention": 0.986832911290673,
+      "ratio_sharpness": 1.0447838369941476,
+      "ratio_hf_ratio": 1.1158427177290888,
+      "ratio_local_contrast": 1.036120797942662,
+      "ratio_contrast": 0.9679241621868746,
+      "ratio_saturation": 0.9970674393198562,
+      "ratio_detail_entropy": 0.9957836923169702
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 1.0382747189557997,
+       "passed": true,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 1.0382747189557997,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": 0.008184146850195972,
+      "jerk_ratio": 1.008184146850196,
+      "flicker_ratio": 0.9509825993323021,
+      "shimmer_ratio": 0.9942234096021639,
+      "motion_ratio": 0.9729564709414539
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": 0.008184146850195972,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 0.9509825993323021,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": null,
+     "values": {
+      "n": 1.0
+     },
+     "budgets": [],
+     "notes": [
+      "not evaluated: a population test needs n>=6 paired prompts (protocol calls for 8), got 1."
+     ]
+    }
+   }
+  },
+  "Wan naive timestep grid": {
+   "expectation": "bad, SEMANTIC",
+   "note": "background-figure cloning + flatter grade: a compositional failure this metric class cannot see",
+   "n": 1,
+   "clips": [
+    {
+     "reference": "probe:seko2_p0",
+     "candidate": "probe:naive_seko2_p0"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": true,
+     "values": {
+      "imaging_index": 0.9756753360841017,
+      "imaging_worst_prompt": 0.9756753360841017,
+      "detail_retention": 0.9689827119070069,
+      "tonal_retention": 0.9891995786844976,
+      "ratio_sharpness": 0.955409718176682,
+      "ratio_hf_ratio": 1.010834701808307,
+      "ratio_local_contrast": 0.9420594028931945,
+      "ratio_contrast": 0.9806314721075519,
+      "ratio_saturation": 0.9855287390236581,
+      "ratio_detail_entropy": 1.0015592531000594
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.9756753360841017,
+       "passed": true,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.9756753360841017,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": 0.009413070230865683,
+      "jerk_ratio": 1.0094130702308657,
+      "flicker_ratio": 0.8370565460303772,
+      "shimmer_ratio": 1.0103721105936305,
+      "motion_ratio": 0.92096676882257
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": 0.009413070230865683,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 0.8370565460303772,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": null,
+     "values": {
+      "n": 1.0
+     },
+     "budgets": [],
+     "notes": [
+      "not evaluated: a population test needs n>=6 paired prompts (protocol calls for 8), got 1."
+     ]
+    }
+   }
+  },
+  "SYNTHETIC soften50": {
+   "expectation": "single-axis control",
+   "note": "known-amplitude degradation of the clean arm",
+   "n": 8,
+   "clips": [
+    {
+     "reference": "ltx8:A-comp:forge",
+     "candidate": "syn:soften50:forge"
+    },
+    {
+     "reference": "ltx8:A-comp:chef",
+     "candidate": "syn:soften50:chef"
+    },
+    {
+     "reference": "ltx8:A-comp:market",
+     "candidate": "syn:soften50:market"
+    },
+    {
+     "reference": "ltx8:A-comp:portrait",
+     "candidate": "syn:soften50:portrait"
+    },
+    {
+     "reference": "ltx8:A-comp:fabric",
+     "candidate": "syn:soften50:fabric"
+    },
+    {
+     "reference": "ltx8:A-comp:street",
+     "candidate": "syn:soften50:street"
+    },
+    {
+     "reference": "ltx8:A-comp:water",
+     "candidate": "syn:soften50:water"
+    },
+    {
+     "reference": "ltx8:A-comp:forest",
+     "candidate": "syn:soften50:forest"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": false,
+     "values": {
+      "imaging_index": 0.7481190441948138,
+      "imaging_worst_prompt": 0.6902656865165387,
+      "detail_retention": 0.6474252738259539,
+      "tonal_retention": 0.9989248858908569,
+      "ratio_sharpness": 0.5789743507442674,
+      "ratio_hf_ratio": 0.5960541239986751,
+      "ratio_local_contrast": 0.7863645482144386,
+      "ratio_contrast": 0.9957910192570559,
+      "ratio_saturation": 0.9988117098419528,
+      "ratio_detail_entropy": 1.0021821602474719
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.7481190441948138,
+       "passed": false,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.6902656865165387,
+       "passed": false,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": -0.021584750351061777,
+      "jerk_ratio": 0.9784152496489382,
+      "flicker_ratio": 0.9999999812820128,
+      "shimmer_ratio": 0.9008243182912197,
+      "motion_ratio": 0.9610810751077971
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": -0.021584750351061777,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 0.9999999812820128,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": false,
+     "values": {
+      "n": 8.0,
+      "significant_features": 3.0,
+      "rms_effect_size": 4.204884974839226,
+      "max_effect_size": 7.140722328439002,
+      "population_frechet": 1.2182075432631243,
+      "population_frechet_worst": 2.1657363739633997,
+      "dz_sharpness": -6.779937716187275,
+      "dz_hf_ratio": -2.961313037657154,
+      "dz_local_contrast": -7.140722328439002,
+      "dz_contrast": -0.5169580021653739,
+      "dz_saturation": -0.17432343520761273,
+      "dz_detail_entropy": 0.24872868644847376,
+      "holm_p_local_contrast": 1.0962846434747584e-06,
+      "holm_p_sharpness": 1.3057740667449852e-06,
+      "holm_p_hf_ratio": 0.000271643650694075,
+      "holm_p_contrast": 0.0093402420114421,
+      "holm_p_detail_entropy": 0.02139253685120712,
+      "holm_p_saturation": 0.03267801902001723
+     },
+     "budgets": [
+      {
+       "budget": "significant_features <= 0.0",
+       "value": 3.0,
+       "passed": false,
+       "provenance": "count of imaging features with Holm-adjusted paired p<0.05 AND a >=2% median effect. Clean n=8 = 0; synthetic 8% desaturation = 1 (and that case passes BOTH other benchmarks: imaging index 0.991, jerk 1.000); synthetic 25% blur = 3."
+      },
+      {
+       "budget": "population_frechet <= 0.2",
+       "value": 1.2182075432631243,
+       "passed": false,
+       "provenance": "paired per-frame Frechet distance on the six signal features, whitened by the reference population. Clean n=8 = 0.068; synthetic 25% blur = 0.286; per-pixel noise = 4.792. PROVISIONAL: one clean population only \u2014 re-estimate as more clean arms bank."
+      }
+     ],
+     "notes": [
+      "shifted features (Holm p<0.05, >=2% effect): local_contrast x0.786, sharpness x0.579, hf_ratio x0.596"
+     ]
+    }
+   }
+  },
+  "SYNTHETIC soften25": {
+   "expectation": "single-axis control",
+   "note": "known-amplitude degradation of the clean arm",
+   "n": 8,
+   "clips": [
+    {
+     "reference": "ltx8:A-comp:forge",
+     "candidate": "syn:soften25:forge"
+    },
+    {
+     "reference": "ltx8:A-comp:chef",
+     "candidate": "syn:soften25:chef"
+    },
+    {
+     "reference": "ltx8:A-comp:market",
+     "candidate": "syn:soften25:market"
+    },
+    {
+     "reference": "ltx8:A-comp:portrait",
+     "candidate": "syn:soften25:portrait"
+    },
+    {
+     "reference": "ltx8:A-comp:fabric",
+     "candidate": "syn:soften25:fabric"
+    },
+    {
+     "reference": "ltx8:A-comp:street",
+     "candidate": "syn:soften25:street"
+    },
+    {
+     "reference": "ltx8:A-comp:water",
+     "candidate": "syn:soften25:water"
+    },
+    {
+     "reference": "ltx8:A-comp:forest",
+     "candidate": "syn:soften25:forest"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": false,
+     "values": {
+      "imaging_index": 0.8688699091655095,
+      "imaging_worst_prompt": 0.840709567821845,
+      "detail_retention": 0.8101166207864948,
+      "tonal_retention": 0.9994686719370593,
+      "ratio_sharpness": 0.7691500316945828,
+      "ratio_hf_ratio": 0.7772758850386814,
+      "ratio_local_contrast": 0.8893165432556237,
+      "ratio_contrast": 0.997825171180969,
+      "ratio_saturation": 0.9993838322947618,
+      "ratio_detail_entropy": 1.0011998662693924
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.8688699091655095,
+       "passed": false,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.840709567821845,
+       "passed": false,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": -0.010936566208195053,
+      "jerk_ratio": 0.989063433791805,
+      "flicker_ratio": 0.9999999771557575,
+      "shimmer_ratio": 0.9577597035740614,
+      "motion_ratio": 0.9795045400086706
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": -0.010936566208195053,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 0.9999999771557575,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": false,
+     "values": {
+      "n": 8.0,
+      "significant_features": 3.0,
+      "rms_effect_size": 4.540501371864606,
+      "max_effect_size": 7.510640352062532,
+      "population_frechet": 0.28631172422471163,
+      "population_frechet_worst": 0.4731186772202578,
+      "dz_sharpness": -7.496322312776777,
+      "dz_hf_ratio": -3.315971099796643,
+      "dz_local_contrast": -7.510640352062532,
+      "dz_contrast": -0.2665445915541545,
+      "dz_saturation": -0.08972033592761355,
+      "dz_detail_entropy": 0.1326251850477825,
+      "holm_p_local_contrast": 7.736992599948944e-07,
+      "holm_p_sharpness": 7.736992599948944e-07,
+      "holm_p_hf_ratio": 0.00013037939685303827,
+      "holm_p_contrast": 0.00993650824550724,
+      "holm_p_detail_entropy": 0.019433670218361187,
+      "holm_p_saturation": 0.030541491967094346
+     },
+     "budgets": [
+      {
+       "budget": "significant_features <= 0.0",
+       "value": 3.0,
+       "passed": false,
+       "provenance": "count of imaging features with Holm-adjusted paired p<0.05 AND a >=2% median effect. Clean n=8 = 0; synthetic 8% desaturation = 1 (and that case passes BOTH other benchmarks: imaging index 0.991, jerk 1.000); synthetic 25% blur = 3."
+      },
+      {
+       "budget": "population_frechet <= 0.2",
+       "value": 0.28631172422471163,
+       "passed": false,
+       "provenance": "paired per-frame Frechet distance on the six signal features, whitened by the reference population. Clean n=8 = 0.068; synthetic 25% blur = 0.286; per-pixel noise = 4.792. PROVISIONAL: one clean population only \u2014 re-estimate as more clean arms bank."
+      }
+     ],
+     "notes": [
+      "shifted features (Holm p<0.05, >=2% effect): local_contrast x0.889, sharpness x0.769, hf_ratio x0.777"
+     ]
+    }
+   }
+  },
+  "SYNTHETIC desat92": {
+   "expectation": "single-axis control",
+   "note": "known-amplitude degradation of the clean arm",
+   "n": 8,
+   "clips": [
+    {
+     "reference": "ltx8:A-comp:forge",
+     "candidate": "syn:desat92:forge"
+    },
+    {
+     "reference": "ltx8:A-comp:chef",
+     "candidate": "syn:desat92:chef"
+    },
+    {
+     "reference": "ltx8:A-comp:market",
+     "candidate": "syn:desat92:market"
+    },
+    {
+     "reference": "ltx8:A-comp:portrait",
+     "candidate": "syn:desat92:portrait"
+    },
+    {
+     "reference": "ltx8:A-comp:fabric",
+     "candidate": "syn:desat92:fabric"
+    },
+    {
+     "reference": "ltx8:A-comp:street",
+     "candidate": "syn:desat92:street"
+    },
+    {
+     "reference": "ltx8:A-comp:water",
+     "candidate": "syn:desat92:water"
+    },
+    {
+     "reference": "ltx8:A-comp:forest",
+     "candidate": "syn:desat92:forest"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": true,
+     "values": {
+      "imaging_index": 0.9907781660540439,
+      "imaging_worst_prompt": 0.9907781517999127,
+      "detail_retention": 1.0000000052465328,
+      "tonal_retention": 0.97258883037543,
+      "ratio_sharpness": 1.0000000054686125,
+      "ratio_hf_ratio": 1.0000000133224332,
+      "ratio_local_contrast": 0.9999999969485525,
+      "ratio_contrast": 0.999999996014114,
+      "ratio_saturation": 0.9200000154624871,
+      "ratio_detail_entropy": 1.0
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.9907781660540439,
+       "passed": true,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.9907781517999127,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": 4.048536172973627e-09,
+      "jerk_ratio": 1.0000000040485362,
+      "flicker_ratio": 1.0000000468803967,
+      "shimmer_ratio": 1.000000004960335,
+      "motion_ratio": 0.9999999934284735
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": 4.048536172973627e-09,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 1.0000000468803967,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": false,
+     "values": {
+      "n": 8.0,
+      "significant_features": 1.0,
+      "rms_effect_size": 3.4040361544228337,
+      "max_effect_size": 8.33815164432164,
+      "population_frechet": 0.007910294658085112,
+      "population_frechet_worst": 0.07960854114565519,
+      "dz_sharpness": 5.420304326721498e-07,
+      "dz_hf_ratio": 9.481619029085428e-07,
+      "dz_local_contrast": 1.3327063887685874e-06,
+      "dz_contrast": -3.735559621164253e-07,
+      "dz_saturation": -8.33815164432164,
+      "dz_detail_entropy": 2.8785102060124843e-08,
+      "holm_p_saturation": 7.646197155879467e-40,
+      "holm_p_contrast": 0.01620099238230834,
+      "holm_p_hf_ratio": 0.36672812924814185,
+      "holm_p_detail_entropy": 0.6386398686816817,
+      "holm_p_sharpness": 0.6386398686816817,
+      "holm_p_local_contrast": 0.6386398686816817
+     },
+     "budgets": [
+      {
+       "budget": "significant_features <= 0.0",
+       "value": 1.0,
+       "passed": false,
+       "provenance": "count of imaging features with Holm-adjusted paired p<0.05 AND a >=2% median effect. Clean n=8 = 0; synthetic 8% desaturation = 1 (and that case passes BOTH other benchmarks: imaging index 0.991, jerk 1.000); synthetic 25% blur = 3."
+      },
+      {
+       "budget": "population_frechet <= 0.2",
+       "value": 0.007910294658085112,
+       "passed": true,
+       "provenance": "paired per-frame Frechet distance on the six signal features, whitened by the reference population. Clean n=8 = 0.068; synthetic 25% blur = 0.286; per-pixel noise = 4.792. PROVISIONAL: one clean population only \u2014 re-estimate as more clean arms bank."
+      }
+     ],
+     "notes": [
+      "shifted features (Holm p<0.05, >=2% effect): saturation x0.920"
+     ]
+    }
+   }
+  },
+  "SYNTHETIC flicker2": {
+   "expectation": "single-axis control",
+   "note": "known-amplitude degradation of the clean arm",
+   "n": 8,
+   "clips": [
+    {
+     "reference": "ltx8:A-comp:forge",
+     "candidate": "syn:flicker2:forge"
+    },
+    {
+     "reference": "ltx8:A-comp:chef",
+     "candidate": "syn:flicker2:chef"
+    },
+    {
+     "reference": "ltx8:A-comp:market",
+     "candidate": "syn:flicker2:market"
+    },
+    {
+     "reference": "ltx8:A-comp:portrait",
+     "candidate": "syn:flicker2:portrait"
+    },
+    {
+     "reference": "ltx8:A-comp:fabric",
+     "candidate": "syn:flicker2:fabric"
+    },
+    {
+     "reference": "ltx8:A-comp:street",
+     "candidate": "syn:flicker2:street"
+    },
+    {
+     "reference": "ltx8:A-comp:water",
+     "candidate": "syn:flicker2:water"
+    },
+    {
+     "reference": "ltx8:A-comp:forest",
+     "candidate": "syn:flicker2:forest"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": true,
+     "values": {
+      "imaging_index": 0.9984130844527724,
+      "imaging_worst_prompt": 0.9959789881079618,
+      "detail_retention": 0.9986938584699776,
+      "tonal_retention": 0.9978517732076254,
+      "ratio_sharpness": 0.9973777635111746,
+      "ratio_hf_ratio": 1.0013170621661402,
+      "ratio_local_contrast": 0.9973919061453228,
+      "ratio_contrast": 0.9976940780026171,
+      "ratio_saturation": 0.9973114662563972,
+      "ratio_detail_entropy": 0.9985501784547105
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.9984130844527724,
+       "passed": true,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.9959789881079618,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": false,
+     "values": {
+      "jerk_excess": 0.05591533283014516,
+      "jerk_ratio": 1.0559153328301452,
+      "flicker_ratio": 1.2483230840333506,
+      "shimmer_ratio": 1.0049556700241982,
+      "motion_ratio": 1.182939068884602
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": 0.05591533283014516,
+       "passed": false,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 1.2483230840333506,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": true,
+     "values": {
+      "n": 8.0,
+      "significant_features": 0.0,
+      "rms_effect_size": 0.22480473074261623,
+      "max_effect_size": 0.2596809700166518,
+      "population_frechet": 0.005548159720417526,
+      "population_frechet_worst": 0.01396860552183108,
+      "dz_sharpness": -0.2529461884215347,
+      "dz_hf_ratio": 0.16252505876648166,
+      "dz_local_contrast": -0.2452909900466804,
+      "dz_contrast": -0.22887561617415708,
+      "dz_saturation": -0.2596809700166518,
+      "dz_detail_entropy": -0.18122060908064605,
+      "holm_p_saturation": 0.011623424491379888,
+      "holm_p_contrast": 0.012346696203250228,
+      "holm_p_local_contrast": 0.018887366511411752,
+      "holm_p_detail_entropy": 0.05208145593353644,
+      "holm_p_hf_ratio": 0.07243932350320152,
+      "holm_p_sharpness": 0.07243932350320152
+     },
+     "budgets": [
+      {
+       "budget": "significant_features <= 0.0",
+       "value": 0.0,
+       "passed": true,
+       "provenance": "count of imaging features with Holm-adjusted paired p<0.05 AND a >=2% median effect. Clean n=8 = 0; synthetic 8% desaturation = 1 (and that case passes BOTH other benchmarks: imaging index 0.991, jerk 1.000); synthetic 25% blur = 3."
+      },
+      {
+       "budget": "population_frechet <= 0.2",
+       "value": 0.005548159720417526,
+       "passed": true,
+       "provenance": "paired per-frame Frechet distance on the six signal features, whitened by the reference population. Clean n=8 = 0.068; synthetic 25% blur = 0.286; per-pixel noise = 4.792. PROVISIONAL: one clean population only \u2014 re-estimate as more clean arms bank."
+      }
+     ],
+     "notes": []
+    }
+   }
+  },
+  "SYNTHETIC flicker1": {
+   "expectation": "single-axis control",
+   "note": "known-amplitude degradation of the clean arm",
+   "n": 8,
+   "clips": [
+    {
+     "reference": "ltx8:A-comp:forge",
+     "candidate": "syn:flicker1:forge"
+    },
+    {
+     "reference": "ltx8:A-comp:chef",
+     "candidate": "syn:flicker1:chef"
+    },
+    {
+     "reference": "ltx8:A-comp:market",
+     "candidate": "syn:flicker1:market"
+    },
+    {
+     "reference": "ltx8:A-comp:portrait",
+     "candidate": "syn:flicker1:portrait"
+    },
+    {
+     "reference": "ltx8:A-comp:fabric",
+     "candidate": "syn:flicker1:fabric"
+    },
+    {
+     "reference": "ltx8:A-comp:street",
+     "candidate": "syn:flicker1:street"
+    },
+    {
+     "reference": "ltx8:A-comp:water",
+     "candidate": "syn:flicker1:water"
+    },
+    {
+     "reference": "ltx8:A-comp:forest",
+     "candidate": "syn:flicker1:forest"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": true,
+     "values": {
+      "imaging_index": 0.99925260646218,
+      "imaging_worst_prompt": 0.9978209288566291,
+      "detail_retention": 0.9992939493877224,
+      "tonal_retention": 0.9991699257423597,
+      "ratio_sharpness": 0.998795154821184,
+      "ratio_hf_ratio": 1.0002861802721832,
+      "ratio_local_contrast": 0.9988012513815313,
+      "ratio_contrast": 0.9992527500186849,
+      "ratio_saturation": 0.9987444706536761,
+      "ratio_detail_entropy": 0.9995127093799095
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 0.99925260646218,
+       "passed": true,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 0.9978209288566291,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": true,
+     "values": {
+      "jerk_excess": 0.0218995764829486,
+      "jerk_ratio": 1.0218995764829486,
+      "flicker_ratio": 1.0676094365874393,
+      "shimmer_ratio": 1.0018755892884135,
+      "motion_ratio": 1.0806193213054296
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": 0.0218995764829486,
+       "passed": true,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 1.0676094365874393,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": []
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": true,
+     "values": {
+      "n": 8.0,
+      "significant_features": 0.0,
+      "rms_effect_size": 0.10200269664372573,
+      "max_effect_size": 0.14650037816746306,
+      "population_frechet": 0.0013083054532003987,
+      "population_frechet_worst": 0.0034867785607436636,
+      "dz_sharpness": -0.14650037816746306,
+      "dz_hf_ratio": 0.04928416099414573,
+      "dz_local_contrast": -0.1151042976355255,
+      "dz_contrast": -0.09769909475370803,
+      "dz_saturation": -0.10836532882704712,
+      "dz_detail_entropy": -0.06323649631177676,
+      "holm_p_saturation": 0.14375116211815703,
+      "holm_p_local_contrast": 0.14375116211815703,
+      "holm_p_contrast": 0.14979749801841075,
+      "holm_p_sharpness": 0.29660373412303953,
+      "holm_p_hf_ratio": 0.29660373412303953,
+      "holm_p_detail_entropy": 0.29660373412303953
+     },
+     "budgets": [
+      {
+       "budget": "significant_features <= 0.0",
+       "value": 0.0,
+       "passed": true,
+       "provenance": "count of imaging features with Holm-adjusted paired p<0.05 AND a >=2% median effect. Clean n=8 = 0; synthetic 8% desaturation = 1 (and that case passes BOTH other benchmarks: imaging index 0.991, jerk 1.000); synthetic 25% blur = 3."
+      },
+      {
+       "budget": "population_frechet <= 0.2",
+       "value": 0.0013083054532003987,
+       "passed": true,
+       "provenance": "paired per-frame Frechet distance on the six signal features, whitened by the reference population. Clean n=8 = 0.068; synthetic 25% blur = 0.286; per-pixel noise = 4.792. PROVISIONAL: one clean population only \u2014 re-estimate as more clean arms bank."
+      }
+     ],
+     "notes": []
+    }
+   }
+  },
+  "SYNTHETIC noise02": {
+   "expectation": "single-axis control",
+   "note": "known-amplitude degradation of the clean arm",
+   "n": 8,
+   "clips": [
+    {
+     "reference": "ltx8:A-comp:forge",
+     "candidate": "syn:noise02:forge"
+    },
+    {
+     "reference": "ltx8:A-comp:chef",
+     "candidate": "syn:noise02:chef"
+    },
+    {
+     "reference": "ltx8:A-comp:market",
+     "candidate": "syn:noise02:market"
+    },
+    {
+     "reference": "ltx8:A-comp:portrait",
+     "candidate": "syn:noise02:portrait"
+    },
+    {
+     "reference": "ltx8:A-comp:fabric",
+     "candidate": "syn:noise02:fabric"
+    },
+    {
+     "reference": "ltx8:A-comp:street",
+     "candidate": "syn:noise02:street"
+    },
+    {
+     "reference": "ltx8:A-comp:water",
+     "candidate": "syn:noise02:water"
+    },
+    {
+     "reference": "ltx8:A-comp:forest",
+     "candidate": "syn:noise02:forest"
+    }
+   ],
+   "benchmarks": {
+    "imaging": {
+     "name": "imaging",
+     "passed": false,
+     "values": {
+      "imaging_index": 1.6448521908263674,
+      "imaging_worst_prompt": 1.1605398705870564,
+      "detail_retention": 2.0821398899876677,
+      "tonal_retention": 1.0265044201165674,
+      "ratio_sharpness": 2.6721329602545385,
+      "ratio_hf_ratio": 1.663100448425466,
+      "ratio_local_contrast": 2.03120224985797,
+      "ratio_contrast": 0.9985121797589346,
+      "ratio_saturation": 1.0700111092448676,
+      "ratio_detail_entropy": 1.0123736151637983
+     },
+     "budgets": [
+      {
+       "budget": "0.92 <= imaging_index <= 1.25",
+       "value": 1.6448521908263674,
+       "passed": false,
+       "provenance": "clean n=8 LTX w8a8 = 1.005; nearest degraded = 0.869 (Wan 4-step per-tensor fp8, same-pod ref) and 0.869 (synthetic 25% blur blend); 0.626 for the animegen 4-step double-shift mush. Upper bound catches noise injection: synthetic sigma=0.02 per-pixel noise scores 1.645."
+      },
+      {
+       "budget": "imaging_worst_prompt >= 0.85",
+       "value": 1.1605398705870564,
+       "passed": true,
+       "provenance": "worst single prompt in the clean n=8 population = 0.941; the degraded Wan population's worst prompt = 0.647."
+      }
+     ],
+     "notes": []
+    },
+    "temporal": {
+     "name": "temporal",
+     "passed": false,
+     "values": {
+      "jerk_excess": 0.10410025703191472,
+      "jerk_ratio": 1.1041002570319147,
+      "flicker_ratio": 0.9962897948388962,
+      "shimmer_ratio": 1.4655057483314458,
+      "motion_ratio": 1.413739171360248
+     },
+     "budgets": [
+      {
+       "budget": "jerk_excess <= 0.04",
+       "value": 0.10410025703191472,
+       "passed": false,
+       "provenance": "clean n=8 = +0.013 (per-prompt sigma_log 0.0139, the tightest statistic in the suite); synthetic 2% per-frame gain jitter = +0.053; animegen 4-step mush = +0.053; synthetic 1% jitter = +0.019 passes, which fixes the sensitivity floor at ~1.5% frame-to-frame gain noise."
+      },
+      {
+       "budget": "flicker_ratio <= 1.25",
+       "value": 0.9962897948388962,
+       "passed": true,
+       "provenance": "clean n=8 = 1.043 (per-prompt sigma_log 0.18, so this is a loose budget by construction); synthetic 2% gain jitter = 1.264."
+      }
+     ],
+     "notes": [
+      "fine-detail shimmer moved 1.466x \u2014 advisory: shimmer also falls under simple softening, so it does not separate temporal from imaging damage on its own."
+     ]
+    },
+    "distributional": {
+     "name": "distributional",
+     "passed": false,
+     "values": {
+      "n": 8.0,
+      "significant_features": 3.0,
+      "rms_effect_size": 1.6715238388279547,
+      "max_effect_size": 2.8162194496562427,
+      "population_frechet": 4.790447991950353,
+      "population_frechet_worst": 10.073687942197436,
+      "dz_sharpness": 1.9868898153846561,
+      "dz_hf_ratio": 1.757798488884264,
+      "dz_local_contrast": 2.8162194496562427,
+      "dz_contrast": -0.155875350346662,
+      "dz_saturation": 0.5279085758547095,
+      "dz_detail_entropy": 1.2215925747519212,
+      "holm_p_local_contrast": 0.0005622044885572877,
+      "holm_p_detail_entropy": 0.0005908777988398393,
+      "holm_p_sharpness": 0.0031970470231376127,
+      "holm_p_hf_ratio": 0.004847626799226739,
+      "holm_p_contrast": 0.05556396072345793,
+      "holm_p_saturation": 0.17903575532368698
+     },
+     "budgets": [
+      {
+       "budget": "significant_features <= 0.0",
+       "value": 3.0,
+       "passed": false,
+       "provenance": "count of imaging features with Holm-adjusted paired p<0.05 AND a >=2% median effect. Clean n=8 = 0; synthetic 8% desaturation = 1 (and that case passes BOTH other benchmarks: imaging index 0.991, jerk 1.000); synthetic 25% blur = 3."
+      },
+      {
+       "budget": "population_frechet <= 0.2",
+       "value": 4.790447991950353,
+       "passed": false,
+       "provenance": "paired per-frame Frechet distance on the six signal features, whitened by the reference population. Clean n=8 = 0.068; synthetic 25% blur = 0.286; per-pixel noise = 4.792. PROVISIONAL: one clean population only \u2014 re-estimate as more clean arms bank."
+      }
+     ],
+     "notes": [
+      "shifted features (Holm p<0.05, >=2% effect): local_contrast x2.031, sharpness x2.672, hf_ratio x1.663"
+     ]
+    }
+   }
+  }
+ }
+}

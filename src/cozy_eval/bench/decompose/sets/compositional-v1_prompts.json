@@ -1,0 +1,872 @@
+{
+  "set_id": "compositional-v1",
+  "version": 1,
+  "purpose": "generated compositional benchmark (decompose.engine, deterministic)",
+  "t2i": [
+    {
+      "id": "single_object_000",
+      "seed": 219376458,
+      "prompt": "a photo of a car",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "single_object_001",
+      "seed": 1499047826,
+      "prompt": "a photo of a zebra",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "single_object_002",
+      "seed": 381263025,
+      "prompt": "a photo of a cat",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "single_object_003",
+      "seed": 337876044,
+      "prompt": "a photo of a boat",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "single_object_004",
+      "seed": 841004457,
+      "prompt": "a photo of a butterfly",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "single_object_005",
+      "seed": 711228524,
+      "prompt": "a photo of a cactus",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "single_object_006",
+      "seed": 221731577,
+      "prompt": "a photo of a cow",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "single_object_007",
+      "seed": 2016224565,
+      "prompt": "a photo of a bicycle",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "single_object_008",
+      "seed": 1164133194,
+      "prompt": "a photo of a dog",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "single_object_009",
+      "seed": 622157164,
+      "prompt": "a photo of a train",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "single_object_010",
+      "seed": 458475749,
+      "prompt": "a photo of a horse",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "single_object_011",
+      "seed": 875184357,
+      "prompt": "a photo of a violin",
+      "tags": [
+        "single_object"
+      ]
+    },
+    {
+      "id": "counting_000",
+      "seed": 532689871,
+      "prompt": "a photo of two dolphins",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "counting_001",
+      "seed": 1543718852,
+      "prompt": "a photo of five cats",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "counting_002",
+      "seed": 1375401730,
+      "prompt": "a photo of five motorcycles",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "counting_003",
+      "seed": 2005498475,
+      "prompt": "a photo of four violins",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "counting_004",
+      "seed": 410448881,
+      "prompt": "a photo of six hedgehogs",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "counting_005",
+      "seed": 277570073,
+      "prompt": "a photo of seven zebras",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "counting_006",
+      "seed": 648899830,
+      "prompt": "a photo of three rabbits",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "counting_007",
+      "seed": 1568421478,
+      "prompt": "a photo of two penguins",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "counting_008",
+      "seed": 1471270147,
+      "prompt": "a photo of seven rabbits",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "counting_009",
+      "seed": 1993473254,
+      "prompt": "a photo of seven hedgehogs",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "counting_010",
+      "seed": 1841474303,
+      "prompt": "a photo of six penguins",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "counting_011",
+      "seed": 1695995324,
+      "prompt": "a photo of three couches",
+      "tags": [
+        "counting"
+      ]
+    },
+    {
+      "id": "colors_000",
+      "seed": 1472893559,
+      "prompt": "a photo of a yellow chair",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "colors_001",
+      "seed": 1187255952,
+      "prompt": "a photo of a brown bus",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "colors_002",
+      "seed": 1027672118,
+      "prompt": "a photo of a yellow typewriter",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "colors_003",
+      "seed": 1844013639,
+      "prompt": "a photo of a blue chair",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "colors_004",
+      "seed": 1424085914,
+      "prompt": "a photo of a red bicycle",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "colors_005",
+      "seed": 1599676274,
+      "prompt": "a photo of a white train",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "colors_006",
+      "seed": 1287914852,
+      "prompt": "a photo of a purple motorcycle",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "colors_007",
+      "seed": 157813224,
+      "prompt": "a photo of a yellow airplane",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "colors_008",
+      "seed": 1191151534,
+      "prompt": "a photo of a white train",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "colors_009",
+      "seed": 547612503,
+      "prompt": "a photo of a purple anchor",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "colors_010",
+      "seed": 2051874210,
+      "prompt": "a photo of a brown windmill",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "colors_011",
+      "seed": 1806806646,
+      "prompt": "a photo of a black bench",
+      "tags": [
+        "colors"
+      ]
+    },
+    {
+      "id": "materials_000",
+      "seed": 2077903421,
+      "prompt": "a photo of a plastic couch",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "materials_001",
+      "seed": 1805320349,
+      "prompt": "a photo of a wooden bench",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "materials_002",
+      "seed": 744301194,
+      "prompt": "a photo of a spotted cactus",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "materials_003",
+      "seed": 941394505,
+      "prompt": "a photo of a metal car",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "materials_004",
+      "seed": 1073756380,
+      "prompt": "a photo of a checkered lantern",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "materials_005",
+      "seed": 1726900403,
+      "prompt": "a photo of a wooden windmill",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "materials_006",
+      "seed": 2147138511,
+      "prompt": "a photo of a wicker airplane",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "materials_007",
+      "seed": 750384559,
+      "prompt": "a photo of a spotted typewriter",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "materials_008",
+      "seed": 455805256,
+      "prompt": "a photo of a metal lantern",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "materials_009",
+      "seed": 1727987112,
+      "prompt": "a photo of a stone bench",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "materials_010",
+      "seed": 878600581,
+      "prompt": "a photo of a metal cactus",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "materials_011",
+      "seed": 1297072311,
+      "prompt": "a photo of a checkered lantern",
+      "tags": [
+        "materials"
+      ]
+    },
+    {
+      "id": "two_object_000",
+      "seed": 62861325,
+      "prompt": "a photo of a rabbit and a bear",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "two_object_001",
+      "seed": 275673625,
+      "prompt": "a photo of a cow and a frog",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "two_object_002",
+      "seed": 2074428561,
+      "prompt": "a photo of a giraffe and a chair",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "two_object_003",
+      "seed": 1721619534,
+      "prompt": "a photo of a chair and a violin",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "two_object_004",
+      "seed": 1647355792,
+      "prompt": "a photo of a cat and an owl",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "two_object_005",
+      "seed": 209589304,
+      "prompt": "a photo of a bicycle and an owl",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "two_object_006",
+      "seed": 9565541,
+      "prompt": "a photo of a butterfly and a giraffe",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "two_object_007",
+      "seed": 652010563,
+      "prompt": "a photo of a telescope and a bus",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "two_object_008",
+      "seed": 616564978,
+      "prompt": "a photo of a bear and a motorcycle",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "two_object_009",
+      "seed": 329041131,
+      "prompt": "a photo of a motorcycle and a cactus",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "two_object_010",
+      "seed": 1261671123,
+      "prompt": "a photo of a teapot and a hedgehog",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "two_object_011",
+      "seed": 2121639016,
+      "prompt": "a photo of a windmill and a penguin",
+      "tags": [
+        "two_object"
+      ]
+    },
+    {
+      "id": "color_attr_000",
+      "seed": 1523332379,
+      "prompt": "a photo of an orange dolphin and a pink telescope",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "color_attr_001",
+      "seed": 2128778511,
+      "prompt": "a photo of a brown horse and a yellow butterfly",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "color_attr_002",
+      "seed": 2013497344,
+      "prompt": "a photo of a pink cat and a green squirrel",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "color_attr_003",
+      "seed": 1798252646,
+      "prompt": "a photo of a pink bird and a black bear",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "color_attr_004",
+      "seed": 268499821,
+      "prompt": "a photo of a green dog and a red giraffe",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "color_attr_005",
+      "seed": 1221002355,
+      "prompt": "a photo of a black chair and a brown dolphin",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "color_attr_006",
+      "seed": 726214190,
+      "prompt": "a photo of an orange cactus and a pink cow",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "color_attr_007",
+      "seed": 1960225522,
+      "prompt": "a photo of a pink train and a purple hedgehog",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "color_attr_008",
+      "seed": 764901329,
+      "prompt": "a photo of a brown drum and a blue bus",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "color_attr_009",
+      "seed": 67894156,
+      "prompt": "a photo of a pink penguin and a brown violin",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "color_attr_010",
+      "seed": 60168625,
+      "prompt": "a photo of a blue penguin and a black couch",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "color_attr_011",
+      "seed": 89111866,
+      "prompt": "a photo of a red cactus and a purple chair",
+      "tags": [
+        "color_attr"
+      ]
+    },
+    {
+      "id": "position_000",
+      "seed": 1268253867,
+      "prompt": "a photo of a chair above a dog",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "position_001",
+      "seed": 1297124668,
+      "prompt": "a photo of a teapot below a train",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "position_002",
+      "seed": 20940524,
+      "prompt": "a photo of a windmill below a horse",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "position_003",
+      "seed": 1164472113,
+      "prompt": "a photo of a horse above a dog",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "position_004",
+      "seed": 918127889,
+      "prompt": "a photo of a telescope above a bear",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "position_005",
+      "seed": 171845694,
+      "prompt": "a photo of a violin below an owl",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "position_006",
+      "seed": 294907364,
+      "prompt": "a photo of an anchor right of a violin",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "position_007",
+      "seed": 97195760,
+      "prompt": "a photo of a typewriter below a car",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "position_008",
+      "seed": 60959505,
+      "prompt": "a photo of a violin below an owl",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "position_009",
+      "seed": 1267712101,
+      "prompt": "a photo of a bicycle above a violin",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "position_010",
+      "seed": 485831849,
+      "prompt": "a photo of a dolphin above a cat",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "position_011",
+      "seed": 180772761,
+      "prompt": "a photo of a cactus below a bench",
+      "tags": [
+        "position"
+      ]
+    },
+    {
+      "id": "relation_000",
+      "seed": 1097379125,
+      "prompt": "a photo of a duck under a train",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "relation_001",
+      "seed": 1751163346,
+      "prompt": "a photo of a hedgehog next to a wheelbarrow",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "relation_002",
+      "seed": 210841479,
+      "prompt": "a photo of an airplane under a bench",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "relation_003",
+      "seed": 98894743,
+      "prompt": "a photo of a bird in front of a couch",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "relation_004",
+      "seed": 1324778137,
+      "prompt": "a photo of a cow under a hedgehog",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "relation_005",
+      "seed": 759720157,
+      "prompt": "a photo of a cow under a dolphin",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "relation_006",
+      "seed": 1455336696,
+      "prompt": "a photo of a chair next to a bus",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "relation_007",
+      "seed": 610401702,
+      "prompt": "a photo of an anchor facing an owl",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "relation_008",
+      "seed": 858704321,
+      "prompt": "a photo of a dog next to a boat",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "relation_009",
+      "seed": 1061248203,
+      "prompt": "a photo of a lantern next to a dolphin",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "relation_010",
+      "seed": 1446352689,
+      "prompt": "a photo of a bear under a horse",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "relation_011",
+      "seed": 1701536417,
+      "prompt": "a photo of a violin chasing an elephant",
+      "tags": [
+        "relation"
+      ]
+    },
+    {
+      "id": "composite_000",
+      "seed": 1892969961,
+      "prompt": "a photo of a purple lantern, two zebras, and a wicker train, with the lantern inside the train",
+      "tags": [
+        "composite"
+      ]
+    },
+    {
+      "id": "composite_001",
+      "seed": 1077056167,
+      "prompt": "a photo of a yellow owl, three hedgehogs, and a stone bus, with the owl left of the bus",
+      "tags": [
+        "composite"
+      ]
+    },
+    {
+      "id": "composite_002",
+      "seed": 2026484320,
+      "prompt": "a photo of a yellow couch, three teapots, and a metal duck, with the couch behind the duck",
+      "tags": [
+        "composite"
+      ]
+    },
+    {
+      "id": "composite_003",
+      "seed": 739066929,
+      "prompt": "a photo of a yellow bench, two rabbits, and a wooden penguin, with the bench right of the penguin",
+      "tags": [
+        "composite"
+      ]
+    },
+    {
+      "id": "composite_004",
+      "seed": 23513596,
+      "prompt": "a photo of a red cow, three benches, and a wicker windmill, with the cow facing the windmill",
+      "tags": [
+        "composite"
+      ]
+    },
+    {
+      "id": "composite_005",
+      "seed": 62072753,
+      "prompt": "a photo of a pink motorcycle, two benches, and a stone violin, with the motorcycle chasing the violin",
+      "tags": [
+        "composite"
+      ]
+    },
+    {
+      "id": "composite_006",
+      "seed": 2114455606,
+      "prompt": "a photo of a purple bicycle, three typewriters, and a wooden lantern, with the bicycle in front of the lantern",
+      "tags": [
+        "composite"
+      ]
+    },
+    {
+      "id": "composite_007",
+      "seed": 124929958,
+      "prompt": "a photo of a black boat, three sheep, and a glass bird, with the boat in front of the bird",
+      "tags": [
+        "composite"
+      ]
+    },
+    {
+      "id": "composite_008",
+      "seed": 1618161467,
+      "prompt": "a photo of a white boat, three foxes, and a plastic chair, with the boat facing the chair",
+      "tags": [
+        "composite"
+      ]
+    },
+    {
+      "id": "composite_009",
+      "seed": 1810961542,
+      "prompt": "a photo of a red cow, two rabbits, and a plastic bird, with the cow below the bird",
+      "tags": [
+        "composite"
+      ]
+    },
+    {
+      "id": "composite_010",
+      "seed": 1926598888,
+      "prompt": "a photo of a red cat, two wheelbarrows, and a wooden cactus, with the cat facing the cactus",
+      "tags": [
+        "composite"
+      ]
+    },
+    {
+      "id": "composite_011",
+      "seed": 1279537973,
+      "prompt": "a photo of a green chair, two bears, and a glass couch, with the chair on top of the couch",
+      "tags": [
+        "composite"
+      ]
+    }
+  ],
+  "edit": []
+}

@@ -1,0 +1,427 @@
+{
+ "device": "NVIDIA GeForce RTX 4090",
+ "seconds": {
+  "pick_load": 3.231318023055792,
+  "pick_infer": 9.302699133753777,
+  "hps_load": 254.2306736893952,
+  "hps_infer": 22.82414048165083
+ },
+ "rows": [
+  {
+   "id": "qwen00",
+   "population": "qwen-fp8",
+   "pick_ref": 22.34920883178711,
+   "pick_cand": 22.496065139770508,
+   "hps_ref": 14.099885940551758,
+   "hps_cand": 14.672090530395508
+  },
+  {
+   "id": "qwen01",
+   "population": "qwen-fp8",
+   "pick_ref": 22.082317352294922,
+   "pick_cand": 21.929994583129883,
+   "hps_ref": 14.018844604492188,
+   "hps_cand": 14.078704833984375
+  },
+  {
+   "id": "qwen02",
+   "population": "qwen-fp8",
+   "pick_ref": 22.039430618286133,
+   "pick_cand": 21.85960578918457,
+   "hps_ref": 12.80274772644043,
+   "hps_cand": 12.095935821533203
+  },
+  {
+   "id": "qwen03",
+   "population": "qwen-fp8",
+   "pick_ref": 23.138065338134766,
+   "pick_cand": 23.17007827758789,
+   "hps_ref": 14.240869522094727,
+   "hps_cand": 14.39572525024414
+  },
+  {
+   "id": "qwen04",
+   "population": "qwen-fp8",
+   "pick_ref": 24.033071517944336,
+   "pick_cand": 24.434188842773438,
+   "hps_ref": 14.963479042053223,
+   "hps_cand": 15.159952163696289
+  },
+  {
+   "id": "qwen05",
+   "population": "qwen-fp8",
+   "pick_ref": 23.949541091918945,
+   "pick_cand": 24.089677810668945,
+   "hps_ref": 12.485658645629883,
+   "hps_cand": 12.719205856323242
+  },
+  {
+   "id": "qwen06",
+   "population": "qwen-fp8",
+   "pick_ref": 23.549381256103516,
+   "pick_cand": 23.033145904541016,
+   "hps_ref": 12.646689414978027,
+   "hps_cand": 12.951873779296875
+  },
+  {
+   "id": "qwen07",
+   "population": "qwen-fp8",
+   "pick_ref": 21.06532859802246,
+   "pick_cand": 21.235822677612305,
+   "hps_ref": 14.177472114562988,
+   "hps_cand": 14.216362953186035
+  },
+  {
+   "id": "qwen08",
+   "population": "qwen-fp8",
+   "pick_ref": 25.515361785888672,
+   "pick_cand": 25.53211212158203,
+   "hps_ref": 12.433324813842773,
+   "hps_cand": 12.960206031799316
+  },
+  {
+   "id": "qwen09",
+   "population": "qwen-fp8",
+   "pick_ref": 23.82646369934082,
+   "pick_cand": 23.662683486938477,
+   "hps_ref": 13.606361389160156,
+   "hps_cand": 13.642841339111328
+  },
+  {
+   "id": "qwen10",
+   "population": "qwen-fp8",
+   "pick_ref": 20.711023330688477,
+   "pick_cand": 20.895641326904297,
+   "hps_ref": 13.499458312988281,
+   "hps_cand": 13.423148155212402
+  },
+  {
+   "id": "qwen11",
+   "population": "qwen-fp8",
+   "pick_ref": 22.511600494384766,
+   "pick_cand": 22.890485763549805,
+   "hps_ref": 13.006954193115234,
+   "hps_cand": 13.46526050567627
+  },
+  {
+   "id": "qwen12",
+   "population": "qwen-fp8",
+   "pick_ref": 22.60723114013672,
+   "pick_cand": 22.624156951904297,
+   "hps_ref": 12.800642967224121,
+   "hps_cand": 13.20281982421875
+  },
+  {
+   "id": "qwen13",
+   "population": "qwen-fp8",
+   "pick_ref": 21.70209312438965,
+   "pick_cand": 21.72321891784668,
+   "hps_ref": 11.604235649108887,
+   "hps_cand": 12.265700340270996
+  },
+  {
+   "id": "qwen14",
+   "population": "qwen-fp8",
+   "pick_ref": 24.706253051757812,
+   "pick_cand": 24.792699813842773,
+   "hps_ref": 12.264267921447754,
+   "hps_cand": 12.392016410827637
+  },
+  {
+   "id": "qwen15",
+   "population": "qwen-fp8",
+   "pick_ref": 21.7369384765625,
+   "pick_cand": 21.882410049438477,
+   "hps_ref": 14.15606689453125,
+   "hps_cand": 14.052938461303711
+  },
+  {
+   "id": "qwen16",
+   "population": "qwen-fp8",
+   "pick_ref": 23.540945053100586,
+   "pick_cand": 23.94709014892578,
+   "hps_ref": 11.338050842285156,
+   "hps_cand": 12.407014846801758
+  },
+  {
+   "id": "qwen17",
+   "population": "qwen-fp8",
+   "pick_ref": 21.487503051757812,
+   "pick_cand": 22.0106201171875,
+   "hps_ref": 13.553365707397461,
+   "hps_cand": 12.974701881408691
+  },
+  {
+   "id": "qwen18",
+   "population": "qwen-fp8",
+   "pick_ref": 21.814294815063477,
+   "pick_cand": 21.73483657836914,
+   "hps_ref": 11.165528297424316,
+   "hps_cand": 11.058655738830566
+  },
+  {
+   "id": "qwen19",
+   "population": "qwen-fp8",
+   "pick_ref": 22.3660831451416,
+   "pick_cand": 21.83397674560547,
+   "hps_ref": 11.960572242736816,
+   "hps_cand": 12.00666332244873
+  },
+  {
+   "id": "anima-w8a8-chef",
+   "population": "anima-w8a8",
+   "pick_ref": 21.316556930541992,
+   "pick_cand": 20.892887115478516,
+   "hps_ref": 5.33401346206665,
+   "hps_cand": 5.8481974601745605
+  },
+  {
+   "id": "anima-w8a8-hands",
+   "population": "anima-w8a8",
+   "pick_ref": 19.74112319946289,
+   "pick_cand": 18.511512756347656,
+   "hps_ref": 7.185972690582275,
+   "hps_cand": 4.8852643966674805
+  },
+  {
+   "id": "anima-w8a8-sign",
+   "population": "anima-w8a8",
+   "pick_ref": 22.891965866088867,
+   "pick_cand": 23.365989685058594,
+   "hps_ref": 9.870712280273438,
+   "hps_cand": 13.191619873046875
+  },
+  {
+   "id": "anima-w8a8-portrait",
+   "population": "anima-w8a8",
+   "pick_ref": 20.11912727355957,
+   "pick_cand": 20.257722854614258,
+   "hps_ref": 8.499836921691895,
+   "hps_cand": 6.1092023849487305
+  },
+  {
+   "id": "anima-w8a8-fabric",
+   "population": "anima-w8a8",
+   "pick_ref": 21.50539779663086,
+   "pick_cand": 20.37350082397461,
+   "hps_ref": 6.0296525955200195,
+   "hps_cand": 2.3935091495513916
+  },
+  {
+   "id": "anima-w8a8-street",
+   "population": "anima-w8a8",
+   "pick_ref": 23.27751922607422,
+   "pick_cand": 23.570798873901367,
+   "hps_ref": 10.87520980834961,
+   "hps_cand": 11.003512382507324
+  },
+  {
+   "id": "anima-w8a8-anime",
+   "population": "anima-w8a8",
+   "pick_ref": 20.28300666809082,
+   "pick_cand": 19.489303588867188,
+   "hps_ref": 4.484409809112549,
+   "hps_cand": -1.3988218307495117
+  },
+  {
+   "id": "anima-w8a8-forest",
+   "population": "anima-w8a8",
+   "pick_ref": 21.19491195678711,
+   "pick_cand": 21.844202041625977,
+   "hps_ref": 8.131221771240234,
+   "hps_cand": 9.85485553741455
+  },
+  {
+   "id": "hidream-w8a8-chef",
+   "population": "hidream-w8a8",
+   "pick_ref": 24.369861602783203,
+   "pick_cand": 24.352140426635742,
+   "hps_ref": 12.659120559692383,
+   "hps_cand": 13.002931594848633
+  },
+  {
+   "id": "hidream-w8a8-hands",
+   "population": "hidream-w8a8",
+   "pick_ref": 21.504837036132812,
+   "pick_cand": 21.39459991455078,
+   "hps_ref": 11.885909080505371,
+   "hps_cand": 12.12177848815918
+  },
+  {
+   "id": "hidream-w8a8-sign",
+   "population": "hidream-w8a8",
+   "pick_ref": 24.46072006225586,
+   "pick_cand": 25.27922821044922,
+   "hps_ref": 15.06508731842041,
+   "hps_cand": 15.36280632019043
+  },
+  {
+   "id": "hidream-w8a8-portrait",
+   "population": "hidream-w8a8",
+   "pick_ref": 23.16414451599121,
+   "pick_cand": 23.356433868408203,
+   "hps_ref": 13.236413955688477,
+   "hps_cand": 12.96168041229248
+  },
+  {
+   "id": "hidream-w8a8-fabric",
+   "population": "hidream-w8a8",
+   "pick_ref": 20.722333908081055,
+   "pick_cand": 21.052173614501953,
+   "hps_ref": 12.358729362487793,
+   "hps_cand": 12.473002433776855
+  },
+  {
+   "id": "hidream-w8a8-street",
+   "population": "hidream-w8a8",
+   "pick_ref": 24.97499656677246,
+   "pick_cand": 24.84306526184082,
+   "hps_ref": 14.668718338012695,
+   "hps_cand": 15.241313934326172
+  },
+  {
+   "id": "hidream-w8a8-anime",
+   "population": "hidream-w8a8",
+   "pick_ref": 25.263261795043945,
+   "pick_cand": 25.221012115478516,
+   "hps_ref": 15.434255599975586,
+   "hps_cand": 15.362581253051758
+  },
+  {
+   "id": "hidream-w8a8-forest",
+   "population": "hidream-w8a8",
+   "pick_ref": 22.05607032775879,
+   "pick_cand": 22.263662338256836,
+   "hps_ref": 13.354806900024414,
+   "hps_cand": 13.761845588684082
+  },
+  {
+   "id": "control-anima-chef",
+   "population": "control-anima",
+   "pick_ref": 21.316556930541992,
+   "pick_cand": 21.2138614654541,
+   "hps_ref": 5.33401346206665,
+   "hps_cand": 6.4966044425964355
+  },
+  {
+   "id": "control-anima-hands",
+   "population": "control-anima",
+   "pick_ref": 19.74112319946289,
+   "pick_cand": 19.84348487854004,
+   "hps_ref": 7.185972690582275,
+   "hps_cand": 8.056108474731445
+  },
+  {
+   "id": "control-anima-sign",
+   "population": "control-anima",
+   "pick_ref": 22.891965866088867,
+   "pick_cand": 22.554595947265625,
+   "hps_ref": 9.870712280273438,
+   "hps_cand": 12.046552658081055
+  },
+  {
+   "id": "control-anima-portrait",
+   "population": "control-anima",
+   "pick_ref": 20.11912727355957,
+   "pick_cand": 19.820940017700195,
+   "hps_ref": 8.499836921691895,
+   "hps_cand": 7.076500415802002
+  },
+  {
+   "id": "control-anima-fabric",
+   "population": "control-anima",
+   "pick_ref": 21.50539779663086,
+   "pick_cand": 20.630489349365234,
+   "hps_ref": 6.0296525955200195,
+   "hps_cand": 7.3537139892578125
+  },
+  {
+   "id": "control-anima-street",
+   "population": "control-anima",
+   "pick_ref": 23.27751922607422,
+   "pick_cand": 23.60223960876465,
+   "hps_ref": 10.87520980834961,
+   "hps_cand": 11.55704402923584
+  },
+  {
+   "id": "control-anima-anime",
+   "population": "control-anima",
+   "pick_ref": 20.28300666809082,
+   "pick_cand": 21.00055503845215,
+   "hps_ref": 4.484409809112549,
+   "hps_cand": 3.8861849308013916
+  },
+  {
+   "id": "control-anima-forest",
+   "population": "control-anima",
+   "pick_ref": 21.19491195678711,
+   "pick_cand": 21.133363723754883,
+   "hps_ref": 8.131221771240234,
+   "hps_cand": 8.947096824645996
+  },
+  {
+   "id": "control-hidream-chef",
+   "population": "control-hidream",
+   "pick_ref": 24.369861602783203,
+   "pick_cand": 24.249683380126953,
+   "hps_ref": 12.659120559692383,
+   "hps_cand": 12.198884010314941
+  },
+  {
+   "id": "control-hidream-hands",
+   "population": "control-hidream",
+   "pick_ref": 21.504837036132812,
+   "pick_cand": 21.295745849609375,
+   "hps_ref": 11.885909080505371,
+   "hps_cand": 12.182327270507812
+  },
+  {
+   "id": "control-hidream-sign",
+   "population": "control-hidream",
+   "pick_ref": 24.46072006225586,
+   "pick_cand": 24.302839279174805,
+   "hps_ref": 15.06508731842041,
+   "hps_cand": 13.868234634399414
+  },
+  {
+   "id": "control-hidream-portrait",
+   "population": "control-hidream",
+   "pick_ref": 23.16414451599121,
+   "pick_cand": 22.7890625,
+   "hps_ref": 13.236413955688477,
+   "hps_cand": 13.051923751831055
+  },
+  {
+   "id": "control-hidream-fabric",
+   "population": "control-hidream",
+   "pick_ref": 20.722333908081055,
+   "pick_cand": 21.382877349853516,
+   "hps_ref": 12.358729362487793,
+   "hps_cand": 12.621583938598633
+  },
+  {
+   "id": "control-hidream-street",
+   "population": "control-hidream",
+   "pick_ref": 24.97499656677246,
+   "pick_cand": 25.228715896606445,
+   "hps_ref": 14.668718338012695,
+   "hps_cand": 15.379861831665039
+  },
+  {
+   "id": "control-hidream-anime",
+   "population": "control-hidream",
+   "pick_ref": 25.263261795043945,
+   "pick_cand": 25.494647979736328,
+   "hps_ref": 15.434255599975586,
+   "hps_cand": 15.415714263916016
+  },
+  {
+   "id": "control-hidream-forest",
+   "population": "control-hidream",
+   "pick_ref": 22.05607032775879,
+   "pick_cand": 21.85792350769043,
+   "hps_ref": 13.354806900024414,
+   "hps_cand": 14.091327667236328
+  }
+ ]
+}

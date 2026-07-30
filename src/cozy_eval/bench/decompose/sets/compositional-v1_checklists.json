@@ -1,0 +1,3045 @@
+{
+  "checklist_set_id": "compositional-v1-atoms",
+  "version": 1,
+  "prompt_set": "compositional-v1",
+  "prompt_set_version": 1,
+  "t2i": [
+    {
+      "prompt_id": "single_object_000",
+      "items": [
+        {
+          "id": "single_object_000.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one car in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "single_object_001",
+      "items": [
+        {
+          "id": "single_object_001.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one zebra in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "single_object_002",
+      "items": [
+        {
+          "id": "single_object_002.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cat in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "single_object_003",
+      "items": [
+        {
+          "id": "single_object_003.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one boat in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "single_object_004",
+      "items": [
+        {
+          "id": "single_object_004.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one butterfly in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "single_object_005",
+      "items": [
+        {
+          "id": "single_object_005.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cactus in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "single_object_006",
+      "items": [
+        {
+          "id": "single_object_006.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cow in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "single_object_007",
+      "items": [
+        {
+          "id": "single_object_007.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bicycle in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "single_object_008",
+      "items": [
+        {
+          "id": "single_object_008.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one dog in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "single_object_009",
+      "items": [
+        {
+          "id": "single_object_009.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one train in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "single_object_010",
+      "items": [
+        {
+          "id": "single_object_010.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one horse in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "single_object_011",
+      "items": [
+        {
+          "id": "single_object_011.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_000",
+      "items": [
+        {
+          "id": "counting_000.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one dolphin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_000.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly two dolphins in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_001",
+      "items": [
+        {
+          "id": "counting_001.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cat in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_001.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly five cats in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_002",
+      "items": [
+        {
+          "id": "counting_002.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one motorcycle in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_002.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly five motorcycles in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_003",
+      "items": [
+        {
+          "id": "counting_003.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_003.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly four violins in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_004",
+      "items": [
+        {
+          "id": "counting_004.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one hedgehog in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_004.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly six hedgehogs in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_005",
+      "items": [
+        {
+          "id": "counting_005.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one zebra in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_005.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly seven zebras in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_006",
+      "items": [
+        {
+          "id": "counting_006.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one rabbit in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_006.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly three rabbits in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_007",
+      "items": [
+        {
+          "id": "counting_007.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one penguin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_007.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly two penguins in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_008",
+      "items": [
+        {
+          "id": "counting_008.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one rabbit in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_008.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly seven rabbits in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_009",
+      "items": [
+        {
+          "id": "counting_009.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one hedgehog in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_009.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly seven hedgehogs in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_010",
+      "items": [
+        {
+          "id": "counting_010.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one penguin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_010.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly six penguins in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "counting_011",
+      "items": [
+        {
+          "id": "counting_011.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one couch in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "counting_011.e0.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly three couches in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_000",
+      "items": [
+        {
+          "id": "colors_000.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one chair in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_000.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the chair yellow?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_001",
+      "items": [
+        {
+          "id": "colors_001.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bus in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_001.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bus brown?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_002",
+      "items": [
+        {
+          "id": "colors_002.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one typewriter in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_002.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the typewriter yellow?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_003",
+      "items": [
+        {
+          "id": "colors_003.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one chair in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_003.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the chair blue?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_004",
+      "items": [
+        {
+          "id": "colors_004.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bicycle in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_004.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bicycle red?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_005",
+      "items": [
+        {
+          "id": "colors_005.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one train in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_005.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the train white?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_006",
+      "items": [
+        {
+          "id": "colors_006.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one motorcycle in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_006.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the motorcycle purple?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_007",
+      "items": [
+        {
+          "id": "colors_007.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one airplane in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_007.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the airplane yellow?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_008",
+      "items": [
+        {
+          "id": "colors_008.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one train in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_008.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the train white?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_009",
+      "items": [
+        {
+          "id": "colors_009.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one anchor in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_009.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the anchor purple?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_010",
+      "items": [
+        {
+          "id": "colors_010.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one windmill in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_010.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the windmill brown?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "colors_011",
+      "items": [
+        {
+          "id": "colors_011.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bench in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "colors_011.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bench black?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_000",
+      "items": [
+        {
+          "id": "materials_000.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one couch in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_000.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the couch plastic?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_001",
+      "items": [
+        {
+          "id": "materials_001.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bench in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_001.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bench wooden?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_002",
+      "items": [
+        {
+          "id": "materials_002.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cactus in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_002.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cactus spotted?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_003",
+      "items": [
+        {
+          "id": "materials_003.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one car in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_003.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the car metal?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_004",
+      "items": [
+        {
+          "id": "materials_004.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one lantern in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_004.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the lantern checkered?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_005",
+      "items": [
+        {
+          "id": "materials_005.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one windmill in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_005.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the windmill wooden?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_006",
+      "items": [
+        {
+          "id": "materials_006.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one airplane in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_006.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the airplane wicker?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_007",
+      "items": [
+        {
+          "id": "materials_007.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one typewriter in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_007.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the typewriter spotted?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_008",
+      "items": [
+        {
+          "id": "materials_008.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one lantern in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_008.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the lantern metal?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_009",
+      "items": [
+        {
+          "id": "materials_009.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bench in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_009.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bench stone?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_010",
+      "items": [
+        {
+          "id": "materials_010.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cactus in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_010.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cactus metal?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "materials_011",
+      "items": [
+        {
+          "id": "materials_011.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one lantern in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "materials_011.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the lantern checkered?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_000",
+      "items": [
+        {
+          "id": "two_object_000.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one rabbit in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_000.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bear in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_001",
+      "items": [
+        {
+          "id": "two_object_001.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cow in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_001.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one frog in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_002",
+      "items": [
+        {
+          "id": "two_object_002.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one giraffe in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_002.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one chair in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_003",
+      "items": [
+        {
+          "id": "two_object_003.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one chair in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_003.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_004",
+      "items": [
+        {
+          "id": "two_object_004.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cat in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_004.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one owl in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_005",
+      "items": [
+        {
+          "id": "two_object_005.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bicycle in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_005.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one owl in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_006",
+      "items": [
+        {
+          "id": "two_object_006.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one butterfly in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_006.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one giraffe in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_007",
+      "items": [
+        {
+          "id": "two_object_007.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one telescope in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_007.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bus in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_008",
+      "items": [
+        {
+          "id": "two_object_008.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bear in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_008.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one motorcycle in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_009",
+      "items": [
+        {
+          "id": "two_object_009.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one motorcycle in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_009.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cactus in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_010",
+      "items": [
+        {
+          "id": "two_object_010.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one teapot in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_010.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one hedgehog in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "two_object_011",
+      "items": [
+        {
+          "id": "two_object_011.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one windmill in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "two_object_011.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one penguin in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_000",
+      "items": [
+        {
+          "id": "color_attr_000.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one dolphin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_000.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the dolphin orange?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_000.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one telescope in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_000.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the telescope pink?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_001",
+      "items": [
+        {
+          "id": "color_attr_001.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one horse in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_001.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the horse brown?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_001.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one butterfly in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_001.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the butterfly yellow?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_002",
+      "items": [
+        {
+          "id": "color_attr_002.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cat in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_002.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cat pink?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_002.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one squirrel in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_002.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the squirrel green?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_003",
+      "items": [
+        {
+          "id": "color_attr_003.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bird in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_003.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bird pink?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_003.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bear in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_003.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bear black?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_004",
+      "items": [
+        {
+          "id": "color_attr_004.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one dog in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_004.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the dog green?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_004.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one giraffe in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_004.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the giraffe red?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_005",
+      "items": [
+        {
+          "id": "color_attr_005.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one chair in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_005.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the chair black?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_005.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one dolphin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_005.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the dolphin brown?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_006",
+      "items": [
+        {
+          "id": "color_attr_006.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cactus in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_006.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cactus orange?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_006.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cow in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_006.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cow pink?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_007",
+      "items": [
+        {
+          "id": "color_attr_007.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one train in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_007.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the train pink?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_007.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one hedgehog in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_007.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the hedgehog purple?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_008",
+      "items": [
+        {
+          "id": "color_attr_008.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one drum in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_008.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the drum brown?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_008.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bus in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_008.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bus blue?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_009",
+      "items": [
+        {
+          "id": "color_attr_009.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one penguin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_009.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the penguin pink?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_009.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_009.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the violin brown?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_010",
+      "items": [
+        {
+          "id": "color_attr_010.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one penguin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_010.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the penguin blue?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_010.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one couch in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_010.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the couch black?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "color_attr_011",
+      "items": [
+        {
+          "id": "color_attr_011.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cactus in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_011.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cactus red?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_011.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one chair in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "color_attr_011.e1.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the chair purple?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_000",
+      "items": [
+        {
+          "id": "position_000.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one chair in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_000.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one dog in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_000.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the chair above the dog in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_001",
+      "items": [
+        {
+          "id": "position_001.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one teapot in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_001.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one train in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_001.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the teapot below the train in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_002",
+      "items": [
+        {
+          "id": "position_002.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one windmill in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_002.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one horse in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_002.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the windmill below the horse in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_003",
+      "items": [
+        {
+          "id": "position_003.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one horse in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_003.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one dog in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_003.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the horse above the dog in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_004",
+      "items": [
+        {
+          "id": "position_004.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one telescope in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_004.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bear in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_004.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the telescope above the bear in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_005",
+      "items": [
+        {
+          "id": "position_005.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_005.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one owl in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_005.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the violin below the owl in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_006",
+      "items": [
+        {
+          "id": "position_006.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one anchor in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_006.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_006.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the anchor right of the violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_007",
+      "items": [
+        {
+          "id": "position_007.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one typewriter in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_007.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one car in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_007.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the typewriter below the car in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_008",
+      "items": [
+        {
+          "id": "position_008.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_008.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one owl in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_008.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the violin below the owl in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_009",
+      "items": [
+        {
+          "id": "position_009.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bicycle in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_009.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_009.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bicycle above the violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_010",
+      "items": [
+        {
+          "id": "position_010.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one dolphin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_010.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cat in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_010.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the dolphin above the cat in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "position_011",
+      "items": [
+        {
+          "id": "position_011.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cactus in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_011.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bench in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "position_011.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cactus below the bench in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_000",
+      "items": [
+        {
+          "id": "relation_000.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one duck in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_000.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one train in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_000.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the duck under the train in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_001",
+      "items": [
+        {
+          "id": "relation_001.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one hedgehog in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_001.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one wheelbarrow in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_001.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the hedgehog next to the wheelbarrow in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_002",
+      "items": [
+        {
+          "id": "relation_002.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one airplane in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_002.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bench in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_002.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the airplane under the bench in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_003",
+      "items": [
+        {
+          "id": "relation_003.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bird in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_003.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one couch in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_003.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bird in front of the couch in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_004",
+      "items": [
+        {
+          "id": "relation_004.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cow in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_004.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one hedgehog in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_004.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cow under the hedgehog in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_005",
+      "items": [
+        {
+          "id": "relation_005.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cow in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_005.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one dolphin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_005.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cow under the dolphin in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_006",
+      "items": [
+        {
+          "id": "relation_006.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one chair in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_006.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bus in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_006.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the chair next to the bus in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_007",
+      "items": [
+        {
+          "id": "relation_007.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one anchor in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_007.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one owl in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_007.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the anchor facing the owl in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_008",
+      "items": [
+        {
+          "id": "relation_008.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one dog in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_008.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one boat in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_008.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the dog next to the boat in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_009",
+      "items": [
+        {
+          "id": "relation_009.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one lantern in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_009.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one dolphin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_009.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the lantern next to the dolphin in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_010",
+      "items": [
+        {
+          "id": "relation_010.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bear in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_010.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one horse in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_010.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bear under the horse in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "relation_011",
+      "items": [
+        {
+          "id": "relation_011.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_011.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one elephant in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "relation_011.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the violin chasing the elephant in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_000",
+      "items": [
+        {
+          "id": "composite_000.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one lantern in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_000.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the lantern purple?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_000.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one zebra in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_000.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly two zebras in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_000.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one train in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_000.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the train wicker?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_000.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the lantern inside the train in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_001",
+      "items": [
+        {
+          "id": "composite_001.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one owl in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_001.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the owl yellow?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_001.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one hedgehog in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_001.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly three hedgehogs in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_001.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bus in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_001.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bus stone?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_001.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the owl left of the bus in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_002",
+      "items": [
+        {
+          "id": "composite_002.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one couch in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_002.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the couch yellow?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_002.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one teapot in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_002.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly three teapots in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_002.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one duck in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_002.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the duck metal?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_002.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the couch behind the duck in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_003",
+      "items": [
+        {
+          "id": "composite_003.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bench in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_003.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bench yellow?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_003.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one rabbit in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_003.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly two rabbits in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_003.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one penguin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_003.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the penguin wooden?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_003.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bench right of the penguin in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_004",
+      "items": [
+        {
+          "id": "composite_004.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cow in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_004.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cow red?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_004.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bench in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_004.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly three benches in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_004.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one windmill in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_004.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the windmill wicker?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_004.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cow facing the windmill in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_005",
+      "items": [
+        {
+          "id": "composite_005.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one motorcycle in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_005.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the motorcycle pink?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_005.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bench in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_005.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly two benches in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_005.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_005.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the violin stone?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_005.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the motorcycle chasing the violin in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_006",
+      "items": [
+        {
+          "id": "composite_006.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bicycle in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_006.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bicycle purple?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_006.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one typewriter in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_006.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly three typewriters in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_006.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one lantern in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_006.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the lantern wooden?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_006.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bicycle in front of the lantern in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_007",
+      "items": [
+        {
+          "id": "composite_007.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one boat in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_007.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the boat black?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_007.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one sheep in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_007.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly three sheep in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_007.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bird in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_007.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bird glass?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_007.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the boat in front of the bird in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_008",
+      "items": [
+        {
+          "id": "composite_008.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one boat in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_008.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the boat white?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_008.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one fox in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_008.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly three foxes in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_008.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one chair in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_008.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the chair plastic?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_008.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the boat facing the chair in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_009",
+      "items": [
+        {
+          "id": "composite_009.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cow in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_009.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cow red?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_009.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one rabbit in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_009.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly two rabbits in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_009.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bird in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_009.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the bird plastic?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_009.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cow below the bird in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_010",
+      "items": [
+        {
+          "id": "composite_010.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cat in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_010.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cat red?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_010.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one wheelbarrow in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_010.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly two wheelbarrows in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_010.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one cactus in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_010.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cactus wooden?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_010.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the cat facing the cactus in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "prompt_id": "composite_011",
+      "items": [
+        {
+          "id": "composite_011.e0.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one chair in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_011.e0.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the chair green?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_011.e1.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one bear in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_011.e1.count",
+          "kind": "vqa",
+          "text": "",
+          "question": "Are there exactly two bears in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_011.e2.presence",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is there at least one couch in the image?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_011.e2.attr",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the couch glass?",
+          "absent": false,
+          "weight": 1.0
+        },
+        {
+          "id": "composite_011.r0",
+          "kind": "vqa",
+          "text": "",
+          "question": "Is the chair on top of the couch in the image?",
+          "absent": false,
+          "weight": 1.0
+        }
+      ]
+    }
+  ],
+  "edit": []
+}

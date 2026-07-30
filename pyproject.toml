@@ -1,0 +1,72 @@
+[project]
+name = "cozy-eval"
+version = "0.1.0"
+description = "Quality benchmarking for generative image and video models, with the validity rules enforced by the API."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+keywords = ["video-quality", "image-quality", "quantization", "diffusion", "benchmark", "no-reference", "text-to-image", "image-editing", "vlm-judge"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Multimedia :: Video",
+  "Topic :: Scientific/Engineering :: Image Processing",
+]
+dependencies = ["numpy>=1.26", "msgspec>=0.19"]
+
+[project.optional-dependencies]
+# pyiqa relicensed PolyForm-NC at 0.1.16 — do not raise the ceiling (PROVENANCE.md)
+perceptual = ["pyiqa>=0.1.13,<0.1.16", "torch>=2.4"]
+reference = [
+  "ffmpeg-quality-metrics>=3.12",
+  "cvvdp>=0.5.6",
+  "scikit-image>=0.22",
+  "lpips>=0.1.4",
+  "torch>=2.4",
+]
+distributional = ["scipy>=1.11", "cd-fvd>=0.1.1"]
+similarity = ["torch>=2.4", "torchmetrics[image]>=1.9", "numpy>=1.26"]
+# transformers 4.57 floor: the default judge is Qwen3-VL, whose classes land in 4.57
+judge = ["torch>=2.4", "transformers>=4.57"]
+# rapidocr 3.0 floor: the unified entry point only exists from 3.0
+ocr = ["rapidocr>=3.0", "onnxruntime>=1.18"]
+preference = ["torch>=2.4", "transformers>=4.57"]
+compositional = ["torch>=2.4", "transformers>=4.51", "numpy>=1.26", "pillow>=10"]
+quality = ["torch>=2.4", "torchmetrics[image]>=1.9", "piq>=0.8", "numpy>=1.26", "scipy>=1.11", "pillow>=10"]
+hpsv3 = ["torch>=2.4", "transformers>=4.53", "safetensors>=0.4", "huggingface-hub>=0.23", "pillow>=10"]
+video = ["numpy>=1.26", "pillow>=10"]
+
+all = ["cozy-eval[perceptual,reference,distributional,similarity,judge,ocr,preference,compositional,quality,hpsv3,video]"]
+dev = ["pytest>=8.0", "ruff>=0.6", "pillow>=10"]
+
+[project.urls]
+Homepage = "https://github.com/cozy-creator/cozy-eval"
+Source = "https://github.com/cozy-creator/cozy-eval"
+Issues = "https://github.com/cozy-creator/cozy-eval/issues"
+
+[project.scripts]
+cozy-eval = "cozy_eval.cli:main"
+
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cozy_eval"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = ["heavy: downloads real model weights; deselected by default"]
+addopts = ["-m", "not heavy"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF", "PLW", "ISC"]
+ignore = ["E501"]

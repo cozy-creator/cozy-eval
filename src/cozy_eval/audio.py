@@ -354,6 +354,12 @@ def audio_verdict(
             "defect if the model claims stereo — check the arm, not the metric."
         )
         result.unmeasured["audio_channel_correlation"] = "mono source"
+    if "audio_lufs" not in stats:
+        result.unmeasured["audio_lufs"] = (
+            "loudness (ITU-R BS.1770-4) needs scipy for the K-weighting IIR: "
+            "pip install 'cozy-eval[audio]'. The rest of the reference-free tier "
+            "ran regardless — the dual-mono and silence guards need only numpy."
+        )
     for defect in defects:
         value = stats.get(defect.metric)
         if value is None:

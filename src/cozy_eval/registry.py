@@ -392,6 +392,17 @@ BUILTIN: tuple[MetricSpec, ...] = (
         ),
     ),
     MetricSpec(
+        name="audio_lufs_delta", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:audio", higher_is_better=False, note=(
+            "report-only, SIGNED: candidate-minus-reference integrated loudness in "
+            "LU. SIMILARITY rather than QUALITY because it is a comparison to the "
+            "reference arm, and QUALITY means reference-free here. It exists "
+            "because audio_si_sdr is blind to gain BY CONSTRUCTION, so a pure "
+            "level shift would otherwise leave no trace anywhere in the report. "
+            "Signed, so its tail reads as the loudest drift, not the largest."
+        ),
+    ),
+    MetricSpec(
         name="audio_align_lag_ms", dimension=SIMILARITY, version="1.0",
         model_ref="cozy-eval:audio", higher_is_better=False, note=(
             "report-only DIAGNOSTIC, signed: the bounded encoder-delay lag "
@@ -438,14 +449,6 @@ BUILTIN: tuple[MetricSpec, ...] = (
             "published standard with no trained weights, so it is implemented "
             "here rather than depended on; parity banked against pyloudnorm "
             "(MIT). Two-sided like audio_rms_dbfs."
-        ),
-    ),
-    MetricSpec(
-        name="audio_lufs_delta", dimension=QUALITY, version="1.0",
-        model_ref="cozy-eval:audio", higher_is_better=False, note=(
-            "candidate-minus-reference integrated loudness, LU. Separates 'the "
-            "arm got quieter' from 'the arm got worse' — audio_si_sdr is blind "
-            "to gain by construction, so this is where a level shift shows up."
         ),
     ),
     MetricSpec(

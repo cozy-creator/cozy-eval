@@ -305,19 +305,27 @@ def signal_stats(source: Any, sample_rate: int = 0) -> dict[str, float]:
     ``audio_stereo_separation_db``) are ABSENT for mono input rather than zero —
     a mono file has no stereo image to be wrong about, and the caller must be
     able to tell "mono source" from "stereo source that collapsed".
+
+    ``audio_lufs`` is likewise ABSENT when scipy is not installed. It is the one
+    statistic here with a dependency, and one missing optional package must not
+    take the whole reference-free tier down with it — the dual-mono and silence
+    guards are the floor of the gate and they need nothing but numpy.
     """
     audio = as_audio(source, sample_rate)
     mono = audio.mono
     out: dict[str, float] = {
         "audio_rms_dbfs": rms_dbfs(audio.samples),
         "audio_peak_dbfs": peak_dbfs(audio.samples),
-        "audio_lufs": loudness_lufs(audio),
         "audio_clip_fraction": float(
             np.mean(np.abs(audio.samples) >= CLIP_LEVEL)
         ),
         "audio_dc_offset": float(np.max(np.abs(np.mean(audio.samples, axis=0)))),
         "audio_spectral_flatness": spectral_flatness(audio),
     }
+    try:
+        out["audio_lufs"] = loudness_lufs(audio)
+    except BackendError:
+        pass
     blocks = _blocks(mono, audio.sample_rate, BLOCK_SECONDS)
     block_rms = np.sqrt(np.mean(blocks.astype(np.float64) ** 2, axis=1))
     silent = np.array([db(v) for v in block_rms]) < SILENCE_DBFS
@@ -356,16 +364,43 @@ def align_lag(reference: Any, candidate: Any, rate: int, *,
     b = np.asarray(candidate, np.float64)
     n = min(a.shape[0], b.shape[0])
     a, b = a[:n] - a[:n].mean(), b[:n] - b[:n].mean()
-    best_lag, best = 0, -np.inf
-    for lag in range(-limit, limit + 1):
-        x, y = (a[lag:], b[:n - lag]) if lag >= 0 else (a[:n + lag], b[-lag:])
-        if x.size < rate // 100:
-            continue
-        denominator = float(np.linalg.norm(x) * np.linalg.norm(y))
-        score = float(np.dot(x, y)) / denominator if denominator > 0 else 0.0
-        if score > best:
-            best, best_lag = score, lag
-    return best_lag
+    limit = min(limit, n - 1)
+    floor = rate // 100                       # need >=10 ms of overlap to score a lag
+    if limit < 1 or n <= floor:
+        return 0
+
+    # FFT cross-correlation, NOT a lag loop. At 32 kHz the +-50 ms window is 3201
+    # lags and a real clip is half a million samples; the naive loop is ~10^9
+    # multiply-adds per pair and dominated the whole metric pass.
+    size = 1 << int(np.ceil(np.log2(2 * n)))
+    corr = np.fft.irfft(np.fft.rfft(a, size) * np.conj(np.fft.rfft(b, size)), size)
+    lags = np.arange(-limit, limit + 1)
+    dots = corr[lags]                         # negative indices wrap to the tail
+
+    # Per-lag norms of the two OVERLAPPING segments, from prefix sums — the same
+    # normalization the loop did, so the answer is unchanged, only the cost.
+    sa = np.concatenate([[0.0], np.cumsum(a * a)])
+    sb = np.concatenate([[0.0], np.cumsum(b * b)])
+    pos = lags >= 0
+    len_x = n - np.abs(lags)
+    # np.where evaluates BOTH branches, so every index is clipped into [0, n]
+    # first; the unused branch's value is discarded but must still be legal.
+    norm_a = np.where(
+        pos,
+        sa[n] - sa[np.clip(lags, 0, n)],
+        sa[np.clip(n + lags, 0, n)],
+    )
+    norm_b = np.where(
+        pos,
+        sb[np.clip(n - lags, 0, n)],
+        sb[n] - sb[np.clip(-lags, 0, n)],
+    )
+    denominator = np.sqrt(np.maximum(norm_a, 0.0) * np.maximum(norm_b, 0.0))
+    scores = np.where(denominator > 0, dots / np.where(denominator > 0, denominator, 1.0), 0.0)
+    scores[len_x < floor] = -np.inf
+    if not np.isfinite(scores).any():
+        return 0
+    return int(lags[int(np.argmax(scores))])
 
 
 def _stft_magnitude(x: Any, *, n_fft: int, hop: int) -> Any:

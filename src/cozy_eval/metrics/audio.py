@@ -39,6 +39,7 @@ throwaway venv. See PROVENANCE.md.
 
 from __future__ import annotations
 
+import contextlib
 import math
 from typing import Any
 
@@ -322,10 +323,8 @@ def signal_stats(source: Any, sample_rate: int = 0) -> dict[str, float]:
         "audio_dc_offset": float(np.max(np.abs(np.mean(audio.samples, axis=0)))),
         "audio_spectral_flatness": spectral_flatness(audio),
     }
-    try:
+    with contextlib.suppress(BackendError):     # no scipy: key absent, not zero
         out["audio_lufs"] = loudness_lufs(audio)
-    except BackendError:
-        pass
     blocks = _blocks(mono, audio.sample_rate, BLOCK_SECONDS)
     block_rms = np.sqrt(np.mean(blocks.astype(np.float64) ** 2, axis=1))
     silent = np.array([db(v) for v in block_rms]) < SILENCE_DBFS

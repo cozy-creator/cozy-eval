@@ -62,9 +62,48 @@ class SoftJudge(Protocol):
         ...
 
 
+@runtime_checkable
+class Transcriber(Protocol):
+    """Speech-to-text, for the transcribe-then-judge lane on audio-bearing video.
+
+    Deliberately the CHEAPEST instrument in the audio tier: a prompt that asked
+    for a line of dialogue is checked by reading the words back, using exactly
+    the fuzzy text matching the OCR lane already uses on pixels. Structural like
+    the judges above, so a local Whisper, a hosted endpoint, or a test stub are
+    interchangeable. Whisper's code AND weights are MIT, which is why it is the
+    recommended backing model — see PROVENANCE.md.
+    """
+
+    model_ref: str
+
+    def transcribe(self, samples: Any, sample_rate: int) -> str:
+        """Return the recognised text for ``(N, C)`` float audio. Empty string
+        when nothing was recognised — that is a legitimate answer (silence), and
+        the caller distinguishes it from "no transcriber attached"."""
+        ...
+
+
+@runtime_checkable
+class AudioJudge(Protocol):
+    """A model that answers yes/no questions ABOUT A SOUND, not about words.
+
+    The non-speech half of audio adherence: "is there a sound of rain", "does a
+    door slam". Transcription cannot answer these, so collapsing the two into
+    one instrument would silently drop every non-speech item. Same one-call,
+    many-questions contract as :class:`Judge`, and the same tolerant parse.
+    """
+
+    model_ref: str
+
+    def ask(self, samples: Any, sample_rate: int, prompt: str) -> str:
+        """Answer one multi-question prompt about the audio. The reply is parsed
+        by :func:`cozy_eval.metrics.adherence.parse_judge_answers`."""
+        ...
+
+
 #: Accounting attributes the suite reads off a judge when present. Absent ones
 #: are simply not reported — implementing them is optional.
 ACCOUNTING_ATTRS = ("load_seconds", "infer_seconds", "call_count", "vram_bytes")
 
 
-__all__ = ["ACCOUNTING_ATTRS", "Judge", "SoftJudge"]
+__all__ = ["ACCOUNTING_ATTRS", "AudioJudge", "Judge", "SoftJudge", "Transcriber"]

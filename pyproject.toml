@@ -6,13 +6,14 @@ readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.12"
-keywords = ["video-quality", "image-quality", "quantization", "diffusion", "benchmark", "no-reference", "text-to-image", "image-editing", "vlm-judge"]
+keywords = ["video-quality", "image-quality", "audio-quality", "av-sync", "quantization", "diffusion", "benchmark", "no-reference", "text-to-image", "image-editing", "vlm-judge"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Science/Research",
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
   "Topic :: Multimedia :: Video",
+  "Topic :: Multimedia :: Sound/Audio :: Analysis",
   "Topic :: Scientific/Engineering :: Image Processing",
 ]
 dependencies = ["numpy>=1.26", "msgspec>=0.19"]
@@ -38,8 +39,14 @@ preference = ["torch>=2.4", "transformers>=4.57"]
 quality = ["torch>=2.4", "torchmetrics[image]>=1.9", "piq>=0.8", "numpy>=1.26", "scipy>=1.11", "pillow>=10"]
 hpsv3 = ["torch>=2.4", "transformers>=4.53", "safetensors>=0.4", "huggingface-hub>=0.23", "pillow>=10"]
 video = ["numpy>=1.26", "pillow>=10"]
+# scipy is only for the BS.1770-4 K-weighting IIR; everything else in the audio
+# tier is numpy. DELIBERATELY NOT torchmetrics[audio]: that extra pulls `pesq`,
+# which ships modified ITU-T P.862 reference C whose rights holders (Psytechnics,
+# OPTICOM) forbid modification and restrict use to non-commercial conformance
+# testing. Its MIT label is the packager's and does not override that notice.
+audio = ["numpy>=1.26", "scipy>=1.11"]
 
-all = ["cozy-eval[reference,distributional,similarity,judge,ocr,preference,quality,hpsv3,video]"]
+all = ["cozy-eval[reference,distributional,similarity,judge,ocr,preference,quality,hpsv3,video,audio]"]
 dev = ["pytest>=8.0", "ruff>=0.6", "pillow>=10"]
 
 [project.urls]
@@ -64,7 +71,10 @@ line-length = 100
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
-markers = ["heavy: downloads real model weights; deselected by default"]
+markers = [
+  "heavy: downloads real model weights; deselected by default",
+  "corpus: needs the banked fal MiniMax-H3 sample corpus on disk; skipped when absent",
+]
 addopts = ["-m", "not heavy"]
 
 [tool.ruff.lint]

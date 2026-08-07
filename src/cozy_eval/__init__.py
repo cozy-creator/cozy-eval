@@ -71,6 +71,7 @@ functions and internals may change in any 0.x release.
 __version__ = "0.1.0"
 
 from . import (
+    audio,
     catalog,
     decompose,
     device,
@@ -82,6 +83,17 @@ from . import (
     suite,
     verdict,
     video,
+)
+from .audio import (
+    AUDIO_DEFECTS,
+    AudioChecklist,
+    AudioSample,
+    AudioVerdict,
+    Defect,
+    audio_verdict,
+    probe_audio,
+    read_audio,
+    run_audio,
 )
 from .benchmarks import (
     MIN_PROMPTS,
@@ -110,7 +122,7 @@ from .errors import (
 from .frames import iter_frames, probe
 from .gate import GateReport, run_population_gate, run_reference_gate, score_pairs
 from .image import IMAGE_BUDGETS, run_image_population_gate, score_image
-from .judge import Judge, SoftJudge
+from .judge import AudioJudge, Judge, SoftJudge, Transcriber
 from .metrics.adherence import (
     Checklist,
     ChecklistItem,
@@ -119,6 +131,8 @@ from .metrics.adherence import (
     VideoChecklist,
     load_checklists,
 )
+from .metrics.audio import Audio, as_audio
+from .metrics.avsync import SyncEstimate, sync_offset
 from .metrics.signal import ClipScore
 from .metrics.signal import score as score_clip
 from .promptset import PromptSet, add_prompt_set, checklists_for
@@ -136,12 +150,18 @@ from .verdict import Measurement, ParityVerdict, Threshold, evaluate
 from .video import VideoSample, run_video
 
 __all__ = [
+    "AUDIO_DEFECTS",
     "AUTO",
     "IMAGE_BUDGETS",
     "METRIC_SET_VERSION",
     "MIN_PROMPTS",
     "REFERENCE_BUDGETS",
     "VIDEO_BUDGETS",
+    "Audio",
+    "AudioChecklist",
+    "AudioJudge",
+    "AudioSample",
+    "AudioVerdict",
     "BackendError",
     "BenchmarkResult",
     "Budget",
@@ -154,6 +174,7 @@ __all__ = [
     "CozyEvalError",
     "DataError",
     "DecodeError",
+    "Defect",
     "DimensionSummary",
     "EditChecklist",
     "GateReport",
@@ -172,14 +193,19 @@ __all__ = [
     "SampleSizeError",
     "SoftJudge",
     "SuiteReport",
+    "SyncEstimate",
     "Threshold",
     "TrajectoryPerturbingError",
+    "Transcriber",
     "Verdict",
     "VideoChecklist",
     "VideoSample",
     "__version__",
     "add_checklist_set",
     "add_prompt_set",
+    "as_audio",
+    "audio",
+    "audio_verdict",
     "catalog",
     "checklist_set",
     "checklists_for",
@@ -196,11 +222,14 @@ __all__ = [
     "measure_null_control",
     "metrics",
     "probe",
+    "probe_audio",
     "promptset",
+    "read_audio",
     "register",
     "registry",
     "require_reference_lane",
     "resolve_device",
+    "run_audio",
     "run_image_population_gate",
     "run_population_gate",
     "run_reference_gate",
@@ -209,6 +238,7 @@ __all__ = [
     "score_image",
     "score_pairs",
     "suite",
+    "sync_offset",
     "temporal",
     "verdict",
     "video",

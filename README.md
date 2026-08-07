@@ -306,6 +306,64 @@ names, the registry, the report schema, checklist/prompt-set formats, the
 verdicts, the Judge protocols, the protocol/lane rules) is locked for 0.x;
 everything under `cozy_eval.metrics.*` and `cozy_eval.decompose` is experimental.
 
+## Does it SOUND right?
+
+Every video model we serve now emits audio — LTX-2.3 denoises audio latents in
+the same loop and muxes AAC, MiniMax-H3 generates 32 kHz stereo jointly with the
+picture. A quant lane, a cache sweep or a step-distill LoRA can destroy the
+soundtrack while every pixel number stays green: on one banked arm a cache sweep
+drove audio SNR **20.67 → 13.72 dB** while the same clip's video SSIM still read
+0.85. There is, as far as we can find, **no published audio-degradation
+measurement for any caching or quantization technique on a joint audio-video
+model** — so this is a first-contact instrument, not a reimplementation.
+
+One call, one verdict:
+
+```python
+from cozy_eval import audio_verdict, read_audio
+
+result = audio_verdict(
+    read_audio("candidate.mp4"),
+    read_audio("bf16_anchor.mp4"),   # optional: enables the faithfulness tier
+    frames=candidate_frames, fps=24.0,   # optional: enables AV-sync
+)
+print(result.summary())
+# audio REJECT — audio_stereo_separation_db 98.6 breaches audio_stereo_separation_db <= 60 (11 measured, 6 unmeasured)
+```
+
+Three tiers, and a fourth outcome that is not a tier:
+
+| tier | metrics | needs |
+|---|---|---|
+| **signal, reference-free** | `audio_rms_dbfs` `audio_peak_dbfs` `audio_lufs` `audio_clip_fraction` `audio_silence_fraction` `audio_dc_offset` `audio_spectral_flatness` `audio_side_dbfs` `audio_stereo_separation_db` `audio_channel_correlation` | nothing — always runs |
+| **paired fidelity** | `audio_si_sdr` (gated) `audio_snr_db` `audio_lsd_db` `audio_mel_l1` `audio_lufs_delta` `audio_align_lag_ms` | a reference arm |
+| **AV-sync** | `av_sync_offset_ms` `av_sync_confidence` `av_sync_drift_ms` (gated) | frames + fps |
+| **semantic** | `audio_event_recall` (gated) `audio_speech_exact` `audio_speech_fuzzy` | an authored checklist + a `Transcriber` and/or `AudioJudge` |
+| **UNMEASURED** | — | everything the run could not score lands in `result.unmeasured` **with the reason**, and a verdict that measured nothing is `unmeasured`, never `pass` |
+
+**Audio is not a fifth dimension.** The four dimensions are *questions*, not
+media: audio SNR is `similarity`, a sound-of-X checklist is `adherence`,
+clipping and dual-mono are `quality`. So a quant arm that wrecks the audio
+reaches `reject` through the tri-state verdict machinery that already existed.
+
+**The one shipped budget.** `AUDIO_DEFECTS` is this library's only built-in
+threshold table, and the exception is deliberate: silence, clipping, dual-mono
+and DC are content-*independent* engineering faults, unlike an LPIPS budget that
+only means something against the population it was calibrated on. It is
+calibrated on 18 real fal MiniMax-H3 generations as a known-good population,
+each limit carrying its own margin.
+
+**What it does NOT do, stated rather than hidden.** AV-sync here is *event*
+sync — an audio onset envelope cross-correlated against a visual onset envelope,
+closed form, no weights (Bello et al. 2005; Hershey & Movellan, NIPS 1999). It
+does **not** score lip-sync: SyncNet's weights are research-worded CC-BY and
+Synchformer's checkpoints carry no weights-specific licence at all, so the gap is
+recorded and travels in every report that carries a sync number. And when the
+content has no shared audio/visual onsets, sync returns UNMEASURED with the
+reason — measured on the fal corpus, **all 18 clips are unmeasurable for event
+sync**, because generated ambience carries no transients. Gating sync needs a
+prompt subset authored to contain door slams, claps and dialogue.
+
 ## Documentation
 
 * **[GATE.md](GATE.md)** — the protocol a producer lane follows verbatim: lanes,

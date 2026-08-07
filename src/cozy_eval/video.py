@@ -28,6 +28,14 @@ What changes for video, and what deliberately does not:
   model cannot see motion, and a number that ignores the axis under test is
   worse than an honest gap.
 
+* **audio** is scored when ``audio=`` is passed, through the single verdict
+  function :func:`cozy_eval.audio.audio_verdict` — signal statistics and the
+  dual-mono/silence/clipping guards, paired fidelity to the reference arm,
+  AV-sync, and the transcribe-then-judge semantic tier. The report's MODE gains
+  ``+audio``, and a run WITHOUT it carries an explicit UNMEASURED note, because
+  every video model we serve now emits audio and a green video report says
+  nothing about the soundtrack.
+
 Clips are ``(T, H, W, 3)`` RGB arrays (uint8 or float [0, 1]) or lists of PIL
 frames — the pre-encode arrays a producer already holds. No ffmpeg dependency;
 decoding video FILES is the caller's job.
@@ -249,11 +257,26 @@ def run_video(
     judge_frames: int = DEFAULT_JUDGE_FRAMES,
     device: str = AUTO,
     render_seconds: float = 0.0,
+    audio: list[Any] | None = None,
+    reference_audio: list[Any] | None = None,
+    sample_rate: int = 0,
+    fps: float = 0.0,
+    audio_checklists: dict[str, Any] | None = None,
+    transcriber: Any = None,
+    audio_judge: Any = None,
+    audio_fidelity_budget: tuple[Any, ...] = (),
 ) -> suite.SuiteReport:
     """Score a batch of clips. ``references`` present => video-paired mode.
 
     ``candidates`` / ``references`` are clips in any form
     :func:`cozy_eval.metrics.temporal.as_frames` accepts.
+
+    ``audio`` attaches the soundtrack, one entry per sample (an
+    :class:`~cozy_eval.metrics.audio.Audio`, an array with ``sample_rate``, or a
+    media path). The report's MODE then says ``+audio``, and when it is omitted
+    the report carries an explicit UNMEASURED note — because every video model we
+    serve now emits audio, and a run that silently scored none of it must never
+    read as a clean pass.
     """
     if len(samples) != len(candidates):
         raise ConfigError(
@@ -266,11 +289,17 @@ def run_video(
             f"got {len(samples)} samples but {len(references)} reference clips; "
             "a paired run needs one reference per sample"
         )
+    if audio is not None and len(audio) != len(samples):
+        raise ConfigError(
+            f"got {len(samples)} samples but {len(audio)} audio tracks; a clip's "
+            "soundtrack is scored against its own sample, so the lists must match"
+        )
     device = resolve_device(device)
     ocr_seconds: list[float] = []
 
+    base_mode = "video-paired" if paired else "video-reference-free"
     report = suite.SuiteReport(
-        mode="video-paired" if paired else "video-reference-free",
+        mode=f"{base_mode}+audio" if audio is not None else base_mode,
         samples=len(samples),
         library_version=suite._library_version(),
         created_at=datetime.now(UTC).isoformat(timespec="seconds"),
@@ -409,6 +438,60 @@ def run_video(
             row.values.update(temporal.signal_stats(cand))
         report.seconds["signal"] = round(time.monotonic() - t0, 2)
         report.models["signal"] = temporal.SIGNAL_LIBRARY
+
+    # --- audio: the axis a silent run must never be allowed to skip quietly ---
+    if audio is None:
+        report.notes.append(
+            "AUDIO UNMEASURED: no soundtrack was passed to run_video. Every video "
+            "model we serve emits audio (LTX-2.3 muxes AAC, MiniMax-H3 generates "
+            "32 kHz stereo jointly), so a green report from this run says nothing "
+            "about the soundtrack — pass audio=[...] to score it."
+        )
+    else:
+        from . import audio as audio_mode
+        from .metrics import audio as audio_metrics
+        from .metrics import avsync
+
+        t0 = time.monotonic()
+        unmeasured_reasons: dict[str, str] = {}
+        for row, sample, track in zip(rows, samples, audio, strict=True):
+            av = audio_mode.audio_verdict(
+                track,
+                reference_audio[row.index] if reference_audio else None,
+                sample_rate=sample_rate,
+                frames=cand_frames[row.index] if fps > 0 else None,
+                reference_frames=(
+                    ref_frames[row.index] if (paired and fps > 0 and reference_audio)
+                    else None
+                ),
+                fps=fps,
+                checklist=(audio_checklists or {}).get(sample.checklist_id),
+                transcriber=transcriber,
+                audio_judge=audio_judge,
+                fidelity_budget=audio_fidelity_budget,
+            )
+            row.values.update(av.measured)
+            for defect in av.defects:
+                report.notes.append(f"sample {row.index:02d} AUDIO DEFECT: {defect}")
+            unmeasured_reasons.update(av.unmeasured)
+        report.seconds["audio"] = round(time.monotonic() - t0, 2)
+        report.models["audio"] = audio_metrics.AUDIO_LIBRARY
+        if fps > 0:
+            report.models["av_sync"] = avsync.AVSYNC_METHOD
+            report.notes.append(avsync.LIPSYNC_GAP_NOTE)
+        else:
+            unmeasured_reasons.setdefault(
+                "av_sync_offset_ms",
+                "AV-sync needs the frame rate: pass fps= to run_video",
+            )
+        if transcriber is not None:
+            report.models["transcriber"] = getattr(transcriber, "model_ref", "")
+        if audio_judge is not None:
+            report.models["audio_judge"] = getattr(audio_judge, "model_ref", "")
+        measured_any = {k for row in rows for k in row.values}
+        for name, reason in sorted(unmeasured_reasons.items()):
+            if name not in measured_any:
+                report.notes.append(f"{name} UNMEASURED: {reason}")
 
     # --- preference: an honest gap, stated -----------------------------------
     report.notes.append(

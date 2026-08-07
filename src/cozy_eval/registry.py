@@ -11,9 +11,19 @@ they are one metric wearing two hats, and reporting both only adds chances to
 fail a good model on the same underlying signal.
 
   similarity  — perceptual distance to a reference render.  PAIRED only.
-  adherence   — did the image contain the elements the prompt specified.
-  preference  — would a human prefer this image.
+  adherence   — did the render contain what the prompt specified.
+  preference  — would a human prefer this render.
   quality     — does the render look good on its own terms.  Reference-free.
+
+AUDIO IS NOT A FIFTH DIMENSION, deliberately. The four dimensions are
+QUESTIONS, not media: 'is it faithful to the reference', 'did it contain what
+was asked', 'would a human prefer it', 'is it well formed on its own'. Those
+questions are the same for a soundtrack, so audio SNR is similarity, a
+sound-of-X checklist is adherence, and clipping/silence/dual-mono are quality.
+The payoff is mechanical rather than aesthetic: the tri-state parity verdict in
+``cozy_eval.verdict`` reads FAITHFULNESS_DIMENSIONS and PARITY_DIMENSIONS, so a
+quant arm that wrecks the audio reaches ``reject`` through the machinery that
+already existed, with no audio-specific verdict path to keep in sync.
 
 Each dimension has exactly ONE gated headline number plus its worst-case tail.
 Everything else is report-only: computed because it is nearly free and useful
@@ -60,7 +70,7 @@ from .errors import RegistryError
 
 #: Identifies the METRIC SET a report was produced with. Same ``cozy-eval/<thing>@<n>``
 #: convention as ``suite.REPORT_SCHEMA``. Bump when a metric's meaning changes.
-METRIC_SET_VERSION = "cozy-eval/metrics@3"
+METRIC_SET_VERSION = "cozy-eval/metrics@4"
 
 # A metric name is an API key: budgets, banked reports and report rows all
 # address metrics by it.
@@ -338,9 +348,207 @@ BUILTIN: tuple[MetricSpec, ...] = (
         name="jerk_ratio", dimension=QUALITY, version="1.0",
         model_ref="cozy-eval:signal", paired=False,
         higher_is_better=False, note=(
-            "video, composed from cozy_eval's signal backend: second/first temporal "
+            "video, composed from cozy-eval's signal backend: second/first temporal "
             "difference of frame-mean luma; smooth motion sits low, flicker "
             "and judder push it up"
+        ),
+    ),
+    # --- audio, paired fidelity (SIMILARITY: the faithfulness question) ------
+    MetricSpec(
+        name="audio_si_sdr", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:audio", gated=True, note=(
+            "AUDIO GATE. Scale-invariant signal-to-distortion ratio in dB "
+            "against the reference arm (Le Roux et al., ICASSP 2019). Closed "
+            "form, no weights. Scale-invariant deliberately: a lane that only "
+            "changed output GAIN did not damage the audio, and plain SNR would "
+            "punish it as if it had. This is the number a quant/cache/distill "
+            "arm has to hold — a cache sweep once drove audio SNR 20.67 -> "
+            "13.72 dB while the same arm's video SSIM still read 0.85."
+        ),
+    ),
+    MetricSpec(
+        name="audio_snr_db", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:audio", note=(
+            "report-only: plain SNR against the reference arm, no scale freedom. "
+            "Kept beside audio_si_sdr because it is the number the H3/LTX lanes "
+            "already quote, so historical rows stay comparable."
+        ),
+    ),
+    MetricSpec(
+        name="audio_lsd_db", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:audio", higher_is_better=False, note=(
+            "report-only: RMS log-spectral distance in dB (Gray & Markel, IEEE "
+            "TASSP 1976). Survives a phase difference, so it separates 'the "
+            "spectrum changed' from 'the waveform moved' — the audio analogue of "
+            "the take-divergence problem protocol.py exists for."
+        ),
+    ),
+    MetricSpec(
+        name="audio_mel_l1", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:audio", higher_is_better=False, note=(
+            "report-only: mean absolute log-mel spectrogram difference. The "
+            "perceptually-weighted sibling of audio_lsd_db, on the scale every "
+            "neural vocoder is trained under."
+        ),
+    ),
+    MetricSpec(
+        name="audio_align_lag_ms", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:audio", higher_is_better=False, note=(
+            "report-only DIAGNOSTIC, signed: the bounded encoder-delay lag "
+            "compensated before the paired numbers were taken. A non-zero value "
+            "means the two arms were not sample-aligned as delivered; a value at "
+            "the search bound means the alignment did not converge and the "
+            "paired numbers should be distrusted."
+        ),
+    ),
+    MetricSpec(
+        name="av_sync_drift_ms", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:onset-correlation", gated=True,
+        higher_is_better=False, note=(
+            "AUDIO GATE. |candidate AV-sync offset - reference AV-sync offset|, "
+            "in ms. THE paired sync number: absolute offset is confounded by "
+            "content, drift is not, and any constant instrument bias cancels. "
+            "Measured only where BOTH arms had alignable onsets; UNMEASURED "
+            "otherwise, never 0."
+        ),
+    ),
+    # --- audio, reference-free signal statistics (QUALITY) ------------------
+    MetricSpec(
+        name="audio_rms_dbfs", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:audio", paired=False, note=(
+            "programme level in dBFS, matching ffmpeg volumedetect's "
+            "mean_volume. TWO-SIDED (too quiet and too hot are both faults), so "
+            "the direction flag is nominal and the real bounds live in "
+            "cozy_eval.audio.AUDIO_DEFECTS as data — same metric-vs-threshold "
+            "split the video population budgets use."
+        ),
+    ),
+    MetricSpec(
+        name="audio_peak_dbfs", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:audio", paired=False, higher_is_better=False, note=(
+            "sample peak in dBFS (volumedetect's max_volume). SAMPLE peak, not "
+            "BS.1770 true peak: what this catches is a generator rendering into "
+            "the rail, not a delivery-spec violation."
+        ),
+    ),
+    MetricSpec(
+        name="audio_lufs", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:audio", paired=False, note=(
+            "integrated loudness, ITU-R BS.1770-4 with EBU R128 gating. A "
+            "published standard with no trained weights, so it is implemented "
+            "here rather than depended on; parity banked against pyloudnorm "
+            "(MIT). Two-sided like audio_rms_dbfs."
+        ),
+    ),
+    MetricSpec(
+        name="audio_lufs_delta", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:audio", higher_is_better=False, note=(
+            "candidate-minus-reference integrated loudness, LU. Separates 'the "
+            "arm got quieter' from 'the arm got worse' — audio_si_sdr is blind "
+            "to gain by construction, so this is where a level shift shows up."
+        ),
+    ),
+    MetricSpec(
+        name="audio_clip_fraction", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:audio", paired=False, higher_is_better=False, note=(
+            "fraction of samples at or above 0.999 full scale"
+        ),
+    ),
+    MetricSpec(
+        name="audio_silence_fraction", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:audio", paired=False, higher_is_better=False, note=(
+            "fraction of 50 ms blocks below -60 dBFS. The 'the generator "
+            "stopped' detector — a silent soundtrack is the failure mode no "
+            "video metric can see."
+        ),
+    ),
+    MetricSpec(
+        name="audio_dc_offset", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:audio", paired=False, higher_is_better=False, note=(
+            "largest per-channel mean sample value; a broken decode or vocoder, "
+            "never a creative choice"
+        ),
+    ),
+    MetricSpec(
+        name="audio_spectral_flatness", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:audio", paired=False, higher_is_better=False, note=(
+            "Wiener entropy of the power spectrum, ~0 for a tone and ~1 for "
+            "white noise. TWO-SIDED — a soundtrack collapsing into hiss climbs "
+            "and one collapsing into a drone falls — so the direction flag is "
+            "nominal and this is report-only."
+        ),
+    ),
+    MetricSpec(
+        name="audio_side_dbfs", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:audio", paired=False, note=(
+            "level of the side signal (L-R)/2 in dBFS. ABSENT for mono input "
+            "rather than zero: a mono source has no stereo image to be wrong "
+            "about, and that is a different fact from a stereo source that "
+            "collapsed."
+        ),
+    ),
+    MetricSpec(
+        name="audio_stereo_separation_db", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:audio", paired=False, higher_is_better=False, note=(
+            "DUAL-MONO GUARD: programme RMS minus side RMS. A model that claims "
+            "stereo and emits identical channels is a real regression and a "
+            "trivial one to catch — the side signal falls to the level floor and "
+            "this climbs to ~99 dB. fal's MiniMax-H3 output sits at 2.5-20 dB "
+            "over 18 clips; the anchor clip reads 8.4 dB."
+        ),
+    ),
+    MetricSpec(
+        name="audio_channel_correlation", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:audio", paired=False, higher_is_better=False, note=(
+            "Pearson r between L and R. Two-sided (r=1 is dual mono, r=-1 is "
+            "polarity-inverted); report-only beside audio_stereo_separation_db, "
+            "which is the gated form of the same fault."
+        ),
+    ),
+    # --- audio, AV-sync single-arm (QUALITY) --------------------------------
+    MetricSpec(
+        name="av_sync_offset_ms", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:onset-correlation", paired=False,
+        higher_is_better=False, note=(
+            "SIGNED audio-visual offset in ms by onset cross-correlation "
+            "(Bello et al. 2005 for the audio envelope; Hershey & Movellan, "
+            "NIPS 1999 for the audio-against-visual-change correlation). "
+            "Positive = audio late. Closed form, NO trained weights. Report-only: "
+            "the absolute offset is content-confounded, av_sync_drift_ms is the "
+            "gated paired read. Does NOT score lip-sync — see PROVENANCE.md."
+        ),
+    ),
+    MetricSpec(
+        name="av_sync_confidence", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:onset-correlation", paired=False, note=(
+            "Pearson r at the winning lag. Reported so an offset always travels "
+            "with the strength of the evidence for it; below the peak/prominence "
+            "floor the offset is not reported at all."
+        ),
+    ),
+    # --- audio, semantic adherence -----------------------------------------
+    MetricSpec(
+        name="audio_event_recall", dimension=ADHERENCE, version="1.0",
+        paired=False, gated=True, note=(
+            "AUDIO GATE, capability side: fraction of the prompt's authored "
+            "SOUND-EVENT checklist items an audio-capable judge verified "
+            "('is there a sound of rain'). Transcription cannot answer these, so "
+            "it is deliberately a separate instrument from audio_speech_*."
+        ),
+    ),
+    MetricSpec(
+        name="audio_speech_exact", dimension=ADHERENCE, version="1.0",
+        paired=False, model_ref="openai/whisper (MIT code AND weights)", note=(
+            "transcribe-then-judge: exact-match rate over the prompt's required "
+            "spoken strings. Reuses the OCR lane's fuzzy matcher, because "
+            "reading a required string out of recognised text is the same "
+            "operation whether it came from pixels or from samples."
+        ),
+    ),
+    MetricSpec(
+        name="audio_speech_fuzzy", dimension=ADHERENCE, version="1.0",
+        paired=False, model_ref="openai/whisper (MIT code AND weights)", note=(
+            "normalized-similarity mean over the same spoken strings"
         ),
     ),
 )

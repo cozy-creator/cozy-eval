@@ -53,6 +53,9 @@ depending on it).
 | `metrics/temporal.py` | Δ-frame channel: PSNR/SSIM (closed-form / Wang 2004) computed over consecutive-frame difference images | **original** | The frame-difference framing follows common practice in video-codec and VAE evaluation (frame-to-frame dynamics preservation); PSNR and SSIM themselves come from the same paths `metrics/similarity.py` uses. Single-arm temporal stats are NOT implemented here — composed from `metrics/signal.py` (MIT, this repository). |
 | `video.py` | video runner; motion/hold checklist scoring over an ordered frame strip; OCR persistence rule | **original** | Same Judge protocol as images; one call per clip. The VBench temporal-flickering dimension (Apache-2.0) was verified to use NO pretrained model — supporting evidence that closed-form temporal channels are the norm, not a shortcut. |
 | `metrics/signal.py` | Laplacian variance, spectral HF ratio, histogram entropy, first/second temporal differences | **original** | Elementary signal statistics, not anybody's library. numpy-only; the always-available core the gate's budgets are calibrated on. |
+| `metrics/audio.py` | levels/clipping/silence/DC/spectral-flatness; ITU-R BS.1770-4 integrated loudness; SI-SDR, SNR, log-spectral distance, log-mel L1 | **original implementation** | All closed form, no trained weights. Loudness follows **ITU-R BS.1770-4** (K-weighting + gated mean square) with the analog prototype parameters `pyloudnorm` (**MIT**, Steinmetz & Reiss) bilinear-transforms from — necessary because the recommendation tabulates coefficients at 48 kHz only and our audio is 32 kHz. Parity banked against pyloudnorm in a throwaway venv (`parity/`). SI-SDR follows Le Roux et al. 2019; the biquad forms are the RBJ Audio EQ Cookbook's, which is universally republished. Level statistics are cross-checked against ffmpeg `volumedetect` on real media in `tests/test_audio_corpus.py`. |
+| `metrics/avsync.py` | audio-visual offset by onset cross-correlation | **original implementation** | Audio onset envelope is half-wave-rectified spectral flux (Bello et al. 2005); the visual envelope is the rectified derivative of frame-difference energy, symmetric with it. Correlating an acoustic envelope against a visual-change envelope to recover AV correspondence is the classical framing — Hershey & Movellan (NIPS 1999), Slaney & Covell (NIPS 2000). NO trained weights and no third-party code. It scores EVENT sync, not lip-sync; see the audio licence survey below for why the lip-sync instruments are not shipped. |
+| `audio.py` | audio ingest, the absolute defect budget, the one audio verdict function, the audio checklist | **original** | `AUDIO_DEFECTS` is the deliberate exception to "thresholds are not shipped": silence, clipping, dual-mono and DC are content-INDEPENDENT engineering faults, unlike an LPIPS budget. Calibrated on the 18-clip fal MiniMax-H3 corpus (ie#612, 2026-08-07) as a known-good population, with each limit's margin recorded in its `provenance` field. Speech items reuse the OCR lane's fuzzy matcher because reading a required string out of recognised text is the same operation whether it came from pixels or samples. |
 | `metrics/reference.py` | PSNR / SSIM / VMAF / ColorVideoVDP over whole video files | **original wrapper**; the metrics are third-party | `libvmaf` through the ffmpeg CLI, `cvvdp` and `scikit-image` when installed, with a torch-free windowed-SSIM fallback so the reference lane runs on a bare install. |
 | `metrics/distributional.py` | Fréchet distance over a feature population; I3D-FVD / JEDi wrappers | **original** (closed-form Fréchet); wrappers over `cd-fvd`, `fvmd` | Opt-in and explicitly NOT validated at the sample sizes this library's gate runs at — see GATE.md. |
 | `benchmarks.py`, `gate.py`, `control.py`, `protocol.py` | lanes, protocol stamping, population gating, null controls, the calibrated budget table | **original** | The two-lane rule and the null-control policy are this library's thesis; every budget carries the populations that fixed it. |
@@ -100,6 +103,71 @@ depending on it).
   needs a large sample population, and this suite scores 16-clip runs.
 
 ---
+
+
+### Audio and AV-sync: the methods, and the licence survey behind them
+
+Surveyed 2026-08-07, primary sources only (LICENSE files, HF model-card
+`license:` fields, PyPI metadata, ITU pages). **Adopt over invent** was applied
+first; what is implemented here is what had no clean implementation to adopt.
+
+- **ITU-R BS.1770-4** — *Algorithms to measure audio programme loudness and
+  true-peak audio level*. A published standard, no weights. `pyloudnorm`
+  (**MIT**) is an independent implementation of the same algorithm — NOT ITU
+  reference source — which is why it is safe as a parity oracle.
+- **SI-SDR** — Le Roux, Wisdom, Erdogan & Hershey, *SDR — half-baked or well
+  done?* (ICASSP 2019). Closed form. `torchmetrics` (**Apache-2.0**) ships a
+  pure-torch SI-SDR/SI-SNR/SNR/SDR with no third-party dependency, and is the
+  right thing to adopt for anyone already on torch; ours is numpy so the audio
+  tier runs on a base install without torch.
+- **Log-spectral distance** — Gray & Markel, *Distance measures for speech
+  processing* (IEEE TASSP 1976). Closed form.
+- **Onset detection** — Bello, Daudet, Abdallah, Duxbury, Davies & Sandler,
+  *A Tutorial on Onset Detection in Music Signals* (IEEE TSAP 13(5):1035–1047,
+  2005). The spectral-flux onset function.
+- **Audio-visual synchrony by correlation** — Hershey & Movellan, *Audio Vision:
+  Using Audio-Visual Synchrony to Locate Sounds* (NIPS 12, 1999, pp. 813–819);
+  Slaney & Covell, *FaceSync: A Linear Operator for Measuring Synchronization of
+  Video Facial Images and Audio Tracks* (NIPS 13, 2000, pp. 814–820). Note
+  FaceSync *fits* a linear operator, so it is cited for the framing, not
+  reimplemented.
+- **Whisper** — Radford et al. 2022. Code **AND weights MIT**, stated verbatim
+  in the repo README. The recommended backing model for the `Transcriber`
+  protocol; `faster-whisper` and `whisper.cpp` are also MIT.
+
+**REJECTED — PESQ (ITU-T P.862), and it is a trap worth stating loudly.** The
+`pesq` PyPI package is *labelled* MIT, but it embeds a modified copy of the ITU
+P.862 ANSI-C reference (`dsp.c`, `pesqdsp.c`, `pesqmod.c`, …) whose header
+carries the PESQ Intellectual Property Rights Notice: rights assigned to
+Psytechnics Limited and OPTICOM GmbH, users *may not* "alter, duplicate, modify,
+adapt, or translate in whole or in part any aspect of the PESQ Algorithm and or
+PESQ Software", and permitted use is conformance testing **provided results are
+not used commercially**. The packager's MIT label cannot override the embedded
+rights-holders' notice, and the package modifies the source the notice forbids
+modifying. ITU also deleted P.862 on 2024-01-05 as out of date. **Consequence
+for this repository: never `pip install torchmetrics[audio]`** — that extra pins
+`pesq>=0.0.4,<0.0.5` and drags the encumbered code into the tree. Plain
+`torchmetrics` is fine. P.863 (POLQA), its successor, is commercially licensed
+and is likewise not an option.
+
+**NOT SHIPPED, licence-clean but impractical today.** ViSQOL v3 (google/visqol)
+is **Apache-2.0** including its in-repo model files, and is the right
+full-reference perceptual audio metric to reach for — but it builds through
+Bazel with no PyPI wheel, so it is a source install, not a CI dependency.
+Recorded as the intended upgrade path for `audio_lsd_db`.
+
+**LIP-SYNC: the honest gap.** SyncNet (Chung & Zisserman, ACCV 2016) is the
+standard instrument and LSE-D / LSE-C are its outputs. `joonson/syncnet_python`
+is **MIT**, but the *weights* — which are the method — are published by VGG as
+"CC-BY … for research purposes", and that stated intent sits awkwardly against a
+commercial gate. Synchformer (Iashin et al., ICASSP 2024) and SparseSync (BMVC
+2022) are **MIT code** with released checkpoints that carry **no
+weights-specific licence statement at all** — repo-MIT is a reasonable read but
+it is inference, not a statement. So this library ships the closed-form event
+sync above, states that it does not score dialogue, and tracks Synchformer as
+the candidate pending a weights-licence confirmation. `avsync.LIPSYNC_GAP_NOTE`
+puts that sentence in every report that carries a sync number, rather than
+leaving it in a document nobody reads.
 
 ## Code dependencies
 
@@ -269,3 +337,26 @@ quietly relicensed module is not.
 - **Motion smoothness (VBench-style).** Blocked by the AMT interpolator's
   CC-BY-NC licence; would need a permissively licensed interpolator swap
   (RIFE claims MIT — unverified) to build cleanly.
+- **Full-reference perceptual audio quality (ViSQOL).** Apache-2.0 and correct
+  for the job; blocked on packaging, not licence — Bazel build, no wheel.
+- **Lip-sync scoring.** See the audio survey above: SyncNet's weights are
+  research-worded CC-BY and Synchformer's carry no weights-specific statement.
+  Event sync ships; dialogue sync does not, and reports say so.
+- **Fréchet Audio Distance.** The distributional audio sibling of the FVD path
+  already here. Licence-clean end to end (`fadtk` MIT, `frechet_audio_distance`
+  MIT, LAION CLAP CC0/Apache-2.0) except that the classic VGGish `.ckpt` carries
+  no weights-specific statement; CLAP embeddings avoid that. Not shipped because
+  the population sizes our gate runs at do not support it — the same honesty
+  caveat `metrics/distributional.py` already carries.
+- **No-reference audio quality (DNSMOS / NISQA / UTMOS / Audiobox-Aesthetics).**
+  Audiobox-Aesthetics is **CC-BY 4.0** (Attribution, *not* NonCommercial) and is
+  therefore the clean candidate for a learned no-reference audio score; the
+  speech-MOS family is scoped to speech and would mis-score a music bed. Not
+  shipped: the reference-free tier here is currently all closed-form, and adding
+  a learned scorer needs banked distributions before it can gate anything.
+- **AV-sync on general prompts.** Measured on the 18-clip fal MiniMax-H3 corpus:
+  every clip is UNMEASURABLE for event sync because the generated soundtracks
+  carry no hard transients (onset-envelope skew 0.2–1.7, against 4–14 for their
+  own picture). Gating sync needs a prompt subset authored to contain
+  synchronised events — door slam, clap, footsteps, dialogue. Recorded in
+  `tests/test_audio_corpus.py` as an asserted finding.

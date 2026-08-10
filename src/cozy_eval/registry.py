@@ -70,7 +70,7 @@ from .errors import RegistryError
 
 #: Identifies the METRIC SET a report was produced with. Same ``cozy-eval/<thing>@<n>``
 #: convention as ``suite.REPORT_SCHEMA``. Bump when a metric's meaning changes.
-METRIC_SET_VERSION = "cozy-eval/metrics@4"
+METRIC_SET_VERSION = "cozy-eval/metrics@5"
 
 # A metric name is an API key: budgets, banked reports and report rows all
 # address metrics by it.
@@ -552,6 +552,115 @@ BUILTIN: tuple[MetricSpec, ...] = (
         name="audio_speech_fuzzy", dimension=ADHERENCE, version="1.0",
         paired=False, model_ref="openai/whisper (MIT code AND weights)", note=(
             "normalized-similarity mean over the same spoken strings"
+        ),
+    ),
+    # --- fine-detail fidelity: the class flat-region/coherence/adjacent-frame
+    # --- screens MISS (melted faces, pseudo-glyphs, edge halos, texture mush).
+    # --- Folded into the four dimensions, NOT a fifth — same reason audio isn't:
+    # --- texture distance is SIMILARITY, 'is this well formed' is QUALITY, and
+    # --- 'which clip has better detail' is PREFERENCE. See cozy_eval.detail. ---
+    MetricSpec(
+        name="dists", dimension=SIMILARITY, version="1.0",
+        model_ref="torchmetrics:dists", higher_is_better=False, note=(
+            "video/image FINE-DETAIL: DISTS texture-and-structure perceptual "
+            "distance to a same-seed control. The registry's own noted "
+            "non-redundant similarity gap — it reads 'real texture vs mush' where "
+            "LPIPS reads global divergence. Report-only until budgets are banked, "
+            "but VALIDATED to track step-reduction damage monotonically (busker "
+            "s20->s50 0.146 vs s30->s50 0.118 against the s50 control, 2026-08-09)."
+        ),
+    ),
+    MetricSpec(
+        name="ringing_excess", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:detail", higher_is_better=False, note=(
+            "video/image FINE-DETAIL, PAIRED: candidate edge-overshoot minus the "
+            "reference's, at matched content. The validated form of the ringing/"
+            "halo read — subtracting a same-seed control cancels the scene the "
+            "bare number confounds. Catches the fp8 SHARPENING halo (ie#634 crops "
+            "+0.045 busker, +0.072 signage) that DISTS/LPIPS-mush does not; on "
+            "step-reduction it goes the OTHER way (mush overshoots less), so the "
+            "two are complementary. Report-only until budgets are banked."
+        ),
+    ),
+    MetricSpec(
+        name="edge_overshoot", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:detail", paired=False, higher_is_better=False, note=(
+            "video/image, reference-free ringing DIAGNOSTIC: |unsharp residual| "
+            "in the thin band beside strong edges, contrast-normalized. "
+            "SCENE-CONFOUNDED and report-only BY CONSTRUCTION — genuine detail "
+            "raises it (on the step ladder the best arm overshoots MOST), so it "
+            "is trustworthy only as the paired ringing_excess. Kept because it is "
+            "the quantity the paired difference is taken of."
+        ),
+    ),
+    MetricSpec(
+        name="text_legibility", dimension=QUALITY, version="1.0",
+        model_ref="rapidocr", paired=False, note=(
+            "video/image FINE-DETAIL, reference-free PRE-SCREEN: mean OCR "
+            "recognition confidence over detected text regions. A text detector "
+            "that fires but a recognizer that cannot read it is the numeric "
+            "signature of a pseudo-glyph. BLIND SPOT, stated: PP-OCR does not "
+            "detect heavily stylized / non-Latin signage (the ie#634 neon-Japanese "
+            "case), so the hardest pseudo-glyphs come back UNMEASURED here, never "
+            "a pass — the VLM rubric is the only instrument that catches those."
+        ),
+    ),
+    MetricSpec(
+        name="text_legible_fraction", dimension=QUALITY, version="1.0",
+        model_ref="rapidocr", paired=False, note=(
+            "fraction of detected text regions at/above the legibility confidence "
+            "floor; report-only sibling of text_legibility"
+        ),
+    ),
+    MetricSpec(
+        name="detail_score", dimension=QUALITY, version="1.0",
+        model_ref="Qwen/Qwen3-VL-8B-Instruct", paired=False, note=(
+            "video/image FINE-DETAIL, the PRIMARY catch: mean of the four VLM "
+            "rubric axes (text legible, face/hand coherent, edges clean, texture "
+            "real), each a yes/no over the sampled frame strip. A VLM sees "
+            "'melted face' and 'fake letters' the way a person does; the numeric "
+            "detectors above are the cheap pre-screen. UNMEASURED without a Judge, "
+            "like the audio semantic tier. Report-only (arniqa holds the QUALITY "
+            "headline); recommended as the QUALITY HALF of the serve gate."
+        ),
+    ),
+    MetricSpec(
+        name="detail_text_legible", dimension=QUALITY, version="1.0",
+        model_ref="Qwen/Qwen3-VL-8B-Instruct", paired=False, note=(
+            "VLM rubric axis: 1.0 if text/signage is real readable glyphs, 0.0 if "
+            "pseudo-glyph scribble. The instrument for the non-Latin/stylized "
+            "signage text_legibility is blind to."
+        ),
+    ),
+    MetricSpec(
+        name="detail_face_coherent", dimension=QUALITY, version="1.0",
+        model_ref="Qwen/Qwen3-VL-8B-Instruct", paired=False, note=(
+            "VLM rubric axis: 1.0 if faces and hands are coherent, 0.0 if melted/"
+            "smeared or malformed"
+        ),
+    ),
+    MetricSpec(
+        name="detail_edge_clean", dimension=QUALITY, version="1.0",
+        model_ref="Qwen/Qwen3-VL-8B-Instruct", paired=False, note=(
+            "VLM rubric axis: 1.0 if high-contrast edges are free of halos/"
+            "ringing, 0.0 otherwise. The perceptual sibling of ringing_excess."
+        ),
+    ),
+    MetricSpec(
+        name="detail_texture_real", dimension=QUALITY, version="1.0",
+        model_ref="Qwen/Qwen3-VL-8B-Instruct", paired=False, note=(
+            "VLM rubric axis: 1.0 if fine texture reads as real material, 0.0 if "
+            "mushy/wobbly/hand-drawn degradation. The perceptual sibling of dists."
+        ),
+    ),
+    MetricSpec(
+        name="detail_pref_delta", dimension=PREFERENCE, version="1.0",
+        model_ref="Qwen/Qwen3-VL-8B-Instruct", note=(
+            "video/image FINE-DETAIL, PAIRWISE: +1 candidate wins, -1 reference "
+            "wins, 0 tie — the VLM shown both strips and asked which has better "
+            "fine detail. The capability-side read for the parity verdict when "
+            "seeds can't match and pixel distance is meaningless (the fal-parity "
+            "protocol). Report-only; UNMEASURED without a Judge."
         ),
     ),
 )

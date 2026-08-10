@@ -45,8 +45,13 @@ video = ["numpy>=1.26", "pillow>=10"]
 # OPTICOM) forbid modification and restrict use to non-commercial conformance
 # testing. Its MIT label is the packager's and does not override that notice.
 audio = ["numpy>=1.26", "scipy>=1.11"]
+# fine-detail fidelity: numpy+scipy for the ringing diagnostic, torchmetrics[image]
+# for the paired DISTS texture distance, rapidocr for the text-legibility pre-screen,
+# and the judge extra for the VLM rubric (the primary catch).
+detail = ["numpy>=1.26", "scipy>=1.11", "torchmetrics[image]>=1.9", "pillow>=10",
+          "cozy-eval[ocr,judge]"]
 
-all = ["cozy-eval[reference,distributional,similarity,judge,ocr,preference,quality,hpsv3,video,audio]"]
+all = ["cozy-eval[reference,distributional,similarity,judge,ocr,preference,quality,hpsv3,video,audio,detail]"]
 dev = ["pytest>=8.0", "ruff>=0.6", "pillow>=10"]
 
 [project.urls]

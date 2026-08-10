@@ -49,7 +49,7 @@ from typing import Any
 
 import msgspec
 
-from . import registry, suite
+from . import integrity, registry, suite
 from .device import AUTO, resolve_device
 from .errors import ConfigError
 from .judge import Judge
@@ -441,6 +441,26 @@ def run_video(
             row.values.update(temporal.signal_stats(cand))
         report.seconds["signal"] = round(time.monotonic() - t0, 2)
         report.models["signal"] = temporal.SIGNAL_LIBRARY
+
+    # --- output integrity: is this a render at all, or noise? ----------------
+    # DELIBERATELY has no opt-out flag. Production served VAE-decoded noise on
+    # billed requests because nothing looked at pixels; a screen you can switch
+    # off rebuilds that hole. numpy only, no reference, milliseconds — there is
+    # no cost worth trading for the ability to skip it.
+    t0 = time.monotonic()
+    for row in rows:
+        checked = integrity.output_integrity(cand_frames[row.index])
+        row.values["adjacent_frame_corr"] = checked.adjacent_frame_corr
+        row.values["frame_std_min"] = checked.frame_std_min
+        for defect in checked.defects:
+            report.notes.append(f"sample {row.index:02d} OUTPUT INTEGRITY: {defect}")
+        if checked.verdict == integrity.UNMEASURED:
+            report.notes.append(
+                f"sample {row.index:02d} OUTPUT INTEGRITY UNMEASURED: "
+                + "; ".join(checked.notes)
+            )
+    report.seconds["integrity"] = round(time.monotonic() - t0, 2)
+    report.models["integrity"] = temporal.INTEGRITY_LIBRARY
 
     # --- temporal fidelity: do the movements match (optical flow) ------------
     # The motion axis screenshots miss. Reference-free warp_error on every clip;

@@ -70,8 +70,9 @@ from .errors import RegistryError
 
 #: Identifies the METRIC SET a report was produced with. Same ``cozy-eval/<thing>@<n>``
 #: convention as ``suite.REPORT_SCHEMA``. Bump when a metric's meaning changes.
-METRIC_SET_VERSION = "cozy-eval/metrics@6"
-# @5 was #9's spatial fine-detail set; @6 adds the temporal-fidelity family.
+METRIC_SET_VERSION = "cozy-eval/metrics@7"
+# @5 was #9's spatial fine-detail set; @6 added the temporal-fidelity family;
+# @7 adds the output-integrity floor. Those three are the serve gate's axes.
 
 # A metric name is an API key: budgets, banked reports and report rows all
 # address metrics by it.
@@ -395,6 +396,32 @@ BUILTIN: tuple[MetricSpec, ...] = (
             "video, composed from cozy-eval's signal backend: second/first temporal "
             "difference of frame-mean luma; smooth motion sits low, flicker "
             "and judder push it up"
+        ),
+    ),
+    # --- output integrity: is this a render at all, or noise? ----------------
+    # The one gated floor here whose limit is BANKED against real arms, and the
+    # cheapest number in the library. See cozy_eval.integrity for its scope.
+    MetricSpec(
+        name="adjacent_frame_corr", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:integrity", paired=False, gated=True, note=(
+            "OUTPUT-INTEGRITY GATE, reference-free: MEDIAN Pearson correlation of "
+            "adjacent grey frame pairs sampled across the clip. Real video is "
+            "self-similar frame to frame; VAE-decoded noise is correlated with "
+            "nothing. MEASURED separation, not a guess: production noise 0.29, "
+            "real renders 0.92-0.99, floor 0.6 in the empty middle. The median "
+            "is what makes a hard CUT safe. SCOPE: catches NOISE/BLANK only — a "
+            "melted/over-smoothed render scores HIGHER than a clean one, so this "
+            "is never a quality gate; that is what the detail detectors (@5) and "
+            "the temporal-fidelity family (@6) are for."
+        ),
+    ),
+    MetricSpec(
+        name="frame_std_min", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:integrity", paired=False, note=(
+            "smallest per-frame grey standard deviation over the sampled frames; "
+            "zero is BLANK output (constant fill), which correlates with nothing "
+            "and so cannot be caught by adjacent_frame_corr alone. Report-only: "
+            "the blank verdict is raised by cozy_eval.integrity, not a budget."
         ),
     ),
     # --- audio, paired fidelity (SIMILARITY: the faithfulness question) ------

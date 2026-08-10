@@ -77,6 +77,7 @@ from . import (
     detail,
     device,
     errors,
+    integrity,
     judge,
     metrics,
     promptset,
@@ -128,6 +129,7 @@ from .errors import (
 from .frames import iter_frames, probe
 from .gate import GateReport, run_population_gate, run_reference_gate, score_pairs
 from .image import IMAGE_BUDGETS, run_image_population_gate, score_image
+from .integrity import OutputIntegrity, output_integrity
 from .judge import AudioJudge, Judge, SoftJudge, Transcriber
 from .metrics.adherence import (
     Checklist,
@@ -190,6 +192,7 @@ __all__ = [
     "Measurement",
     "MetricSpec",
     "NullControl",
+    "OutputIntegrity",
     "ParityVerdict",
     "PromptSet",
     "Protocol",
@@ -225,11 +228,13 @@ __all__ = [
     "errors",
     "evaluate",
     "imaging",
+    "integrity",
     "iter_frames",
     "judge",
     "load_checklists",
     "measure_null_control",
     "metrics",
+    "output_integrity",
     "probe",
     "probe_audio",
     "promptset",

@@ -307,6 +307,39 @@ names, the registry, the report schema, checklist/prompt-set formats, the
 verdicts, the Judge protocols, the protocol/lane rules) is locked for 0.x;
 everything under `cozy_eval.metrics.*` and `cozy_eval.decompose` is experimental.
 
+## Is it a render at all?
+
+Before any of the questions below is worth asking, one has to be settled: is
+this output *anything*? A production video model of ours served pure
+VAE-decoded **noise** on billed, settled requests and passed every check in
+place, because the evidence banked was container metadata and a billing row.
+Nobody looked at pixels. Metadata is not pixels.
+
+```python
+from cozy_eval import output_integrity
+
+checked = output_integrity(frames)          # (T, H, W, 3), uint8 or float
+if not checked.ok:
+    raise RuntimeError(checked.summary())   # names NOISE or BLANK
+```
+
+Real video is strongly self-similar frame to frame; noise is correlated with
+nothing. The median adjacent-frame grey correlation separates the two with an
+empty middle — **noise 0.29, real renders 0.92-0.99, floor 0.60** — and taking
+the *median* over pairs spread across the clip is what keeps a hard cut from
+reading as noise. A per-frame contrast floor catches blank output, which
+correlates with nothing and so cannot be caught by correlation at all. numpy
+only, no reference, no model: **8.3 ms** on a 121-frame 1344x768 clip, which is
+cheap enough to run on every render including the serve path.
+
+> **It is not a quality gate, and must never be quoted as one.** It catches
+> noise and blank output. A melted or over-smoothed render scores *higher* than
+> a clean one — smearing removes high-frequency temporal variation, so damage
+> looks like stability. Fine detail is `detail_verdict` and the VLM rubric;
+> motion is the temporal-fidelity family. Three axes, none sufficient alone,
+> and the library ships a test that pins this blind spot rather than a sentence
+> claiming it does not exist.
+
 ## Does it SOUND right?
 
 Every video model we serve now emits audio — LTX-2.3 denoises audio latents in

@@ -256,6 +256,7 @@ def run_video(
     use_signal: bool = True,
     use_detail: bool = True,
     detail_judge: Judge | None = None,
+    use_temporal_fidelity: bool = True,
     judge_frames: int = DEFAULT_JUDGE_FRAMES,
     device: str = AUTO,
     render_seconds: float = 0.0,
@@ -440,6 +441,32 @@ def run_video(
             row.values.update(temporal.signal_stats(cand))
         report.seconds["signal"] = round(time.monotonic() - t0, 2)
         report.models["signal"] = temporal.SIGNAL_LIBRARY
+
+    # --- temporal fidelity: do the movements match (optical flow) ------------
+    # The motion axis screenshots miss. Reference-free warp_error on every clip;
+    # flow_divergence + warp_error_delta additionally when a same-seed control is
+    # present. opencv is the `video` extra — a run without it is UNMEASURED, not
+    # a silent pass.
+    if use_temporal_fidelity:
+        try:
+            import cv2  # noqa: F401
+        except ImportError:
+            report.notes.append(
+                "TEMPORAL FIDELITY UNMEASURED: opencv not installed "
+                "(pip install 'cozy-eval[video]') — flow_divergence / warp_error skipped"
+            )
+        else:
+            t0 = time.monotonic()
+            for row in rows:
+                cand = cand_frames[row.index]
+                if paired:
+                    row.values.update(
+                        temporal.temporal_fidelity(ref_frames[row.index], cand)
+                    )
+                else:
+                    row.values["warp_error"] = temporal.warp_error(cand)
+            report.seconds["temporal_fidelity"] = round(time.monotonic() - t0, 2)
+            report.models["temporal_fidelity"] = temporal.FLOW_LIBRARY
 
     # --- audio: the axis a silent run must never be allowed to skip quietly ---
     if audio is None:

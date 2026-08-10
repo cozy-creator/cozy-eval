@@ -38,7 +38,10 @@ preference = ["torch>=2.4", "transformers>=4.57"]
 # piq floor: torchmetrics' default clip_iqa checkpoint is loaded through piq at runtime
 quality = ["torch>=2.4", "torchmetrics[image]>=1.9", "piq>=0.8", "numpy>=1.26", "scipy>=1.11", "pillow>=10"]
 hpsv3 = ["torch>=2.4", "transformers>=4.53", "safetensors>=0.4", "huggingface-hub>=0.23", "pillow>=10"]
-video = ["numpy>=1.26", "pillow>=10"]
+# opencv (headless) is the optical-flow backend for the temporal-fidelity family
+# (flow_divergence / warp_error). VMAF additionally needs an ffmpeg built with
+# --enable-libvmaf on PATH (or VMAF_FFMPEG) — a system binary, not a pip dep.
+video = ["numpy>=1.26", "pillow>=10", "opencv-python-headless>=4.9"]
 # scipy is only for the BS.1770-4 K-weighting IIR; everything else in the audio
 # tier is numpy. DELIBERATELY NOT torchmetrics[audio]: that extra pulls `pesq`,
 # which ships modified ITU-T P.862 reference C whose rights holders (Psytechnics,

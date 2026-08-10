@@ -361,3 +361,98 @@ def test_worst_frame_tail_names_the_ruined_frame_not_the_average() -> None:
     assert row.values["lpips_frame_worst"] > row.lpips * 2
     # The ruined transition also shows in the Δ-frame tail.
     assert row.values["dframe_psnr_worst"] < row.values["dframe_psnr"]
+
+
+# ---------------------------------------------------------------------------
+# the temporal-fidelity family: flow_divergence / warp_error / warp_error_delta
+# ---------------------------------------------------------------------------
+
+# Farneback needs a window > 15 px and real motion, so these clips are larger and
+# move a 16 px square along an explicit trajectory. The MOTION lives in the offset
+# sequence, exactly like _clip, and the RED arms below damage motion, not pixels.
+_PAN_RIGHT = [6, 10, 14, 18, 22, 26, 30, 34]
+_PAN_LEFT = list(reversed(_PAN_RIGHT))
+
+
+def _incoherent(size: int = 96, frames: int = 8) -> np.ndarray:
+    """Every frame an independent structured scene — the ie#615 production-noise
+    signature (temporally coherent to the eye NOWHERE; no flow can predict it)."""
+    return np.clip(np.stack([_scene(size, seed=100 + i) for i in range(frames)]), 0.0, 1.0)
+
+
+def test_warp_error_separates_coherent_motion_from_incoherent_noise() -> None:
+    """The reference-free RED check, and the family's sharpest separator: a
+    coherent pan warps cleanly; per-frame structured noise cannot be
+    flow-predicted, so its residual is near full contrast."""
+    coherent = _clip(_PAN_RIGHT, size=96)
+    noise = _incoherent()
+    we_coherent = temporal.warp_error(coherent)
+    we_noise = temporal.warp_error(noise)
+    assert we_coherent < 0.5
+    assert we_noise > 0.8
+    assert we_noise > we_coherent * 2.0
+
+
+def test_flow_divergence_is_near_zero_on_matched_motion_and_large_on_wrong_motion() -> None:
+    right = _clip(_PAN_RIGHT, size=96)
+    # identical motion + a little pixel noise: the movements still match
+    matched = np.clip(right + np.random.default_rng(1).normal(0, 0.01, right.shape).astype(np.float32), 0, 1)
+    left = _clip(_PAN_LEFT, size=96)
+    assert temporal.flow_divergence(right, right.copy())["flow_divergence"] < 0.05
+    assert temporal.flow_divergence(right, matched)["flow_divergence"] < 0.3
+    # a square panning the OTHER WAY is a divergence larger than the motion itself
+    assert temporal.flow_divergence(right, left)["flow_divergence"] > 1.0
+
+
+def test_warp_error_delta_is_signed_toward_the_boiling_arm() -> None:
+    """warp_error_delta > 0 means the candidate ADDED instability the reference
+    did not have — the paired SIMILARITY read that cancels the shared scene."""
+    ref = _clip(_PAN_RIGHT, size=96)
+    boiling = _incoherent()
+    tf = temporal.temporal_fidelity(ref, boiling)
+    assert tf["warp_error_delta"] > 0.3
+    assert tf["warp_error"] > tf["warp_error_ref"]
+    # a faithful candidate (same motion) adds ~no instability
+    matched = np.clip(ref + np.random.default_rng(2).normal(0, 0.01, ref.shape).astype(np.float32), 0, 1)
+    assert abs(temporal.temporal_fidelity(ref, matched)["warp_error_delta"]) < 0.1
+
+
+def test_temporal_fidelity_rejects_misaligned_clips() -> None:
+    with pytest.raises(errors.ConfigError):
+        temporal.flow_divergence(_clip(_PAN_RIGHT, size=96), _clip(_PAN_RIGHT[:4], size=96))
+
+
+def test_run_video_wires_the_temporal_fidelity_family() -> None:
+    refs = [_clip(REF_OFFSETS), _clip(REF_OFFSETS, seed=9)]
+    cands = [_stable(refs[0]), _flicker(refs[1])]
+    report = video.run_video(
+        _samples(), cands, references=refs,
+        checklists=promptset.checklists_for(SET),
+        judge=StripJudge(), use_ocr=False, device="cpu",
+    )
+    for row in report.rows:
+        for key in ("flow_divergence", "warp_error", "warp_error_delta"):
+            assert key in row.values, key
+    assert report.models["temporal_fidelity"] == temporal.FLOW_LIBRARY
+
+
+def test_run_video_reference_free_reports_warp_error_only() -> None:
+    cands = [_clip(REF_OFFSETS), _clip(REF_OFFSETS, seed=9)]
+    report = video.run_video(
+        _samples(), cands, checklists=promptset.checklists_for(SET),
+        judge=StripJudge(), use_ocr=False, device="cpu",
+    )
+    for row in report.rows:
+        assert "warp_error" in row.values
+        assert "flow_divergence" not in row.values  # no reference => no paired number
+
+
+def test_vmaf_harmonic_mean_weights_the_worst_frames() -> None:
+    from cozy_eval.metrics import reference
+
+    # a clip that is 100 for most frames and collapses for a few reads far below
+    # the arithmetic mean under harmonic pooling — the whole point of the choice.
+    vals = [100.0] * 9 + [1.0]
+    hmean = reference._harmonic_mean(vals)
+    assert hmean < 15.0  # arithmetic mean is 90.1
+    assert reference._harmonic_mean([80.0, 80.0, 80.0]) == pytest.approx(80.0)

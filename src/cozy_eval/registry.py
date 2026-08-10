@@ -70,7 +70,8 @@ from .errors import RegistryError
 
 #: Identifies the METRIC SET a report was produced with. Same ``cozy-eval/<thing>@<n>``
 #: convention as ``suite.REPORT_SCHEMA``. Bump when a metric's meaning changes.
-METRIC_SET_VERSION = "cozy-eval/metrics@5"
+METRIC_SET_VERSION = "cozy-eval/metrics@6"
+# @5 was #9's spatial fine-detail set; @6 adds the temporal-fidelity family.
 
 # A metric name is an API key: budgets, banked reports and report rows all
 # address metrics by it.
@@ -150,9 +151,52 @@ BUILTIN: tuple[MetricSpec, ...] = (
     MetricSpec(
         name="vmaf", dimension=SIMILARITY, version="1.0",
         model_ref="libvmaf:vmaf_v0.6.1", note=(
-            "reference lane only, whole video files through ffmpeg's libvmaf. "
-            "Report-only here because its budgets are per-content: a VMAF that "
-            "is excellent for animation is mediocre for film grain."
+            "reference lane only, whole video FILES through ffmpeg's libvmaf, "
+            "candidate scaled+fps-matched to the reference first. THE single "
+            "best perceptual video-fidelity score (fuses spatial + motion). "
+            "HARMONIC-mean pooled so a clip that falls apart for 10% of frames "
+            "does not read ~90. Report-only here because its budgets are "
+            "per-content: a VMAF excellent for animation is mediocre for film grain."
+        ),
+    ),
+    MetricSpec(
+        name="vmaf_min", dimension=SIMILARITY, version="1.0",
+        model_ref="libvmaf:vmaf_v0.6.1", note=(
+            "the worst single-frame VMAF — the tail of vmaf, where one ruined "
+            "transition hides under a healthy harmonic mean"
+        ),
+    ),
+    # --- temporal fidelity: the motion axis screenshots miss (optical flow) ----
+    MetricSpec(
+        name="flow_divergence", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:flow", higher_is_better=False, note=(
+            "video: mean end-point error between the candidate's and reference's "
+            "Farneback optical-flow fields, normalized by the reference's motion "
+            "magnitude. 'Do the movements match' — catches trajectory damage a "
+            "per-frame metric cannot, valid for same-seed pairs (fp8-vs-bf16, "
+            "quant-vs-dense). 0 = identical motion; 1 = divergence the size of "
+            "the reference's own motion. Paired to a same-seed control."
+        ),
+    ),
+    MetricSpec(
+        name="warp_error_delta", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:flow", higher_is_better=False, note=(
+            "video: candidate warp-error MINUS the reference's, at matched "
+            "content — the temporal instability the candidate ADDED (shimmer / "
+            "boiling / flicker). Subtracting the same-seed control cancels the "
+            "shared scene, exactly as #9's ringing_excess does for spatial halos. "
+            "Positive = the candidate boils where the reference was stable."
+        ),
+    ),
+    MetricSpec(
+        name="warp_error", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:flow", paired=False, higher_is_better=False, note=(
+            "video, reference-free: warp frame t->t+1 by its optical flow, mean "
+            "absolute residual vs the actual t+1 / frame contrast. Coherent "
+            "motion warps cleanly; shimmer, boiling and per-frame noise cannot be "
+            "flow-predicted and leave a large residual. The reference-free half "
+            "of the temporal-fidelity family — the ONE temporal number valid with "
+            "no control, and the sharpest separator of the production-noise class."
         ),
     ),
     MetricSpec(

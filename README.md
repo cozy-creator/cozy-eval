@@ -86,6 +86,7 @@ The base install is **numpy + msgspec only** — everything else is an extra.
 ```bash
 pip install cozy-eval                      # numpy + the ffmpeg CLI
 pip install "cozy-eval[reference]"         # VMAF / ColorVideoVDP / SSIM / LPIPS
+pip install "cozy-eval[video]"             # optical-flow temporal fidelity (opencv)
 pip install "cozy-eval[quality]"           # NIQE / MUSIQ / ARNIQA / CLIP-IQA
 pip install "cozy-eval[distributional]"    # cd-fvd, fvmd
 ```

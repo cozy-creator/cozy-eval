@@ -177,8 +177,10 @@ def test_verdict_reference_tier_measures_dists_and_ringing() -> None:
 # registry wiring
 # ---------------------------------------------------------------------------
 
-def test_new_metrics_registered_at_v5() -> None:
-    assert registry.METRIC_SET_VERSION == "cozy-eval/metrics@5"
+def test_new_metrics_registered() -> None:
+    # The detail family landed at metrics@5; assert the FLOOR, not the exact
+    # integer — every later family bumps it and must not fail this test.
+    assert int(registry.METRIC_SET_VERSION.rsplit("@", 1)[1]) >= 5
     for name in ("dists", "ringing_excess", "edge_overshoot", "text_legibility",
                  "detail_score", "detail_text_legible", "detail_face_coherent",
                  "detail_edge_clean", "detail_texture_real", "detail_pref_delta"):

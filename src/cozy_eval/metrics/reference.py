@@ -83,30 +83,81 @@ def have_vmaf() -> bool:
     return " libvmaf " in out
 
 
+def _harmonic_mean(vals: list[float]) -> float:
+    """Harmonic mean of per-frame VMAF, the pooling Netflix recommends: it
+    weights the worst frames far more than the arithmetic mean, so a clip that
+    is excellent for 90% and falls apart for 10% does not read as ~90."""
+    finite = [v for v in vals if v is not None and v > 0]
+    if not finite:
+        return 0.0
+    return float(len(finite) / np.sum([1.0 / v for v in finite]))
+
+
+def _ffmpeg_bin() -> str:
+    """The ffmpeg to shell out to. ``VMAF_FFMPEG`` overrides so a box whose
+    system ffmpeg lacks libvmaf can point at a static build."""
+    import os
+
+    return os.environ.get("VMAF_FFMPEG", "ffmpeg")
+
+
+def _probe_video(path: str | Path) -> tuple[int, int, str]:
+    """``(width, height, fps_expr)`` of a clip's first video stream, via ffprobe."""
+    import os
+
+    ffmpeg = _ffmpeg_bin()
+    d, base = os.path.split(ffmpeg)
+    ffprobe = os.path.join(d, base.replace("ffmpeg", "ffprobe")) if d else "ffprobe"
+    out = subprocess.run(
+        [ffprobe, "-v", "error", "-select_streams", "v:0", "-show_entries",
+         "stream=width,height,r_frame_rate", "-of", "csv=p=0", str(path)],
+        check=True, capture_output=True, text=True,
+    ).stdout.strip()
+    w, h, fps = out.split(",")[:3]
+    return int(w), int(h), fps
+
+
 def vmaf(reference: str | Path, candidate: str | Path) -> dict[str, float]:
-    """Netflix VMAF. Prefers ffmpeg_quality_metrics; falls back to raw ffmpeg."""
-    try:
-        from ffmpeg_quality_metrics import FfmpegQualityMetrics
-    except ImportError:
-        pass
-    else:
-        res = FfmpegQualityMetrics(str(reference), str(candidate)).calculate(["vmaf"])
-        vals = [row["vmaf"] for row in res["vmaf"]]
-        return {"vmaf_mean": float(np.mean(vals)), "vmaf_min": float(np.min(vals))}
-    if not have_vmaf():
-        raise RuntimeError(
-            "this ffmpeg has no libvmaf filter; install an ffmpeg built with "
-            "--enable-libvmaf, or omit VMAF from the reference metric set"
-        )
+    """Netflix VMAF, candidate vs reference, harmonic-mean pooled.
+
+    Resolution and framerate are ALIGNED before scoring: VMAF is a full-reference
+    metric defined at one geometry and clock, so the candidate is scaled to the
+    reference's resolution and resampled to its framerate in the filter graph.
+    An unaligned pair otherwise scores a real fidelity loss where there was only
+    a preset difference. Returns ``vmaf`` (harmonic mean — THE number),
+    ``vmaf_mean`` (arithmetic, for continuity with historical rows) and
+    ``vmaf_min`` (the worst frame, the tail).
+    """
+    ffmpeg = _ffmpeg_bin()
+    rw, rh, rfps = _probe_video(reference)
+    # [candidate] scaled+fps-matched to the reference, then [that][reference]libvmaf.
+    align = f"scale={rw}:{rh}:flags=bicubic,fps={rfps},setsar=1"
     with tempfile.NamedTemporaryFile("r", suffix=".json") as out:
-        subprocess.run(
-            ["ffmpeg", "-v", "error", "-i", str(candidate), "-i", str(reference),
-             "-lavfi", f"libvmaf=log_fmt=json:log_path={out.name}", "-f", "null", "-"],
-            check=True, capture_output=True,
+        graph = (
+            f"[0:v]{align}[cand];"
+            f"[1:v]setsar=1[ref];"
+            f"[cand][ref]libvmaf=log_fmt=json:log_path={out.name}"
         )
+        proc = subprocess.run(
+            [ffmpeg, "-v", "error", "-i", str(candidate), "-i", str(reference),
+             "-lavfi", graph, "-f", "null", "-"],
+            check=False, capture_output=True, text=True,
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(
+                "libvmaf ffmpeg call failed; install an ffmpeg built with "
+                "--enable-libvmaf or set VMAF_FFMPEG to one. stderr:\n"
+                + (proc.stderr or "")[-800:]
+            )
         data = json.loads(Path(out.name).read_text())
     pooled = data["pooled_metrics"]["vmaf"]
-    return {"vmaf_mean": float(pooled["mean"]), "vmaf_min": float(pooled["min"])}
+    per_frame = [f["metrics"]["vmaf"] for f in data.get("frames", [])]
+    hmean = _harmonic_mean(per_frame) if per_frame else float(pooled.get("harmonic_mean", pooled["mean"]))
+    return {
+        "vmaf": hmean,
+        "vmaf_mean": float(pooled["mean"]),
+        "vmaf_min": float(pooled["min"]),
+    }
 
 
 @functools.cache

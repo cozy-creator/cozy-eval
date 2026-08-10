@@ -229,7 +229,7 @@ def _small_gray_frame(frame: Any, size: tuple[int, int]) -> Any:
 def _work_size(h: int, w: int, target_h: int) -> tuple[int, int]:
     if h <= target_h:
         return w, h
-    sw = max(2, int(round(w * target_h / h)) & ~1)
+    sw = max(2, round(w * target_h / h) & ~1)
     return sw, target_h
 
 
@@ -318,7 +318,7 @@ def flow_divergence(reference: Any, candidate: Any, *, pairs: int = FLOW_PAIRS,
     ref = as_frames(reference)
     cand = as_frames(candidate)
     _check_pair(ref, cand, metric="flow_divergence")
-    fr, gr, starts = flow_fields(ref, pairs=pairs, target_h=target_h)
+    fr, _gr, _starts = flow_fields(ref, pairs=pairs, target_h=target_h)
     fc, _, _ = flow_fields(cand, pairs=pairs, target_h=target_h)
     epe = float(np.mean([
         np.hypot(a[..., 0] - b[..., 0], a[..., 1] - b[..., 1]).mean()

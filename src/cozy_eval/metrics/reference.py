@@ -83,7 +83,7 @@ def have_vmaf() -> bool:
     return " libvmaf " in out
 
 
-def _harmonic_mean(vals: "list[float]") -> float:
+def _harmonic_mean(vals: list[float]) -> float:
     """Harmonic mean of per-frame VMAF, the pooling Netflix recommends: it
     weights the worst frames far more than the arithmetic mean, so a clip that
     is excellent for 90% and falls apart for 10% does not read as ~90."""

@@ -254,6 +254,8 @@ def run_video(
     judge: Judge | None = None,
     use_ocr: bool = True,
     use_signal: bool = True,
+    use_detail: bool = True,
+    detail_judge: Judge | None = None,
     judge_frames: int = DEFAULT_JUDGE_FRAMES,
     device: str = AUTO,
     render_seconds: float = 0.0,
@@ -491,6 +493,35 @@ def run_video(
         measured_any = {k for row in rows for k in row.values}
         for name, reason in sorted(unmeasured_reasons.items()):
             if name not in measured_any:
+                report.notes.append(f"{name} UNMEASURED: {reason}")
+
+    # --- fine detail: melted faces, pseudo-glyphs, edge halos, texture mush ---
+    if use_detail:
+        from . import detail as detail_mode
+        from .metrics import detail as detail_metrics
+
+        t0 = time.monotonic()
+        d_judge = detail_judge or judge
+        detail_unmeasured: dict[str, str] = {}
+        for row, strip in zip(rows, strips, strict=True):
+            dv = detail_mode.detail_verdict(
+                strip,
+                reference_strip=ref_strips[row.index] if paired else None,
+                judge=d_judge, device=device,
+            )
+            row.values.update(dv.measured)
+            for defect in dv.defects:
+                report.notes.append(f"sample {row.index:02d} DETAIL DEFECT: {defect}")
+            for flag in dv.flags:
+                report.notes.append(f"sample {row.index:02d} DETAIL FLAG: {flag}")
+            detail_unmeasured.update(dv.unmeasured)
+        report.seconds["detail"] = round(time.monotonic() - t0, 2)
+        report.models["detail"] = detail_metrics.DETAIL_LIBRARY
+        if d_judge is not None:
+            report.models["detail_judge"] = getattr(d_judge, "model_ref", "")
+        measured_detail = {k for row in rows for k in row.values}
+        for name, reason in sorted(detail_unmeasured.items()):
+            if name not in measured_detail:
                 report.notes.append(f"{name} UNMEASURED: {reason}")
 
     # --- preference: an honest gap, stated -----------------------------------

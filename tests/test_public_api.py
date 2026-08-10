@@ -113,7 +113,7 @@ EXPECTED_SPECS = {
 #: ourselves is <subject>_<quantity>.
 PUBLISHED_NAMES = {
     "lpips", "ssim", "ms_ssim", "psnr", "niqe", "musiq", "arniqa",
-    "clip_iqa", "vqascore", "vmaf", "cvvdp",
+    "clip_iqa", "vqascore", "vmaf", "cvvdp", "dists",
 }
 
 

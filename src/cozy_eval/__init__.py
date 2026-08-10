@@ -74,6 +74,7 @@ from . import (
     audio,
     catalog,
     decompose,
+    detail,
     device,
     errors,
     judge,
@@ -107,6 +108,11 @@ from .benchmarks import (
 )
 from .catalog import add_checklist_set, checklist_set
 from .control import NullControl, measure_null_control
+from .detail import (
+    DetailVerdict,
+    detail_verdict,
+    score_detail_vlm,
+)
 from .device import AUTO, resolve_device
 from .errors import (
     BackendError,
@@ -175,6 +181,7 @@ __all__ = [
     "DataError",
     "DecodeError",
     "Defect",
+    "DetailVerdict",
     "DimensionSummary",
     "EditChecklist",
     "GateReport",
@@ -211,6 +218,8 @@ __all__ = [
     "checklists_for",
     "classify_change",
     "decompose",
+    "detail",
+    "detail_verdict",
     "device",
     "distributional",
     "errors",
@@ -235,6 +244,7 @@ __all__ = [
     "run_reference_gate",
     "run_video",
     "score_clip",
+    "score_detail_vlm",
     "score_image",
     "score_pairs",
     "suite",

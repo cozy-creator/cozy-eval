@@ -1,10 +1,17 @@
 """Video: frame handling, the Δ-frame temporal channel, the optical-flow
-temporal-fidelity family, and composed signal stats.
+temporal-fidelity family, the output-integrity floor, and composed signal stats.
 
 STABILITY: experimental (v0.x) for these function signatures; the metric NAMES
 (``dframe_psnr``, ``dframe_ssim``, ``lpips_frame_worst``, ``luma_flicker``,
-``jerk_ratio``, ``flow_divergence``, ``warp_error``, ``warp_error_delta``) are
-locked by the registry.
+``jerk_ratio``, ``flow_divergence``, ``warp_error``, ``warp_error_delta``,
+``adjacent_frame_corr``) are locked by the registry.
+
+THE OUTPUT-INTEGRITY FLOOR (``adjacent_frame_corr`` / ``frame_std_min``) is the
+cheapest instrument here and the one that must never be skipped: numpy only, no
+reference, no model, and it touches only a handful of frames. It answers "is
+this a render at all, or noise" — the question nobody asked while production
+minimax-h3 billed settled requests for VAE-decoded noise. The verdict wrapper
+and its scope limits live in :mod:`cozy_eval.integrity`.
 
 THE TEMPORAL-FIDELITY FAMILY (``flow_divergence`` / ``warp_error`` /
 ``warp_error_delta``) answers a question screenshots cannot: *do the movements
@@ -372,11 +379,153 @@ def temporal_fidelity(reference: Any, candidate: Any, *, pairs: int = FLOW_PAIRS
     }
 
 
+# ---------------------------------------------------------------------------
+# output integrity — the NOISE / BLANK floor (ie#634: every production
+# minimax-h3 render was VAE-decoded noise and passed every check we had)
+# ---------------------------------------------------------------------------
+
+INTEGRITY_LIBRARY = "cozy-eval:integrity"
+
+#: Adjacent ``(t, t+1)`` pairs sampled across the clip. The MEDIAN over a spread
+#: is what makes a hard CUT safe: a cut drives one pair to ~0 while the rest
+#: stay high. Five is enough to have a majority, and only ~2*pairs frames are
+#: ever touched, so the gate costs the same on a 3 s clip and a 3 min one.
+INTEGRITY_PAIRS = 5
+
+#: Median adjacent-frame grey correlation below this reads as NOISE. MEASURED,
+#: not guessed (ie#615 / ie#634): VAE-decoded noise 0.29, real renders 0.92-0.99.
+#: 0.6 sits in the empty middle, so a cut-heavy real clip clears it and noise
+#: cannot. NOT a quality floor — see :mod:`cozy_eval.integrity`'s scope note.
+NOISE_CORR_FLOOR = 0.6
+
+#: Per-frame grey standard deviation below this reads as BLANK (constant fill).
+BLANK_STD_FLOOR = 0.01
+
+#: Working HEIGHT the correlation is computed at, reached by integer decimation.
+#: MEASURED to cost nothing: on a 1344x768 clip panning 1 px/frame the median
+#: correlation is 0.9755 at full resolution and 0.9789 decimated to 96 rows,
+#: while noise stays at ~0.00 either way — and the gate goes from 246 ms to
+#: 7 ms, which is what makes it affordable on the serve path. It costs nothing
+#: BECAUSE the statistic is a coarse whole-frame correlation, which is the same
+#: reason it can never see fine-detail damage. Cheap and blind are one fact.
+INTEGRITY_TARGET_H = 96
+
+_LUMA = (0.299, 0.587, 0.114)
+
+
+def _gray_at(source: Any, indices: list[int], *,
+             target_h: int = INTEGRITY_TARGET_H) -> list[Any]:
+    """Decimated grey planes in [0, 1] for JUST ``indices``.
+
+    Two things keep this at milliseconds regardless of clip length or
+    resolution, and both matter on the serve path: only the sampled frames are
+    touched (unlike :func:`as_frames`, which materializes a float copy of every
+    frame), and each is decimated to ~``target_h`` rows BEFORE the float
+    conversion, so the expensive pass runs on ~1/s^2 of the pixels.
+    """
+    import numpy as np
+
+    if isinstance(source, (list, tuple)):
+        picked = [
+            np.asarray(f.convert("RGB") if hasattr(f, "convert") else f)
+            for f in (source[i] for i in indices)
+        ]
+    else:
+        arr = np.asarray(source)  # a view for an ndarray; nothing is copied
+        picked = [arr[i] for i in indices]
+
+    out = []
+    luma = np.asarray(_LUMA, np.float32)
+    for a in picked:
+        if a.ndim != 3 or a.shape[-1] != 3:
+            raise ConfigError(
+                f"output integrity: expected (H, W, 3) RGB frames, got shape {a.shape}"
+            )
+        stride = max(1, a.shape[0] // max(target_h, 1))
+        small = a[::stride, ::stride]  # a view: the decimation itself is free
+        f = small.astype(np.float32)
+        if a.dtype == np.uint8 or float(f.max(initial=0.0)) > 1.5:
+            f = f / 255.0
+        out.append(f @ luma)
+    return out
+
+
+def _clip_length(source: Any) -> int:
+    import numpy as np
+
+    if isinstance(source, (list, tuple)):
+        return len(source)
+    return int(np.asarray(source).shape[0])
+
+
+def integrity_stats(source: Any, *, pairs: int = INTEGRITY_PAIRS,
+                    target_h: int = INTEGRITY_TARGET_H) -> dict[str, Any]:
+    """Both integrity numbers from ONE decoding pass over the sampled frames.
+
+    Returns ``{"corr_series": [...], "adjacent_frame_corr": median,
+    "frame_std_min": min}``. The single pass is the point: deriving the grey
+    planes twice doubles the gate's cost for no new information.
+    """
+    import numpy as np
+
+    starts = _pair_starts(_clip_length(source), pairs)
+    needed = sorted(set(starts) | {k + 1 for k in starts})
+    gray = dict(zip(needed, _gray_at(source, needed, target_h=target_h), strict=True))
+    stds = {i: float(g.std()) for i, g in gray.items()}
+
+    series: list[float] = []
+    for k in starts:
+        sa, sb = stds[k], stds[k + 1]
+        if sa < 1e-6 or sb < 1e-6:
+            series.append(0.0)  # a flat frame correlates with nothing
+            continue
+        a, b = gray[k].ravel(), gray[k + 1].ravel()
+        series.append(float(((a - a.mean()) * (b - b.mean())).mean() / (sa * sb)))
+    return {
+        "corr_series": series,
+        "adjacent_frame_corr": float(np.median(series)),
+        "frame_std_min": min(stds.values()),
+    }
+
+
+def adjacent_frame_corr_series(source: Any, *,
+                               pairs: int = INTEGRITY_PAIRS) -> list[float]:
+    """Pearson correlation of each sampled ``(t, t+1)`` grey frame pair.
+
+    Real video is highly self-similar frame to frame, even through motion and
+    cuts; independently-sampled noise is correlated with nothing. A flat frame
+    has no variance to correlate, so its pair scores 0.0 — the blank case is
+    caught by :func:`frame_std_min`, not by inventing a correlation.
+    """
+    return integrity_stats(source, pairs=pairs)["corr_series"]
+
+
+def adjacent_frame_corr(source: Any, *, pairs: int = INTEGRITY_PAIRS) -> float:
+    """MEDIAN adjacent-frame grey correlation — the noise floor's number."""
+    return integrity_stats(source, pairs=pairs)["adjacent_frame_corr"]
+
+
+def frame_std_min(source: Any, *, pairs: int = INTEGRITY_PAIRS) -> float:
+    """Smallest per-frame grey standard deviation over the sampled frames.
+
+    Zero means a constant-fill frame — blank output, which correlates with
+    nothing and must not be reported as a correlation failure alone.
+    """
+    return integrity_stats(source, pairs=pairs)["frame_std_min"]
+
+
 __all__ = [
+    "BLANK_STD_FLOOR",
     "FLOW_LIBRARY",
     "FLOW_PAIRS",
     "FLOW_TARGET_H",
+    "INTEGRITY_LIBRARY",
+    "INTEGRITY_PAIRS",
+    "INTEGRITY_TARGET_H",
+    "NOISE_CORR_FLOOR",
     "SIGNAL_LIBRARY",
+    "adjacent_frame_corr",
+    "adjacent_frame_corr_series",
     "as_frames",
     "dframe_psnr_series",
     "dframe_ssim_series",
@@ -384,6 +533,8 @@ __all__ = [
     "flow_divergence",
     "flow_fields",
     "frame_images",
+    "frame_std_min",
+    "integrity_stats",
     "sample_indices",
     "signal_stats",
     "temporal_fidelity",

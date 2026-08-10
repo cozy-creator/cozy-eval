@@ -40,14 +40,14 @@ SECONDS_KEYS = (
     "lpips_load", "lpips", "pixel_metrics", "dframe", "clip", "ocr",
     "judge_load", "judge_infer", "judge_per_call", "adherence_other",
     "preference_load", "preference_infer", "signal", "audio", "detail",
-    "temporal_fidelity", "total",
+    "temporal_fidelity", "integrity", "total",
 )
 
 #: Keys :attr:`SuiteReport.models` may carry, mapped to the model actually used.
 MODELS_KEYS = (
     "lpips", "clip", "judge", "ocr", "preference", "signal",
     "audio", "av_sync", "transcriber", "audio_judge", "detail", "detail_judge",
-    "temporal_fidelity",
+    "temporal_fidelity", "integrity",
 )
 
 

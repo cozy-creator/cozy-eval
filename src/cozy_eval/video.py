@@ -20,7 +20,13 @@ What changes for video, and what deliberately does not:
   frame and must PERSIST (majority of frames), because text that is legible in
   one lucky frame has not survived motion.
 * **quality** composes ``cozy_eval.metrics.signal`` for single-arm temporal
-  signal statistics (``luma_flicker``, ``jerk_ratio``).
+  signal statistics (``luma_flicker``, ``jerk_ratio``), and adds the
+  track-stability family (:mod:`cozy_eval.tracks`): the OBJECT axis. Every
+  number above is a statistic of FRAMES — per-frame detail, whole-frame flow,
+  frame-mean luma — and an object can warble and reshape itself under camera
+  motion while every one of them stays clean. Feature tracks are the only thing
+  here that follows a point on an object through time. Reference-free numbers on
+  every clip; the gate is the paired ``track_stability_ratio``.
 * **preference** is UNMEASURED in video mode for now, and the report says so.
   A commercially-clean video preference model exists (UnifiedReward-2.0,
   MIT weights on an Apache-2.0 Qwen3-VL base) and its integration is tracked;
@@ -257,6 +263,8 @@ def run_video(
     use_detail: bool = True,
     detail_judge: Judge | None = None,
     use_temporal_fidelity: bool = True,
+    use_tracks: bool = True,
+    track_windows: int = 0,
     judge_frames: int = DEFAULT_JUDGE_FRAMES,
     device: str = AUTO,
     render_seconds: float = 0.0,
@@ -489,6 +497,39 @@ def run_video(
                     row.values["warp_error"] = temporal.warp_error(cand)
             report.seconds["temporal_fidelity"] = round(time.monotonic() - t0, 2)
             report.models["temporal_fidelity"] = temporal.FLOW_LIBRARY
+
+    # --- track stability: do OBJECTS hold together in 3D under motion? -------
+    # The axis the owner's eye found and the three families above missed: every
+    # frame correct, the object warbling between them. Reference-free numbers on
+    # every clip; the GATE is the paired ratio, and an untrackable control is
+    # UNMEASURED rather than a pass. Costs ~1 s per clip (see cozy_eval.tracks).
+    if use_tracks:
+        from . import tracks as track_mode
+        from .metrics import tracks as track_metrics
+
+        t0 = time.monotonic()
+        track_kw: dict[str, Any] = (
+            {"windows": track_windows} if track_windows > 0 else {}
+        )
+        track_unmeasured: dict[str, str] = {}
+        for row in rows:
+            tv = track_mode.track_verdict(
+                cand_frames[row.index],
+                ref_frames[row.index] if paired else None,
+                **track_kw,
+            )
+            row.values.update(tv.measured)
+            for defect in tv.defects:
+                report.notes.append(f"sample {row.index:02d} TRACK STABILITY: {defect}")
+            track_unmeasured.update(tv.unmeasured)
+        report.seconds["track_stability"] = round(time.monotonic() - t0, 2)
+        report.models["track_stability"] = track_metrics.TRACK_LIBRARY
+        measured_tracks = {k for row in rows for k in row.values}
+        for name, reason in sorted(track_unmeasured.items()):
+            if name not in measured_tracks:
+                report.notes.append(f"{name} UNMEASURED: {reason}")
+        if not paired:
+            report.notes.append(track_mode.CONTENT_NOTE)
 
     # --- audio: the axis a silent run must never be allowed to skip quietly ---
     if audio is None:

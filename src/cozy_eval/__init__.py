@@ -89,6 +89,7 @@ from . import (  # noqa: E402
     promptset,
     registry,
     suite,
+    tracks,
     verdict,
     video,
 )
@@ -161,6 +162,7 @@ from .protocol import (  # noqa: E402
 from .registry import METRIC_SET_VERSION, MetricSpec, register  # noqa: E402
 from .resources import ComputeBudget  # noqa: E402
 from .suite import DimensionSummary, Sample, SampleRow, SuiteReport  # noqa: E402
+from .tracks import TrackVerdict, track_verdict  # noqa: E402
 from .verdict import Measurement, ParityVerdict, Threshold, evaluate  # noqa: E402
 from .video import VideoSample, run_video  # noqa: E402
 
@@ -213,6 +215,7 @@ __all__ = [
     "SuiteReport",
     "SyncEstimate",
     "Threshold",
+    "TrackVerdict",
     "TrajectoryPerturbingError",
     "Transcriber",
     "Verdict",
@@ -264,6 +267,8 @@ __all__ = [
     "suite",
     "sync_offset",
     "temporal",
+    "track_verdict",
+    "tracks",
     "verdict",
     "video",
 ]

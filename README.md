@@ -86,7 +86,7 @@ The base install is **numpy + msgspec only** — everything else is an extra.
 ```bash
 pip install cozy-eval                      # numpy + the ffmpeg CLI
 pip install "cozy-eval[reference]"         # VMAF / ColorVideoVDP / SSIM / LPIPS
-pip install "cozy-eval[video]"             # optical-flow temporal fidelity (opencv)
+pip install "cozy-eval[video]"             # optical flow + track stability (opencv)
 pip install "cozy-eval[quality]"           # NIQE / MUSIQ / ARNIQA / CLIP-IQA
 pip install "cozy-eval[distributional]"    # cd-fvd, fvmd
 ```
@@ -272,8 +272,9 @@ number; everything else is report-only:
 | **preference** | would a human prefer it | `pref_delta` | no | `metrics/preference.py`, `hpsv3.py` |
 | **quality** | does it look good on its own terms | `arniqa` | no | `metrics/quality.py`, `musiq.py`, `signal.py` |
 
-The Δ-frame temporal channel (`metrics/temporal.py`) and the population
-distances (`metrics/distributional.py`) report into the dimensions above; the
+The Δ-frame temporal channel and the flow family (`metrics/temporal.py`), the
+track-stability family (`metrics/tracks.py`) and the population distances
+(`metrics/distributional.py`) report into the dimensions above; the
 gate's own two-sided budgets over a whole prompt population live in
 `cozy_eval.benchmarks`, which is a threshold table, not a metric table.
 
@@ -315,7 +316,7 @@ pip install "cozy-eval[ocr]"             # OCR items (rapidocr, Apache-2.0)
 pip install "cozy-eval[preference]"      # PickScore and alternates
 pip install "cozy-eval[quality]"         # ARNIQA / CLIP-IQA / MUSIQ port / NIQE
 pip install "cozy-eval[hpsv3]"           # HPSv3 preference scorer (16 GB weights)
-pip install "cozy-eval[video]"           # frame handling + Δ-frame channel
+pip install "cozy-eval[video]"           # frame handling, Δ-frame channel, flow + track stability
 pip install "cozy-eval[all]"
 ```
 
@@ -366,6 +367,102 @@ cheap enough to run on every render including the serve path.
 > motion is the temporal-fidelity family. Three axes, none sufficient alone,
 > and the library ships a test that pins this blind spot rather than a sentence
 > claiming it does not exist.
+
+## Do the OBJECTS hold together?
+
+Every number above is a statistic of *frames*. Per-frame detail, whole-frame
+optical flow over sampled pairs, frame-mean luma, an ordered strip of stills
+shown to a VLM. An object can warble — drift, jitter and reshape itself as the
+camera moves through the scene — while every one of those stays clean, and that
+is not a hypothetical:
+
+> "Objects lose their coherence across frames. Suppose object-A is at position
+> X,Y and we move the camera slightly; the object should move on the frame
+> correctly as you would expect when moving through 3-dimensional space. Instead
+> it warbles and reshapes itself."
+
+Three metric families **passed** the clips that produced that sentence: the
+fine-detail detectors (per frame), the temporal-fidelity family (whole-frame
+flow statistics over decimated pairs), and the VLM strip read. The clips were
+rejected by the owner's eye. Nothing in the stack followed a *point on an
+object* through time, so nothing in the stack could see it.
+
+```python
+from cozy_eval import track_verdict
+
+checked = track_verdict(candidate_frames, reference_frames)   # same-seed control
+if not checked.ok:
+    print(checked.summary())
+    # track stability REJECT — OBJECT WARBLE: track_stability_ratio 0.176 <
+    # floor 0.9 — the candidate retains 18% of the control's coherent tracks
+    # (trajectories jitter: 0.322 vs 0.120; neighbours disagree: rigidity error
+    # 0.609 vs 0.366) (track_stability 0.058, ratio 0.176)
+```
+
+Corner features are seeded and chased frame to frame with forward-backward
+validated pyramidal Lucas-Kanade, and each **trajectory** is asked three
+questions: is it *smooth* (a point on a rigid object traces a smooth image-plane
+curve whatever the camera does, so warble shows up as second-derivative energy —
+normalized by the track's own speed, so a fast pan is not penalized for being
+fast), does it *survive* (a surface that reshapes stops matching itself), and do
+its *neighbours agree* (points on one surface keep their relative geometry
+through parallax and perspective, which are smooth).
+
+| metric | dimension | gates? | what it says |
+|---|---|---|---|
+| `track_stability_ratio` | similarity | **yes**, ≥ 0.90 | fraction of the control's coherent tracks the candidate retains |
+| `track_stability` | quality | no | fraction of seeded points that survive *and* move like a real 3D point |
+| `track_survival` | quality | no | fraction still tracked at the end of the window |
+| `track_jitter` | quality | no | median per-track acceleration energy, camera motion removed |
+| `track_rigidity_error` | quality | no | median jerk of neighbour distances — the "reshapes itself" half |
+
+**The floor is measured on labeled ground truth, three ways** (`calibration/track-stability.json`):
+
+| set | what it is | n | ratio | verdict |
+|---|---|---:|---|---|
+| **rejected** | sparse-attention k16/k32 arms the owner rejected, vs their own same-cell same-seed dense control | 29 | 0.029 – **0.846**, median 0.366 | 29 reject, 0 pass |
+| **identical** | SageAttention-2 fp8 arms the owner reviewed as identical to FA3-exact, plus same-arm re-renders across a pod and a torch-line change | 12 | **0.930** – 1.251, median 1.050 | 12 pass, 0 reject |
+| **bit-exact** | a clip against itself, two independent decodes and two independent scorings | 2 | **exactly 1.0** | pass |
+
+0.90 sits in an empty middle 8 points wide. The independent negative controls
+agree: an untrained-selector arm and a grouped-selector arm that a separate
+detector already called broken score **0.000** here, and the oracle top-k arm —
+itself a k16 sparse render — scores 0.606.
+
+The paired ratio is **valid across a re-rolled take**, which is the whole point:
+both arms are scored on their *own* trajectories and never compared pixel to
+pixel, so a trajectory-perturbing lane is measured on whether its objects hold
+together, not on how far its take drifted. Same property as `warp_error_delta`,
+and the reason `lpips` cannot be used here at all.
+
+> **Untrackable content is UNMEASURED, never a pass and never a fail.** Steam,
+> water, molten glass and dense repetitive weave defeat *any* sparse tracker:
+> on those cells the clean control itself holds 13-18% of its tracks and its
+> numbers swing further between two renders of the **same arm** than the whole
+> rejected-vs-clean separation. When the control's survival is below 0.25 the
+> family refuses — measured consequence: at a 0.15 floor, a loom pair the owner
+> judged identical would read 0.07 and be called a catastrophic reject. 7 of 36
+> rejected pairs and 3 of 15 clean pairs land here and are reported as
+> unmeasured, with the reason.
+
+> **Scope.** This catches object warble and 3D-inconsistency under motion. It is
+> blind to per-frame damage (melted faces, pseudo-glyphs, halos — that is
+> `detail_verdict`), to content adherence (the checklist and the VLM), and to
+> whole-clip shimmer (`warp_error`). A clean ratio is one axis, not a quality
+> verdict.
+
+**Cost and the decimation pin.** No new dependency — the tracker is the same
+BSD-licensed OpenCV the flow family already uses, because the obvious learned
+tracker, CoTracker, is CC-BY-NC-4.0 and this library does not ship
+non-commercial weights (TAP-Net/TAPIR is Apache-2.0 but adds a checkpoint
+download and GPU inference to a CPU tier that costs a second). Four 24-frame
+windows at 384-line working height: **1.2 s median per clip on four idle
+threads**, 3.1 s median in the banked run, which was taken on a shared box under
+a 1-minute load of 21 — the number moves with the machine, so both are quoted.
+The window count is the decimation knob, and it is pinned: verdicts on the whole
+labeled set are **identical to tracking every frame of every clip** (1.9× the
+cost), while halving it to two windows flips one clean pair to reject. Four is
+the floor of the ladder, not a default that happens to be cheap.
 
 ## Does it SOUND right?
 

@@ -70,7 +70,13 @@ functions and internals may change in any 0.x release.
 
 __version__ = "0.1.0"
 
-from . import (
+from . import resources
+
+# FIRST, before numpy/torch/OpenCV land: their thread pools are sized from the
+# environment at first use and never resized. See cozy_eval.resources.
+resources.configure()
+
+from . import (  # noqa: E402
     audio,
     catalog,
     decompose,
@@ -86,7 +92,7 @@ from . import (
     verdict,
     video,
 )
-from .audio import (
+from .audio import (  # noqa: E402
     AUDIO_DEFECTS,
     AudioChecklist,
     AudioSample,
@@ -97,7 +103,7 @@ from .audio import (
     read_audio,
     run_audio,
 )
-from .benchmarks import (
+from .benchmarks import (  # noqa: E402
     MIN_PROMPTS,
     REFERENCE_BUDGETS,
     VIDEO_BUDGETS,
@@ -107,15 +113,15 @@ from .benchmarks import (
     imaging,
     temporal,
 )
-from .catalog import add_checklist_set, checklist_set
-from .control import NullControl, measure_null_control
-from .detail import (
+from .catalog import add_checklist_set, checklist_set  # noqa: E402
+from .control import NullControl, measure_null_control  # noqa: E402
+from .detail import (  # noqa: E402
     DetailVerdict,
     detail_verdict,
     score_detail_vlm,
 )
-from .device import AUTO, resolve_device
-from .errors import (
+from .device import AUTO, resolve_device  # noqa: E402
+from .errors import (  # noqa: E402
     BackendError,
     ConfigError,
     CozyEvalError,
@@ -126,12 +132,12 @@ from .errors import (
     SampleSizeError,
     TrajectoryPerturbingError,
 )
-from .frames import iter_frames, probe
-from .gate import GateReport, run_population_gate, run_reference_gate, score_pairs
-from .image import IMAGE_BUDGETS, run_image_population_gate, score_image
-from .integrity import OutputIntegrity, output_integrity
-from .judge import AudioJudge, Judge, SoftJudge, Transcriber
-from .metrics.adherence import (
+from .frames import iter_frames, probe  # noqa: E402
+from .gate import GateReport, run_population_gate, run_reference_gate, score_pairs  # noqa: E402
+from .image import IMAGE_BUDGETS, run_image_population_gate, score_image  # noqa: E402
+from .integrity import OutputIntegrity, output_integrity  # noqa: E402
+from .judge import AudioJudge, Judge, SoftJudge, Transcriber  # noqa: E402
+from .metrics.adherence import (  # noqa: E402
     Checklist,
     ChecklistItem,
     ChecklistSet,
@@ -139,12 +145,12 @@ from .metrics.adherence import (
     VideoChecklist,
     load_checklists,
 )
-from .metrics.audio import Audio, as_audio
-from .metrics.avsync import SyncEstimate, sync_offset
-from .metrics.signal import ClipScore
-from .metrics.signal import score as score_clip
-from .promptset import PromptSet, add_prompt_set, checklists_for
-from .protocol import (
+from .metrics.audio import Audio, as_audio  # noqa: E402
+from .metrics.avsync import SyncEstimate, sync_offset  # noqa: E402
+from .metrics.signal import ClipScore  # noqa: E402
+from .metrics.signal import score as score_clip  # noqa: E402
+from .promptset import PromptSet, add_prompt_set, checklists_for  # noqa: E402
+from .protocol import (  # noqa: E402
     ChangeKind,
     Lane,
     Protocol,
@@ -152,10 +158,11 @@ from .protocol import (
     classify_change,
     require_reference_lane,
 )
-from .registry import METRIC_SET_VERSION, MetricSpec, register
-from .suite import DimensionSummary, Sample, SampleRow, SuiteReport
-from .verdict import Measurement, ParityVerdict, Threshold, evaluate
-from .video import VideoSample, run_video
+from .registry import METRIC_SET_VERSION, MetricSpec, register  # noqa: E402
+from .resources import ComputeBudget  # noqa: E402
+from .suite import DimensionSummary, Sample, SampleRow, SuiteReport  # noqa: E402
+from .verdict import Measurement, ParityVerdict, Threshold, evaluate  # noqa: E402
+from .video import VideoSample, run_video  # noqa: E402
 
 __all__ = [
     "AUDIO_DEFECTS",
@@ -178,6 +185,7 @@ __all__ = [
     "ChecklistItem",
     "ChecklistSet",
     "ClipScore",
+    "ComputeBudget",
     "ConfigError",
     "CozyEvalError",
     "DataError",
@@ -243,6 +251,7 @@ __all__ = [
     "registry",
     "require_reference_lane",
     "resolve_device",
+    "resources",
     "run_audio",
     "run_image_population_gate",
     "run_population_gate",

@@ -5,17 +5,23 @@ Three subcommands:
 * ``score``  — no-reference statistics for one or more clips/images.
 * ``gate``   — run the full population gate on a paired prompt set.
 * ``compare``— reference metrics for a same-trajectory change (refuses otherwise).
+
+Every run states its compute budget on the first line and stays inside it:
+``--threads`` (or ``COZY_EVAL_THREADS``) caps threads AND the worker pool, which
+splits that budget rather than multiplying it. See :mod:`cozy_eval.resources`.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import logging
+import os
 import sys
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
-from . import __version__
+from . import __version__, resources
 from .gate import run_population_gate, run_reference_gate
 from .metrics.signal import score
 from .protocol import ChangeKind, Protocol, TrajectoryPerturbingError
@@ -55,20 +61,51 @@ def _add_protocol_args(p: argparse.ArgumentParser) -> None:
                    help="declare that the arms were NOT rendered on the same pod")
 
 
+_WORKERS_HELP = ("clips scored in parallel; default: half the thread budget, "
+                 "each worker taking an equal share of it")
+
+
+def _reexec_with_threads(threads: int | None) -> None:
+    """Make ``--threads`` mean exactly what ``COZY_EVAL_THREADS`` means.
+
+    BLAS pools are sized when their library loads — which already happened,
+    importing this package, before argparse ever saw the flag. So put the value
+    in the environment and start over once. The child hits neither branch.
+    """
+    if threads is None or str(threads) == os.environ.get(resources.THREADS_ENV):
+        return
+    env = {**os.environ, resources.THREADS_ENV: str(threads)}
+    os.execve(sys.executable, [sys.executable, "-m", "cozy_eval", *sys.argv[1:]], env)
+
+
+def _pool(workers: int | None) -> ProcessPoolExecutor:
+    """A pool that SPLITS the budget: ``workers * worker_threads <= threads``."""
+    budget = resources.active()
+    n = resources.worker_count(workers)
+    return ProcessPoolExecutor(
+        max_workers=n,
+        initializer=resources.pool_worker_init,
+        initargs=(max(1, budget.threads // n),),
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser("cozy-eval", description=__doc__)
     ap.add_argument("--version", action="version", version=__version__)
+    ap.add_argument("--threads", type=int, default=None,
+                    help="compute-thread budget for the whole run "
+                         "(default: min(4, cpu_count), or $COZY_EVAL_THREADS)")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     s = sub.add_parser("score", help="no-reference statistics for clips/images")
     s.add_argument("paths", nargs="+")
-    s.add_argument("--workers", type=int, default=4)
+    s.add_argument("--workers", type=int, default=None, help=_WORKERS_HELP)
     s.add_argument("--json", type=Path)
 
     g = sub.add_parser("gate", help="population gate over a paired prompt set")
     g.add_argument("--reference", action="append", required=True)
     g.add_argument("--candidate", action="append", required=True)
-    g.add_argument("--workers", type=int, default=4)
+    g.add_argument("--workers", type=int, default=None, help=_WORKERS_HELP)
     g.add_argument("--json", type=Path)
     _add_protocol_args(g)
 
@@ -81,9 +118,13 @@ def main(argv: list[str] | None = None) -> int:
     _add_protocol_args(c)
 
     a = ap.parse_args(argv)
+    logging.basicConfig(level=logging.INFO, format="%(message)s", stream=sys.stderr)
+    if argv is None:
+        _reexec_with_threads(a.threads)
+    resources.configure(a.threads, force=True)
 
     if a.cmd == "score":
-        with ProcessPoolExecutor(max_workers=a.workers) as ex:
+        with _pool(a.workers) as ex:
             scores = dict(zip(a.paths, ex.map(score, a.paths), strict=True))
         out = {p: s.metrics() for p, s in scores.items()}
         for p, d in out.items():
@@ -95,7 +136,7 @@ def main(argv: list[str] | None = None) -> int:
     if a.cmd == "gate":
         if len(a.reference) != len(a.candidate):
             ap.error("--reference and --candidate must be given the same number of times")
-        with ProcessPoolExecutor(max_workers=a.workers) as ex:
+        with _pool(a.workers) as ex:
             scores = list(ex.map(score, a.reference + a.candidate))
         k = len(a.reference)
         report = run_population_gate(list(zip(scores[:k], scores[k:], strict=True)),

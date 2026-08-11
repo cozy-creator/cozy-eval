@@ -26,6 +26,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from cozy_eval import benchmarks as B
+from cozy_eval import resources
 from cozy_eval.frames import LUMA, iter_frames
 from cozy_eval.metrics.signal import ClipScore, score
 
@@ -126,7 +127,8 @@ def _score_synth(item):
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--samples-root", type=Path, required=True)
-    ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--workers", type=int, default=None,
+                    help="parallel scorers; default: half the cozy-eval thread budget")
     ap.add_argument("--out", type=Path, default=Path(__file__).parent / "banked-pairs.json")
     a = ap.parse_args()
 
@@ -136,7 +138,11 @@ def main() -> int:
         print(f"WARNING: {len(missing)} clips missing: {missing[:5]}...")
 
     scores: dict[str, ClipScore] = {}
-    with ProcessPoolExecutor(max_workers=a.workers) as ex:
+    budget = resources.active()
+    n_workers = resources.worker_count(a.workers)
+    with ProcessPoolExecutor(max_workers=n_workers,
+                             initializer=resources.pool_worker_init,
+                             initargs=(max(1, budget.threads // n_workers),)) as ex:
         for k, s in ex.map(_score_banked, banked.items()):
             scores[k] = s
         synth_items = [(n, p, banked[f"ltx8:A-comp:{p}"]) for n in SYNTHETIC for p in LTX8

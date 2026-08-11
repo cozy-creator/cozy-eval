@@ -16,6 +16,7 @@ from pathlib import Path
 import numpy as np
 
 from .errors import DecodeError
+from .resources import ffmpeg_thread_args
 
 LUMA = np.array([0.299, 0.587, 0.114], np.float32)
 
@@ -46,7 +47,8 @@ def iter_video(path: str | Path) -> Iterator[Frame]:
     w, h, _, _ = probe(path)
     stride = w * h * 3
     proc = subprocess.Popen(
-        ["ffmpeg", "-v", "quiet", "-i", str(path), "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
+        ["ffmpeg", "-v", "quiet", *ffmpeg_thread_args(),
+         "-i", str(path), "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
         stdout=subprocess.PIPE,
     )
     try:

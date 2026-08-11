@@ -60,6 +60,7 @@ from .metrics.adherence import (
     text_match,
 )
 from .metrics.audio import Audio, as_audio
+from .resources import ffmpeg_thread_args
 
 PASS = "pass"
 REJECT = "reject"
@@ -105,7 +106,8 @@ def read_audio(path: str | Path, *, sample_rate: int = 0, channels: int = 0) -> 
     chans = channels or native_channels
     try:
         raw = subprocess.run(
-            ["ffmpeg", "-v", "quiet", "-i", str(path), "-vn", "-f", "f32le",
+            ["ffmpeg", "-v", "quiet", *ffmpeg_thread_args(),
+             "-i", str(path), "-vn", "-f", "f32le",
              "-acodec", "pcm_f32le", "-ar", str(rate), "-ac", str(chans), "-"],
             capture_output=True, check=True,
         ).stdout

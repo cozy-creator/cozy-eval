@@ -16,13 +16,23 @@ AUTO = "auto"
 
 
 def resolve_device(device: str = AUTO) -> str:
-    """``"auto"`` -> the best available device; anything else passes through."""
+    """``"auto"`` -> the best available device; anything else passes through.
+
+    Also the choke point where torch's thread pools get the compute budget: torch
+    is imported lazily by the backends, long after the environment was set, and
+    it sizes its intra-op pool from the host core count when it is imported by
+    someone else first.
+    """
+    from .resources import apply_runtime_caps
+
     if device != AUTO:
+        apply_runtime_caps()
         return device
     try:
         import torch
     except ImportError:
         return "cpu"
+    apply_runtime_caps()
     return "cuda" if torch.cuda.is_available() else "cpu"
 
 

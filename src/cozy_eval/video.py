@@ -469,7 +469,9 @@ def run_video(
     # a silent pass.
     if use_temporal_fidelity:
         try:
-            import cv2  # noqa: F401
+            from .resources import opencv
+
+            opencv()
         except ImportError:
             report.notes.append(
                 "TEMPORAL FIDELITY UNMEASURED: opencv not installed "

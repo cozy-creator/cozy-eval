@@ -128,18 +128,25 @@ def vmaf(reference: str | Path, candidate: str | Path) -> dict[str, float]:
     ``vmaf_mean`` (arithmetic, for continuity with historical rows) and
     ``vmaf_min`` (the worst frame, the tail).
     """
+    from ..resources import active, ffmpeg_thread_args
+
     ffmpeg = _ffmpeg_bin()
     rw, rh, rfps = _probe_video(reference)
     # [candidate] scaled+fps-matched to the reference, then [that][reference]libvmaf.
+    # libvmaf runs its own pool (n_threads) on top of ffmpeg's decode/filter
+    # threads, so ALL THREE get the budget or VMAF alone eats the box.
     align = f"scale={rw}:{rh}:flags=bicubic,fps={rfps},setsar=1"
+    n = active().threads
     with tempfile.NamedTemporaryFile("r", suffix=".json") as out:
         graph = (
             f"[0:v]{align}[cand];"
             f"[1:v]setsar=1[ref];"
-            f"[cand][ref]libvmaf=log_fmt=json:log_path={out.name}"
+            f"[cand][ref]libvmaf=n_threads={n}:log_fmt=json:log_path={out.name}"
         )
         proc = subprocess.run(
-            [ffmpeg, "-v", "error", "-i", str(candidate), "-i", str(reference),
+            [ffmpeg, "-v", "error", *ffmpeg_thread_args(),
+             "-filter_threads", str(n), "-filter_complex_threads", str(n),
+             "-i", str(candidate), "-i", str(reference),
              "-lavfi", graph, "-f", "null", "-"],
             check=False, capture_output=True, text=True,
         )

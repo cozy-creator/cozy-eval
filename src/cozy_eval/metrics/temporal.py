@@ -55,12 +55,13 @@ from ..errors import ConfigError
 _PSNR_CAP = 99.0  # identical Δ-frames -> inf; the same finite sentinel similarity.py uses
 
 
-def as_frames(source: Any) -> Any:
-    """Normalize any accepted clip form to ``(T, H, W, 3)`` float32 in [0, 1].
+def stacked_frames(source: Any) -> Any:
+    """The clip as ONE validated ``(T, H, W, 3)`` array, in its OWN dtype.
 
-    Accepts a ``(T, H, W, 3)`` ndarray (uint8 or float), a list/tuple of PIL
-    images, or a list/tuple of ``(H, W, 3)`` arrays. A video needs at least two
-    frames — a single frame is an image and belongs in the image suite.
+    Validation only — no conversion and, for an ndarray input, no copy.
+    Normalizing a clip costs two full float32 copies of it (~3 GB for a
+    121-frame 1080p render), so a metric that touches only a few frames stacks
+    here and normalizes just those, via :func:`normalize_frame`.
     """
     import numpy as np
 
@@ -82,10 +83,36 @@ def as_frames(source: Any) -> Any:
             f"as_frames: a video needs at least 2 frames, got {stacked.shape[0]}; "
             "score single frames with the image suite"
         )
-    frames = stacked.astype(np.float32)
-    if stacked.dtype == np.uint8 or float(frames.max(initial=0.0)) > 1.5:
-        frames = frames / 255.0
-    return np.clip(frames, 0.0, 1.0)
+    return stacked
+
+
+def _is_255_scale(stacked: Any) -> bool:
+    """Is this clip in 0-255 rather than [0, 1]? Decided ONCE for the whole clip
+    (a per-frame decision could scale two frames of one clip differently)."""
+    import numpy as np
+
+    return bool(stacked.dtype == np.uint8 or float(np.float32(stacked.max(initial=0.0))) > 1.5)
+
+
+def normalize_frame(frame: Any, *, scale_255: bool) -> Any:
+    """One frame of a stacked clip -> float32 in [0, 1]."""
+    import numpy as np
+
+    f = np.asarray(frame).astype(np.float32)
+    if scale_255:
+        f = f / 255.0
+    return np.clip(f, 0.0, 1.0)
+
+
+def as_frames(source: Any) -> Any:
+    """Normalize any accepted clip form to ``(T, H, W, 3)`` float32 in [0, 1].
+
+    Accepts a ``(T, H, W, 3)`` ndarray (uint8 or float), a list/tuple of PIL
+    images, or a list/tuple of ``(H, W, 3)`` arrays. A video needs at least two
+    frames — a single frame is an image and belongs in the image suite.
+    """
+    stacked = stacked_frames(source)
+    return normalize_frame(stacked, scale_255=_is_255_scale(stacked))
 
 
 def frame_images(frames: Any) -> list[Any]:
@@ -225,8 +252,11 @@ def _pair_starts(total: int, count: int) -> list[int]:
 
 def _small_gray_frame(frame: Any, size: tuple[int, int]) -> Any:
     """One ``(H,W,3)`` float frame -> working-resolution uint8 grey."""
-    import cv2
     import numpy as np
+
+    from ..resources import opencv
+
+    cv2 = opencv()
 
     u8 = np.clip(np.asarray(frame) * 255.0, 0, 255).astype(np.uint8)
     small = cv2.resize(u8, size, interpolation=cv2.INTER_AREA)
@@ -247,16 +277,24 @@ def flow_fields(frames: Any, *, pairs: int = FLOW_PAIRS,
     Returns ``(flows, gray, starts)``: ``flows[i]`` is the ``(h, w, 2)`` flow
     from frame ``starts[i]`` to ``starts[i]+1`` at the working resolution, and
     ``gray`` is ``{index: uint8 grey frame}`` for JUST the sampled frames — a
-    long clip is never fully downscaled, only the ~2*pairs frames flow needs.
+    long clip is never fully downscaled, only the ~2*pairs frames flow needs —
+    and never fully normalized either: only the sampled frames are converted to
+    float, so cost and peak RAM follow ``pairs``, not clip length.
     """
-    import cv2
+    from ..resources import opencv
 
-    frames = as_frames(frames)
-    t, h, w = frames.shape[:3]
+    cv2 = opencv()
+
+    stacked = stacked_frames(frames)
+    t, h, w = stacked.shape[:3]
     starts = _pair_starts(t, pairs)
     size = _work_size(h, w, target_h)
+    scale_255 = _is_255_scale(stacked)
     needed = sorted({k for k in starts} | {k + 1 for k in starts})
-    gray = {i: _small_gray_frame(frames[i], size) for i in needed}
+    gray = {
+        i: _small_gray_frame(normalize_frame(stacked[i], scale_255=scale_255), size)
+        for i in needed
+    }
     flows = [
         cv2.calcOpticalFlowFarneback(gray[k], gray[k + 1], None, *_FARNEBACK)
         for k in starts
@@ -280,8 +318,11 @@ def warp_error_series(gray: Any, flows: Any, starts: list[int]) -> list[float]:
     the reference-free signature of temporal instability, valid per clip
     regardless of same-seed trajectory re-roll.
     """
-    import cv2
     import numpy as np
+
+    from ..resources import opencv
+
+    cv2 = opencv()
 
     h, w = gray[starts[0]].shape[:2]
     gx, gy = np.meshgrid(np.arange(w, dtype=np.float32), np.arange(h, dtype=np.float32))
@@ -322,8 +363,8 @@ def flow_divergence(reference: Any, candidate: Any, *, pairs: int = FLOW_PAIRS,
     """
     import numpy as np
 
-    ref = as_frames(reference)
-    cand = as_frames(candidate)
+    ref = stacked_frames(reference)
+    cand = stacked_frames(candidate)
     _check_pair(ref, cand, metric="flow_divergence")
     fr, _gr, _starts = flow_fields(ref, pairs=pairs, target_h=target_h)
     fc, _, _ = flow_fields(cand, pairs=pairs, target_h=target_h)
@@ -354,8 +395,8 @@ def temporal_fidelity(reference: Any, candidate: Any, *, pairs: int = FLOW_PAIRS
     """
     import numpy as np
 
-    ref = as_frames(reference)
-    cand = as_frames(candidate)
+    ref = stacked_frames(reference)
+    cand = stacked_frames(candidate)
     _check_pair(ref, cand, metric="temporal_fidelity")
     fr, gr, starts = flow_fields(ref, pairs=pairs, target_h=target_h)
     fc, gc, _ = flow_fields(cand, pairs=pairs, target_h=target_h)

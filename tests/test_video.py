@@ -456,3 +456,55 @@ def test_vmaf_harmonic_mean_weights_the_worst_frames() -> None:
     hmean = reference._harmonic_mean(vals)
     assert hmean < 15.0  # arithmetic mean is 90.1
     assert reference._harmonic_mean([80.0, 80.0, 80.0]) == pytest.approx(80.0)
+
+
+# ---------------------------------------------------------------------------
+# flow costs what it samples — and the saving is bit-for-bit invisible
+# ---------------------------------------------------------------------------
+
+def test_flow_normalizes_only_the_frames_it_samples(monkeypatch) -> None:
+    """PIN — the compute-hog pattern (ce#12): flow used to normalize the WHOLE
+    clip (two float32 copies, ~3 GB on a 121-frame 1080p render) to read the
+    ~2*pairs frames it actually samples. Same numbers, bounded cost."""
+    clip = _clip(list(range(2, 42)), size=96)          # 40 frames, 4 sampled pairs
+    seen: list[tuple[int, ...]] = []
+    real = temporal.normalize_frame
+
+    def spy(frame, **kw):
+        seen.append(np.shape(frame))
+        return real(frame, **kw)
+
+    monkeypatch.setattr(temporal, "normalize_frame", spy)
+    temporal.warp_error(clip, pairs=4)
+    assert len(seen) == 8                              # 4 pairs -> 8 distinct frames
+    assert all(len(shape) == 3 for shape in seen)      # never the whole (T,H,W,3) clip
+
+
+def test_flow_is_bit_identical_to_normalizing_the_whole_clip_first() -> None:
+    """The equivalence the optimization stands on, against the pre-ce#12 path:
+    normalize everything up front, then sample."""
+    clip8 = (_clip(_PAN_RIGHT, size=96) * 255).astype(np.uint8)
+    for source in (clip8, temporal.as_frames(clip8)):  # uint8 and float arms
+        flows, gray, starts = temporal.flow_fields(source, pairs=4)
+        pre = temporal.as_frames(source)               # the old first step
+        size = temporal._work_size(pre.shape[1], pre.shape[2], temporal.FLOW_TARGET_H)
+        for i in sorted(set(starts) | {k + 1 for k in starts}):
+            expected = temporal._small_gray_frame(pre[i], size)
+            assert np.array_equal(gray[i], expected)
+        assert np.array_equal(
+            flows[0],
+            temporal.flow_fields(pre, pairs=4)[0][0],
+        )
+
+
+def test_temporal_fidelity_reads_the_same_from_uint8_and_float_clips() -> None:
+    ref8 = (_clip(_PAN_RIGHT, size=96) * 255).astype(np.uint8)
+    cand8 = (_clip(_PAN_LEFT, size=96) * 255).astype(np.uint8)
+    assert temporal.temporal_fidelity(ref8, cand8) == temporal.temporal_fidelity(
+        temporal.as_frames(ref8), temporal.as_frames(cand8)
+    )
+
+
+def test_stacking_a_clip_copies_nothing() -> None:
+    clip = _clip(REF_OFFSETS)
+    assert temporal.stacked_frames(clip) is clip

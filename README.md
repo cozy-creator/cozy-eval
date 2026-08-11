@@ -208,6 +208,33 @@ cozy-eval compare --reference a.mp4 --candidate b.mp4 --vmaf \
     --change vae-decode-dtype …
 ```
 
+## Compute budget
+
+An eval is a batch job on somebody else's machine, so **it never takes more than
+`min(4, cpu_count)` compute threads** — anywhere, including a 96-core pod. One
+knob raises or lowers it, and everything derives from that number: BLAS/OpenMP
+pools, torch intra- and inter-op, `cv2.setNumThreads`, every `ffmpeg -threads`
+and `libvmaf n_threads`, and the worker pool, which *splits* the budget
+(`workers = threads / 2`, each worker taking an equal share) rather than
+multiplying it. Every run prints what it took:
+
+```bash
+COZY_EVAL_THREADS=32 cozy-eval score clip.mp4   # or: cozy-eval --threads 32 …
+# cozy-eval: 32 compute threads, 16 workers (COZY_EVAL_THREADS)
+```
+
+**Set it explicitly on a dedicated pod** — the default is deliberately modest and
+will leave a big machine idle. An `OMP_NUM_THREADS` you set yourself is treated
+as your decision and is never overwritten. Thread count is invisible to results:
+one thread and thirty-two produce bit-identical scores, and a test pins that.
+
+Rough cost, CPU-only at the default budget: the no-reference and integrity
+statistics are milliseconds per clip; optical-flow temporal fidelity is a few
+seconds per 720p pair (it samples `FLOW_PAIRS` transitions, so a 3-second and a
+3-minute clip cost the same); per-frame LPIPS/SSIM/MS-SSIM and VMAF scale with
+frame count and dominate everything else; the VLM judge is a model call per
+sample and belongs on a GPU.
+
 ## The three benchmarks
 
 1. **Imaging** — per-frame, no-reference. Detail (Laplacian variance, spectral

@@ -45,7 +45,20 @@ def _rapid() -> Any:
     if "rapid" not in _CACHE:
         from rapidocr import RapidOCR
 
-        _CACHE["rapid"] = RapidOCR()
+        from ..resources import active
+
+        # onnxruntime sizes its own pools from the host core count and ignores
+        # OMP_NUM_THREADS on the standard wheels, so the budget goes in as an
+        # engine parameter. Older rapidocr rejects the key: then it is a bare
+        # reader, exactly as before.
+        n = active().threads
+        try:
+            _CACHE["rapid"] = RapidOCR(params={
+                "EngineConfig.onnxruntime.intra_op_num_threads": n,
+                "EngineConfig.onnxruntime.inter_op_num_threads": n,
+            })
+        except Exception:
+            _CACHE["rapid"] = RapidOCR()
     return _CACHE["rapid"]
 
 

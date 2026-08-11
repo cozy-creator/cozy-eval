@@ -70,9 +70,10 @@ from .errors import RegistryError
 
 #: Identifies the METRIC SET a report was produced with. Same ``cozy-eval/<thing>@<n>``
 #: convention as ``suite.REPORT_SCHEMA``. Bump when a metric's meaning changes.
-METRIC_SET_VERSION = "cozy-eval/metrics@7"
+METRIC_SET_VERSION = "cozy-eval/metrics@8"
 # @5 was #9's spatial fine-detail set; @6 added the temporal-fidelity family;
-# @7 adds the output-integrity floor. Those three are the serve gate's axes.
+# @7 adds the output-integrity floor; @8 adds track stability — the OBJECT
+# axis, which the other three passed clips the owner's eye rejected on.
 
 # A metric name is an API key: budgets, banked reports and report rows all
 # address metrics by it.
@@ -198,6 +199,70 @@ BUILTIN: tuple[MetricSpec, ...] = (
             "flow-predicted and leave a large residual. The reference-free half "
             "of the temporal-fidelity family — the ONE temporal number valid with "
             "no control, and the sharpest separator of the production-noise class."
+        ),
+    ),
+    # --- track stability: do OBJECTS hold together in 3D under motion? -------
+    # The axis the owner's eye found and three metric families missed (@8). The
+    # gate is the PAIRED RATIO; the reference-free numbers beside it are
+    # content-set diagnostics. See cozy_eval.tracks for the scope statement.
+    MetricSpec(
+        name="track_stability_ratio", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:tracks", gated=True, note=(
+            "OBJECT-COHERENCE GATE, paired to a same-seed control: the fraction "
+            "of the control's coherent feature tracks the candidate retains. "
+            "Catches objects that WARBLE — a point on an object whose image-plane "
+            "trajectory jitters, whose neighbours stop agreeing, or that stops "
+            "being itself as the camera moves, while every single frame still "
+            "looks right. VALID ACROSS A RE-ROLLED TAKE: both arms are scored on "
+            "their OWN trajectories and never compared pixel to pixel, so a "
+            "trajectory-perturbing lane (quant, sparse attention, distill) is "
+            "measured on whether its objects hold, not on how far its take drifted. "
+            "MEASURED separation, not a guess: 36 owner-rejected sparse-attention "
+            "k16 pairs score 0.000-0.850 (median 0.319), 10 pairs the owner judged "
+            "IDENTICAL score 0.931-1.247 (median 0.996), floor 0.90 in the empty "
+            "middle. UNMEASURED when the control itself is untrackable."
+        ),
+    ),
+    MetricSpec(
+        name="track_stability", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:tracks", paired=False, note=(
+            "video, reference-free: the fraction of seeded corner features that "
+            "both survive a one-second window and move like a point on a real "
+            "3D object while they do (smooth image-plane trajectory, neighbours "
+            "keeping their relative geometry). REPORT-ONLY reference-free and "
+            "deliberately so — the absolute level is set by CONTENT (steam and "
+            "dense weave hold almost no tracks on a perfect render), so only "
+            "track_stability_ratio gates."
+        ),
+    ),
+    MetricSpec(
+        name="track_survival", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:tracks", paired=False, note=(
+            "video, reference-free: fraction of seeded features still tracked, "
+            "forward-backward validated, at the end of their window. The "
+            "'objects stop being themselves' half of track_stability, and the "
+            "number that decides whether the clip is TRACKABLE at all "
+            "(below ~0.25 the family reports UNMEASURED rather than a verdict)."
+        ),
+    ),
+    MetricSpec(
+        name="track_jitter", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:tracks", paired=False, higher_is_better=False, note=(
+            "video, reference-free: median per-track image-plane ACCELERATION "
+            "energy after the global camera motion is removed, normalized by the "
+            "track's own speed so a fast pan is not penalized. Genuine 3D motion "
+            "is smooth; warble is high-frequency. The smoothness half of "
+            "track_stability, reported so a reader sees WHICH half moved."
+        ),
+    ),
+    MetricSpec(
+        name="track_rigidity_error", dimension=QUALITY, version="1.0",
+        model_ref="cozy-eval:tracks", paired=False, higher_is_better=False, note=(
+            "video, reference-free: median second-difference energy of the "
+            "distance between neighbouring tracks, scale-normalized (x100). "
+            "Neighbours on one surface keep their geometry through parallax and "
+            "perspective, which are SMOOTH; a surface that reshapes frame to "
+            "frame does not. The 'objects reshape themselves' half."
         ),
     ),
     MetricSpec(

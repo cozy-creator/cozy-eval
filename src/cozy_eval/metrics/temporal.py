@@ -199,15 +199,20 @@ def signal_stats(frames: Any) -> dict[str, float]:
 
     Returns ``{"luma_flicker": ..., "jerk_ratio": ...}``.
     ``luma_flicker`` is the backend's ``flicker`` (frame-mean luma wobble, %);
-    ``jerk_ratio`` keeps its name (second/first temporal difference of
-    frame-mean luma; smooth motion sits low, flicker and judder push it up).
-    """
-    from cozy_eval.metrics.signal import score
+    ``jerk_ratio`` keeps its name (second over first temporal difference of the
+    luma frames; smooth motion sits low, flicker and judder push it up).
 
-    clip = score(frames)
+    Runs :func:`cozy_eval.metrics.signal.temporal_score`, the luma-only pass
+    (@9). It returns these two numbers EXACTLY as the full feature pass did,
+    without computing the four per-frame feature families only the population
+    lane consumes — the per-clip CPU tier's biggest single line (ce#14).
+    """
+    from cozy_eval.metrics.signal import temporal_score
+
+    stats = temporal_score(frames)
     return {
-        "luma_flicker": float(clip.flicker),
-        "jerk_ratio": float(clip.jerk_ratio),
+        "luma_flicker": float(stats["flicker"]),
+        "jerk_ratio": float(stats["jerk_ratio"]),
     }
 
 

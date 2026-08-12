@@ -299,7 +299,11 @@ The load-bearing design decisions:
   fail on opposite halves.
 * **Video** (`cozy_eval.video.run_video`): per-frame aggregation with
   worst-frame tails, a Δ-frame temporal channel per-frame metrics cannot see,
-  and motion/hold checklists judged on one ordered frame strip per clip.
+  and motion/hold checklists judged on an ordered frame strip **split into three
+  temporal windows, gated on the worst** — a clip that holds its content for
+  10 s and drops it for the last 5 is not two-thirds compliant, it is broken,
+  and the whole-strip mean passed exactly that arm. `element_recall_drop`
+  (first window minus last) reports the direction.
 * **Tri-state parity verdict** (`free_win` / `conditional_parity` / `reject`): a
   candidate that fulfilled the request *differently but equally well* is not a
   failure — the case a pixel-distance metric cannot express.
@@ -410,24 +414,41 @@ through parallax and perspective, which are smooth).
 
 | metric | dimension | gates? | what it says |
 |---|---|---|---|
-| `track_stability_ratio` | similarity | **yes**, ≥ 0.90 | fraction of the control's coherent tracks the candidate retains |
+| `track_stability_ratio` | similarity | **yes**, 0.90 – 1.40 | fraction of the control's coherent tracks the candidate retains |
 | `track_stability` | quality | no | fraction of seeded points that survive *and* move like a real 3D point |
 | `track_survival` | quality | no | fraction still tracked at the end of the window |
 | `track_jitter` | quality | no | median per-track acceleration energy, camera motion removed |
 | `track_rigidity_error` | quality | no | median jerk of neighbour distances — the "reshapes itself" half |
 
-**The floor is measured on labeled ground truth, three ways** (`calibration/track-stability.json`):
+**Both bounds are measured on labeled ground truth** (`calibration/track-stability.json`):
 
 | set | what it is | n | ratio | verdict |
 |---|---|---:|---|---|
 | **rejected** | sparse-attention k16/k32 arms the owner rejected, vs their own same-cell same-seed dense control | 29 | 0.029 – **0.846**, median 0.366 | 29 reject, 0 pass |
-| **identical** | SageAttention-2 fp8 arms the owner reviewed as identical to FA3-exact, plus same-arm re-renders across a pod and a torch-line change | 12 | **0.930** – 1.251, median 1.050 | 12 pass, 0 reject |
+| **identical** | SageAttention-2 fp8 arms the owner reviewed as identical to FA3-exact, plus same-arm re-renders across a pod and a torch-line change | 12 | **0.930** – **1.251**, median 1.050 | 12 pass, 0 reject |
 | **bit-exact** | a clip against itself, two independent decodes and two independent scorings | 2 | **exactly 1.0** | pass |
+| **over-smoothed** | the 15 s arm that re-rolled into a simpler, slower take and dropped the cargo bike and the parcel it was asked for | 1 | **2.169** | reject *(passed before the ceiling)* |
 
-0.90 sits in an empty middle 8 points wide. The independent negative controls
-agree: an untrained-selector arm and a grouped-selector arm that a separate
-detector already called broken score **0.000** here, and the oracle top-k arm —
-itself a k16 sparse render — scores 0.606.
+0.90 sits in an empty middle 8 points wide, and 1.40 in a second one — 1.251 to
+2.169 at the shipped budget, and 1.251 to 1.512 taken across every window
+budget, which is the middle the bound is actually placed in. The independent negative controls agree: an untrained-selector arm and a
+grouped-selector arm that a separate detector already called broken score
+**0.000** here, and the oracle top-k arm — itself a k16 sparse render — 0.606.
+
+**The gate is two-sided, and that is not decoration.** A floor-only gate is
+walked through by anything that does LESS: the over-smoothed row above scored
+2.17× its control and PASSED, because a simpler take is easier to track. The
+pathology is general, not ours — CD-FVD measured that sampling motion-free video
+*lowers* FVD by 31.6–54.8%, VBench's `motion_smoothness` measures interpolation
+predictability (which blur maximizes), and EvalCrafter's fitted composite has
+all three motion coefficients negative. The obvious companion instrument does
+**not** rescue a one-sided gate either: `motion_mag_ratio` reads 0.920
+whole-frame and 1.006 under VBench Dynamic-Degree top-5% pooling on that same
+arm, inside the 0.80–1.05 band of pairs the owner called identical, at every
+pooling and window tried (`calibration/motion-magnitude.json`). It ships
+declared and **report-only**, with the negative recorded so it is not
+re-proposed. What an over-smoothed arm actually loses is *content*, and the
+instrument for that is the windowed `element_recall` below.
 
 The paired ratio is **valid across a re-rolled take**, which is the whole point:
 both arms are scored on their *own* trajectories and never compared pixel to
@@ -450,6 +471,18 @@ and the reason `lpips` cannot be used here at all.
 > `detail_verdict`), to content adherence (the checklist and the VLM), and to
 > whole-clip shimmer (`warp_error`). A clean ratio is one axis, not a quality
 > verdict.
+
+**What one clip of the CPU tier costs** (`calibration/perclip-cost.json`, measured
+on the labeled 362-frame 1344×768 pair, four threads): decode 2.2 s per clip,
+integrity **0.01 s**, `warp_error` 2.3 s per arm, the paired temporal-fidelity
+block 5.0 s, the paired track block 1.6 s — and, until @9, **48.5 s of signal
+statistics** to return two luma scalars. That one family was three quarters of
+the bill: it computes six per-frame feature families at full resolution (an FFT,
+a Laplacian, a 64-bin histogram, a box filter, saturation, luma σ) whose only
+consumer is `benchmarks.imaging()`, the *population* lane. The per-clip path now
+runs a luma-only pass that reproduces `luma_flicker` and `jerk_ratio` **exactly**
+(pinned by a test, not approximately): 48.5 s → **3.0 s**, and the paired
+per-clip gate **61.8 s → 16.3 s**. No metric was lost.
 
 **Cost and the decimation pin.** No new dependency — the tracker is the same
 BSD-licensed OpenCV the flow family already uses, because the obvious learned

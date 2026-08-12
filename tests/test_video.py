@@ -178,6 +178,24 @@ def test_signal_stats_compose_cmm_and_rank_flicker_above_smooth() -> None:
     assert flicker_s["jerk_ratio"] > ramp_s["jerk_ratio"]
 
 
+def test_the_lean_per_clip_pass_reproduces_the_full_feature_pass_exactly() -> None:
+    """@9 cut the six per-frame feature families out of the PER-CLIP path — an
+    FFT, a Laplacian, a 64-bin histogram and a box filter per frame, computed
+    to return two luma scalars (82.6 s of a ~140 s CPU tier on a 362-frame
+    clip). Both scalars are functions of luma alone, so this is not an
+    approximation: it must be EXACT, or the cut silently rewrites history.
+    """
+    from cozy_eval.metrics import signal as S
+
+    for clip in (_clip(REF_OFFSETS),
+                 np.stack([_scene() * (1.0 + 0.03 * t) for t in range(8)]),
+                 _flicker(_clip(REF_OFFSETS))):
+        full = S.score(clip)
+        lean = S.temporal_score(clip)
+        assert lean["flicker"] == full.flicker
+        assert lean["jerk_ratio"] == full.jerk_ratio
+
+
 # ---------------------------------------------------------------------------
 # t2v checklists: the shipped set
 # ---------------------------------------------------------------------------
@@ -279,6 +297,110 @@ def test_ocr_persistence_requires_a_majority_of_frames() -> None:
     gone = (adherence.ChecklistItem(id="g", kind="ocr", text="BASEMENT", absent=True),)
     assert video.score_video_ocr_items(gone, ["OPEN LATE"] * 4)[0].verified
     assert not video.score_video_ocr_items(gone, ["BASEMENT"] * 4)[0].verified
+
+
+# ---------------------------------------------------------------------------
+# windowed element_recall — the mid-clip drop-out axis (@9)
+# ---------------------------------------------------------------------------
+
+class DropoutJudge:
+    """A judge that answers from what it is ACTUALLY SHOWN.
+
+    Says yes while the prompted object is visible in the frames of this call
+    and no once it has gone. That is the whole point of windowing: the same
+    judge, the same checklist, a different answer depending on WHEN in the clip
+    it looks.
+    """
+
+    model_ref = "stub-dropout-judge"
+
+    def __init__(self) -> None:
+        self.calls: list[int] = []
+
+    def ask(self, images: list, prompt: str) -> str:
+        if "grading whether" in prompt:           # the checklist call, not the detail rubric
+            self.calls.append(len(images))
+        present = any(np.asarray(img).max() > 250 for img in images)
+        rows = [
+            {"n": int(line.split(". ", 1)[0]), "answer": "yes" if present else "no"}
+            for line in prompt.splitlines()
+            if line and line[0].isdigit() and ". " in line
+        ]
+        return json.dumps(rows)
+
+
+def _dropout_clip(frames: int = 24, keep: int = 16, size: int = 64) -> np.ndarray:
+    """A clip whose prompted object is present for ``keep`` frames, then gone."""
+    clip = np.stack([_scene(size) * 0.5 for _ in range(frames)])
+    clip[:keep, 8:24, 8:24] = 1.0     # the object, saturated so the judge sees it
+    return clip
+
+
+def test_strip_windows_split_in_temporal_order_and_never_grow_the_last() -> None:
+    strip = list(range(8))
+    assert video.strip_windows(strip, 3) == [[0, 1, 2], [3, 4, 5], [6, 7]]
+    assert video.strip_windows(strip, 1) == [strip]
+    assert video.strip_windows([0], 3) == [[0]]
+    assert [len(w) for w in video.strip_windows(list(range(5)), 3)] == [2, 2, 1]
+
+
+def test_a_clip_that_drops_its_content_halfway_passes_whole_strip_and_fails_windowed() -> None:
+    """THE @9 RED TEST for adherence.
+
+    One whole-strip call sees the object in 5 of its 8 frames and answers yes;
+    the clip reads 1.0 and ships. Asked per window, the last window has no
+    object at all and the gate is the worst window.
+    """
+    sample = video.VideoSample(
+        prompt=promptset.load(SET).t2v[0].prompt, seed=301, checklist_id="v01")
+    checklists = promptset.checklists_for(SET)
+    clip = _dropout_clip()
+
+    whole = video.run_video(
+        [sample], [clip], checklists=checklists, judge=DropoutJudge(),
+        use_ocr=False, device="cpu", recall_windows=1,
+    )
+    assert whole.rows[0].element_recall_cand == 1.0
+    assert "element_recall_drop" not in whole.rows[0].values
+
+    windowed = video.run_video(
+        [sample], [clip], checklists=checklists, judge=DropoutJudge(),
+        use_ocr=False, device="cpu",
+    )
+    row = windowed.rows[0]
+    assert row.element_recall_cand == 0.0            # the worst window gates
+    assert row.values["element_recall_mean"] > 0.0   # the mean would have passed it
+    assert row.values["element_recall_drop"] == 1.0  # first window minus last
+
+
+def test_a_clip_that_holds_its_content_scores_the_same_windowed_or_not() -> None:
+    """The must-NOT-fire half: three judge calls on a clip that keeps its
+    content end to end read exactly what one call did."""
+    sample = video.VideoSample(
+        prompt=promptset.load(SET).t2v[0].prompt, seed=301, checklist_id="v01")
+    checklists = promptset.checklists_for(SET)
+    clip = _dropout_clip(keep=24)
+
+    kw = dict(checklists=checklists, use_ocr=False, device="cpu")
+    whole = video.run_video([sample], [clip], judge=DropoutJudge(),
+                            recall_windows=1, **kw)
+    windowed = video.run_video([sample], [clip], judge=DropoutJudge(), **kw)
+    assert whole.rows[0].element_recall_cand == 1.0
+    assert windowed.rows[0].element_recall_cand == 1.0
+    assert windowed.rows[0].values["element_recall_drop"] == 0.0
+
+
+def test_windowing_costs_one_judge_call_per_window() -> None:
+    sample = video.VideoSample(
+        prompt=promptset.load(SET).t2v[0].prompt, seed=301, checklist_id="v01")
+    judge = DropoutJudge()
+    video.run_video(
+        [sample], [_dropout_clip(keep=24)],
+        checklists=promptset.checklists_for(SET), judge=judge,
+        use_ocr=False, device="cpu",
+    )
+    assert len(judge.calls) == video.DEFAULT_RECALL_WINDOWS
+    assert sum(judge.calls) == video.DEFAULT_JUDGE_FRAMES  # the strip is SPLIT, not re-sampled
 
 
 # ---------------------------------------------------------------------------

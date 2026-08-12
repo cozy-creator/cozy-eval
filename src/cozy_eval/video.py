@@ -14,11 +14,16 @@ What changes for video, and what deliberately does not:
 * **adherence** uses the same authored-checklist discipline with the
   motion/hold duality (:class:`cozy_eval.metrics.adherence.VideoChecklist`):
   a clip can fail by not moving or by not holding still. The judge sees an
-  ORDERED strip of uniformly sampled frames in ONE call per clip — the same
-  Judge protocol as images; a judge with native video input is just a faster
-  implementation of the same contract. OCR items are read on every sampled
-  frame and must PERSIST (majority of frames), because text that is legible in
-  one lucky frame has not survived motion.
+  ORDERED strip of uniformly sampled frames — the same Judge protocol as
+  images; a judge with native video input is just a faster implementation of
+  the same contract. OCR items are read on every sampled frame and must PERSIST
+  (majority of frames), because text that is legible in one lucky frame has not
+  survived motion. **The strip is split into THREE temporal windows and the
+  checklist is asked of each (@9), with the gate on the WORST window**: one
+  whole-strip call mean-pools a mid-clip drop-out into invisibility, which is
+  how a 15 s arm that dropped the cargo bike and the parcel it was asked for
+  passed everything we had. ``element_recall_drop`` (first window minus last)
+  reports the direction.
 * **quality** composes ``cozy_eval.metrics.signal`` for single-arm temporal
   signal statistics (``luma_flicker``, ``jerk_ratio``), and adds the
   track-stability family (:mod:`cozy_eval.tracks`): the OBJECT axis. Every
@@ -75,6 +80,12 @@ from .metrics.adherence import (
 #: Frames shown to the judge (and read by OCR / CLIP) per clip. Uniform over
 #: the clip, always including first and last frame.
 DEFAULT_JUDGE_FRAMES = 8
+
+#: Temporal windows the adherence checklist is asked over, per clip (@9). The
+#: strip is split in three and the GATE is the worst window, because a clip that
+#: loses a prompted object halfway through is a failure a whole-strip mean-pool
+#: cannot see. ``1`` restores the pre-@9 single whole-strip call.
+DEFAULT_RECALL_WINDOWS = 3
 
 
 class VideoSample(msgspec.Struct, kw_only=True):
@@ -251,6 +262,56 @@ def _adherence_pass(
     return score_video(entry, strip, judge=judge, page_texts=page_texts)
 
 
+def strip_windows(strip: list[Any], windows: int) -> list[list[Any]]:
+    """Split a frame strip into contiguous temporal windows, earliest first.
+
+    Extra frames go to the EARLIER windows (8 frames, 3 windows -> 3/3/2), so
+    the last window is never the largest and a late drop-out is never diluted
+    by frames from the middle of the clip.
+    """
+    n = len(strip)
+    if windows <= 1 or n <= 1:
+        return [list(strip)]
+    k = min(windows, n)
+    base, extra = divmod(n, k)
+    out, a = [], 0
+    for i in range(k):
+        b = a + base + (1 if i < extra else 0)
+        out.append(strip[a:b])
+        a = b
+    return out
+
+
+def _windowed_adherence_pass(
+    sample: VideoSample, checklists: Any, strip: list[Any],
+    *, judge: Judge | None, use_ocr: bool, ocr_seconds: list[float], windows: int,
+) -> tuple[AdherenceScore | None, list[float]]:
+    """The checklist asked ONCE PER TEMPORAL WINDOW; the gate is the worst one.
+
+    Returns ``(worst_window_score, per_window_recalls)``. A whole-strip pass
+    mean-pools a mid-clip drop-out into invisibility: MEASURED on the 15 s
+    courier cell, where the arm holds the cargo bike and the parcel at t=7.5 s
+    and has dropped both by t=14.5 s while DISTS 0.140 passes it. The cheap
+    alternatives were measured dead first — min-pooled and trend-pooled
+    per-frame CLIP are inside CLIP's own noise and the trend runs the WRONG way
+    (ce#14 §1b-iii) — so a judge call per window is the cheapest thing that can
+    work. Costs ``windows`` judge calls per clip instead of one; OCR reads the
+    same frames either way.
+    """
+    parts = strip_windows(strip, windows)
+    scores = [
+        _adherence_pass(sample, checklists, part, judge=judge, use_ocr=use_ocr,
+                        ocr_seconds=ocr_seconds)
+        for part in parts
+    ]
+    measured = [s for s in scores if s is not None and s.measured]
+    if not measured:
+        return (scores[0] if scores else None), []
+    recalls = [s.element_recall for s in measured]
+    worst = min(measured, key=lambda s: s.element_recall)
+    return worst, recalls
+
+
 def run_video(
     samples: list[VideoSample],
     candidates: list[Any],
@@ -266,6 +327,7 @@ def run_video(
     use_tracks: bool = True,
     track_windows: int = 0,
     judge_frames: int = DEFAULT_JUDGE_FRAMES,
+    recall_windows: int = DEFAULT_RECALL_WINDOWS,
     device: str = AUTO,
     render_seconds: float = 0.0,
     audio: list[Any] | None = None,
@@ -390,9 +452,9 @@ def run_video(
     t0 = time.monotonic()
     scored_any = False
     for row, sample, strip in zip(rows, samples, strips, strict=True):
-        cand_score = _adherence_pass(
-            sample, checklists, strip,
-            judge=judge, use_ocr=use_ocr, ocr_seconds=ocr_seconds,
+        cand_score, cand_recalls = _windowed_adherence_pass(
+            sample, checklists, strip, judge=judge, use_ocr=use_ocr,
+            ocr_seconds=ocr_seconds, windows=recall_windows,
         )
         if cand_score is None or not cand_score.measured:
             continue
@@ -401,15 +463,18 @@ def run_video(
         row.element_recall_cand = cand_score.element_recall
         row.text_exact = cand_score.text_exact
         row.text_fuzzy = cand_score.text_fuzzy
+        if len(cand_recalls) > 1:
+            row.values["element_recall_mean"] = sum(cand_recalls) / len(cand_recalls)
+            row.values["element_recall_drop"] = cand_recalls[0] - cand_recalls[-1]
         if _group_measured(cand_score, entry.motion):
             row.values["motion_compliance"] = cand_score.compliance
         if _group_measured(cand_score, entry.hold):
             row.values["static_preservation"] = cand_score.preservation
         row.failed_items = [v.id for v in cand_score.items if not v.verified]
         if paired:
-            ref_score = _adherence_pass(
-                sample, checklists, ref_strips[row.index],
-                judge=judge, use_ocr=use_ocr, ocr_seconds=ocr_seconds,
+            ref_score, _ = _windowed_adherence_pass(
+                sample, checklists, ref_strips[row.index], judge=judge,
+                use_ocr=use_ocr, ocr_seconds=ocr_seconds, windows=recall_windows,
             )
             if ref_score is not None and ref_score.measured:
                 row.element_recall_ref = ref_score.element_recall

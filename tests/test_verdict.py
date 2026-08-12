@@ -137,5 +137,25 @@ def test_direction_follows_the_registry_not_the_caller() -> None:
     assert evaluate([FAITHFUL, PARITY_BAD], BOTH_BUDGETS).parity_reasons
 
 
+def test_a_reverse_limit_catches_the_candidate_that_scores_too_well() -> None:
+    """@9: over-smoothing walks through a floor-only gate. An arm holding 2.17x
+    the control's coherent tracks is not more coherent, it is a simpler take —
+    and the labeled 15 s rung that did exactly that dropped the cargo bike."""
+    band = Threshold(metric="track_stability_ratio", mean_limit=0.90, reverse_limit=1.40)
+    inside = Measurement(metric="track_stability_ratio", mean=1.05)
+    too_low = Measurement(metric="track_stability_ratio", mean=0.36)
+    too_high = Measurement(metric="track_stability_ratio", mean=2.169)
+
+    assert registry.BY_NAME["track_stability_ratio"].higher_is_better is True
+    assert not evaluate([inside], (band,)).faithfulness_reasons
+    assert evaluate([too_low], (band,)).verdict == REJECT
+    breach = evaluate([too_high], (band,))
+    assert breach.verdict == REJECT
+    assert "REVERSE budget" in breach.faithfulness_reasons[0]
+    # ... and a floor-only budget is exactly the hole this closes.
+    floor_only = Threshold(metric="track_stability_ratio", mean_limit=0.90)
+    assert not evaluate([too_high], (floor_only,)).faithfulness_reasons
+
+
 def test_measurements_accept_a_dict_as_well_as_a_list() -> None:
     assert evaluate({"lpips": FAITHFUL}, (LPIPS_BUDGET,)).verdict == FREE_WIN

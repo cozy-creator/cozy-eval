@@ -70,10 +70,16 @@ from .errors import RegistryError
 
 #: Identifies the METRIC SET a report was produced with. Same ``cozy-eval/<thing>@<n>``
 #: convention as ``suite.REPORT_SCHEMA``. Bump when a metric's meaning changes.
-METRIC_SET_VERSION = "cozy-eval/metrics@8"
+METRIC_SET_VERSION = "cozy-eval/metrics@9"
 # @5 was #9's spatial fine-detail set; @6 added the temporal-fidelity family;
 # @7 adds the output-integrity floor; @8 adds track stability — the OBJECT
 # axis, which the other three passed clips the owner's eye rejected on.
+# @9 closes the two ways an arm could pass by doing LESS: track_stability_ratio
+# is now two-sided (0.90, 1.40) so over-smoothing cannot walk through a floor,
+# and element_recall is asked per temporal window and gated on the WORST, so a
+# clip that drops prompt content halfway cannot mean-pool its way past. Also
+# declares motion_mag_ratio (report-only, with its measured failure recorded)
+# and cuts the population feature pass out of the per-clip signal path.
 
 # A metric name is an API key: budgets, banked reports and report rows all
 # address metrics by it.
@@ -191,6 +197,24 @@ BUILTIN: tuple[MetricSpec, ...] = (
         ),
     ),
     MetricSpec(
+        name="motion_mag_ratio", dimension=SIMILARITY, version="1.0",
+        model_ref="cozy-eval:flow", note=(
+            "video: the candidate's mean optical-flow magnitude over the "
+            "reference's. Computed free beside flow_divergence (the flow fields "
+            "already exist) and declared @9 because it was landing in report rows "
+            "undeclared. REPORT-ONLY, and the note is the point: this is the "
+            "obvious over-smoothing companion and it was MEASURED NOT TO WORK. On "
+            "the labeled 15 s over-smoothed rung it reads 0.920 whole-frame and "
+            "1.006 with VBench-style top-5% pooling, while the owner-IDENTICAL fp8 "
+            "band is 0.80-1.05 and the pure re-render floor is 0.91-1.09 — the "
+            "arm it must catch sits INSIDE the band it must not fire on, at every "
+            "pooling and every temporal window tried. Motion magnitude is set by "
+            "the take, not by the damage. The instruments that DO separate that "
+            "class are the two-sided track_stability_ratio and the windowed "
+            "element_recall. See calibration/motion-magnitude.json."
+        ),
+    ),
+    MetricSpec(
         name="warp_error", dimension=QUALITY, version="1.0",
         model_ref="cozy-eval:flow", paired=False, higher_is_better=False, note=(
             "video, reference-free: warp frame t->t+1 by its optical flow, mean "
@@ -220,7 +244,17 @@ BUILTIN: tuple[MetricSpec, ...] = (
             "MEASURED separation, not a guess: 36 owner-rejected sparse-attention "
             "k16 pairs score 0.000-0.850 (median 0.319), 10 pairs the owner judged "
             "IDENTICAL score 0.931-1.247 (median 0.996), floor 0.90 in the empty "
-            "middle. UNMEASURED when the control itself is untrackable."
+            "middle. UNMEASURED when the control itself is untrackable. "
+            "TWO-SIDED from @9: the band is (0.90, 1.40). Scoring far ABOVE the "
+            "control is the OVER-SMOOTHING signature — a simpler, slower take is "
+            "easier to track, not more coherent — and the floor-only gate PASSED "
+            "the 15 s courier rung at 2.169 while it dropped the cargo bike. The "
+            "ceiling sits in the second empty middle, taken across all three "
+            "window budgets: identical pairs top out at 1.2514, bit-exact is "
+            "exactly 1.0, the labeled over-smoothed arm reads 2.169 (1.512 at "
+            "the undecimated budget). The ceiling is UNMEASURED when the control holds "
+            "under 40% of its tracks — the upward tail is denominator-driven, and "
+            "an owner-IDENTICAL dense-weave pair reads 2.766 there."
         ),
     ),
     MetricSpec(
@@ -275,11 +309,37 @@ BUILTIN: tuple[MetricSpec, ...] = (
     ),
     # --- adherence --------------------------------------------------------
     MetricSpec(
-        name="element_recall", dimension=ADHERENCE, version="1.0", gated=True,
+        name="element_recall", dimension=ADHERENCE, version="1.1", gated=True,
         headline=True, paired=False, note=(
             "dimension headline: fraction of the prompt's authored checklist "
             "items verified present. Reference-free — scores any render. In a "
-            "PAIRED comparison the candidate-minus-reference delta is what gates."
+            "PAIRED comparison the candidate-minus-reference delta is what gates. "
+            "VIDEO, @9: the checklist is asked once per TEMPORAL WINDOW (three by "
+            "default) and this number is the WORST window, not the whole-strip "
+            "mean. A clip that holds its content for 10 s and drops it for the "
+            "last 5 is not 2/3 compliant, it is broken, and the mean-pooled "
+            "version passed exactly that arm (15 s courier cell: cargo bike and "
+            "parcel present at t=7.5 s, gone by t=14.5 s, DISTS 0.140). Image "
+            "mode is one window and unchanged."
+        ),
+    ),
+    MetricSpec(
+        name="element_recall_mean", dimension=ADHERENCE, version="1.0", paired=False,
+        note=(
+            "video: the checklist recall averaged over the temporal windows — the "
+            "pre-@9 whole-strip number's closest equivalent, kept report-only so "
+            "a reader can see how much the gated worst-window value diverges from "
+            "the average. Reported only when more than one window was scored."
+        ),
+    ),
+    MetricSpec(
+        name="element_recall_drop", dimension=ADHERENCE, version="1.0", paired=False,
+        higher_is_better=False, note=(
+            "video: FIRST window's recall minus the LAST window's. Positive = the "
+            "clip lost prompt content as it ran, the mid-clip drift signature that "
+            "no per-frame or whole-strip number sees. Report-only: the gate is the "
+            "worst window (element_recall), because content can also be missing "
+            "from the start."
         ),
     ),
     MetricSpec(

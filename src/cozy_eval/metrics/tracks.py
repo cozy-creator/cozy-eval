@@ -130,6 +130,35 @@ TRACKABILITY_FLOOR = 0.25
 #: middle. See ``calibration/track-stability.json``.
 STABILITY_RATIO_FLOOR = 0.90
 
+#: THE OTHER SIDE OF THE SAME GATE (@9). A floor-only gate is walked through by
+#: OVER-SMOOTHING: an arm that re-rolls into a simpler, slower take holds MORE
+#: coherent tracks than its control and scores far ABOVE 1.0 while dropping the
+#: content it was asked for. MEASURED on the 15 s courier cell (pgw#1145): the
+#: sparse rung scored 2.169 on a properly trackable control (survival 0.5325)
+#: and PASSED, while by t=14.5 s it had dropped the cargo bike and the parcel
+#: the prompt asked for. The bound is set in the same style as the floor, from
+#: the labeled sets — and across all three window budgets, which is what moved
+#: it off the 1.50 the carry-back proposed: owner-IDENTICAL pairs top out at
+#: 1.2514 (shipped) / 1.114 (undecimated) / 1.237 (halved), and the labeled
+#: over-smoothed arm reads 2.169 / 1.512 / 2.513. The empty middle common to
+#: every budget is 1.251-1.512, and 1.40 sits inside it with margin on both
+#: sides; 1.50 would have cleared the undecimated positive by 0.012.
+#: Two-sidedness is not novel here — ``imaging_index`` has been (0.92, 1.25)
+#: since the population gate shipped.
+STABILITY_RATIO_CEILING = 1.40
+
+#: The ceiling needs a HIGHER trackability bar than the floor, and this is the
+#: one asymmetry in the family. The ratio's upward tail is denominator-driven:
+#: when the control itself holds few tracks, its ``track_stability`` is a small
+#: high-variance number and dividing by it inflates the ratio. MEASURED: the
+#: dense-weave ``loomB`` pair — which the owner reviewed as IDENTICAL, control
+#: survival 0.299 — reads 1.207 at the shipped budget and **2.766** undecimated,
+#: which a ceiling would call over-smoothing. The labeled over-smoothed arm's
+#: control survives at 0.532. So the ceiling is UNMEASURED below 0.40 while the
+#: floor still gates; a false REJECT of a good arm is the expensive error here,
+#: and the content axis is covered by the windowed ``element_recall`` anyway.
+CEILING_TRACKABILITY_FLOOR = 0.40
+
 _LK = {
     "winSize": (21, 21),
     "maxLevel": 3,

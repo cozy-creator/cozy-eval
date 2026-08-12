@@ -21,6 +21,17 @@ number that separates arms is ``track_stability_ratio``, candidate over a
 same-seed control, and it is valid across a re-rolled take because both sides
 are computed on their OWN clip and never compared pixel to pixel.
 
+AND THE GATE IS TWO-SIDED (@9). Shipping it floor-only was a hole the very next
+labeled arm walked through: the 15 s courier rung scored **2.169** — 2.17x the
+control's track stability — and PASSED, while it had dropped the cargo bike and
+the parcel the prompt asked for. Scoring far above the control is not better
+coherence, it is a simpler take being easier to track, and one-sidedness is
+endemic to this whole metric class (CD-FVD measured that motion-free video
+LOWERS FVD by 31.6-54.8%; four of VBench's six custom dimensions are maximized
+by a frozen clip). Both bounds come from the same labeled sets — see
+:data:`cozy_eval.metrics.tracks.STABILITY_RATIO_FLOOR` and
+:data:`~cozy_eval.metrics.tracks.STABILITY_RATIO_CEILING`.
+
 Tri-state, like every verdict here: ``pass`` / ``reject`` / ``unmeasured``, and
 UNMEASURED is never silently a pass. An untrackable REFERENCE is the commonest
 unmeasured case and it is the honest one — a ratio of two numbers each computed
@@ -49,6 +60,20 @@ SCOPE_NOTE = (
     "faces, pseudo-glyphs, halos: the detail detectors), to content adherence "
     "(the checklist + VLM), and to whole-clip shimmer (warp_error). A clean "
     "ratio here is one axis, not a quality verdict."
+)
+
+#: Appended to an OVER-SMOOTHING reject (@9). Scoring far ABOVE the control is
+#: not a quality finding on its own axis — it says the arm's take is easier to
+#: track than the control's, which is what a motion-collapsed or re-rolled
+#: simpler render looks like. What it CANNOT say is what the arm dropped.
+OVERSMOOTHING_NOTE = (
+    "OVER-SMOOTHING is measured as excess trackability, not as motion. The "
+    "companion instrument you would expect — motion_mag_ratio, the flow "
+    "magnitude the candidate holds against the control — was MEASURED not to "
+    "separate this class at any pooling (@9 calibration: 1.006 top-5%-pooled, "
+    "0.920 whole-frame, both inside the owner-identical band 0.80-1.05). What "
+    "an over-smoothed arm loses is CONTENT, and the instrument for that is the "
+    "windowed element_recall, gated on its worst window."
 )
 
 #: The reference-free number cannot gate, and a report must say why rather than
@@ -92,7 +117,9 @@ def track_verdict(
     reference: Any = None,
     *,
     ratio_floor: float = track_metrics.STABILITY_RATIO_FLOOR,
+    ratio_ceiling: float = track_metrics.STABILITY_RATIO_CEILING,
     trackability_floor: float = track_metrics.TRACKABILITY_FLOOR,
+    ceiling_trackability_floor: float = track_metrics.CEILING_TRACKABILITY_FLOOR,
     windows: int = track_metrics.TRACK_WINDOWS,
     window: int = track_metrics.TRACK_WINDOW,
     target_h: int = track_metrics.TRACK_TARGET_H,
@@ -188,6 +215,40 @@ def track_verdict(
             + (" (" + "; ".join(parts) + ")" if parts else "")
         )
         result.verdict = REJECT
+    elif ratio > ratio_ceiling and ref.track_survival < ceiling_trackability_floor:
+        result.unmeasured["track_stability_ratio_ceiling"] = (
+            f"OVER-SMOOTHING UNMEASURED: ratio {ratio:.3f} is above the ceiling "
+            f"{ratio_ceiling}, but the control holds only "
+            f"{ref.track_survival:.1%} of its tracks (ceiling needs "
+            f"{ceiling_trackability_floor:.0%}) — a small denominator inflates "
+            f"the upward tail, and a labeled owner-IDENTICAL pair on content "
+            f"this marginal reads 2.766. The FLOOR still gated this pair"
+        )
+        result.verdict = PASS
+        result.notes.append(SCOPE_NOTE)
+    elif ratio > ratio_ceiling:
+        parts = []
+        if cand.motion_magnitude < ref.motion_magnitude:
+            parts.append(
+                f"and moves less: motion_magnitude {cand.motion_magnitude:.3f} vs "
+                f"the control's {ref.motion_magnitude:.3f}"
+            )
+        if (cand.track_jitter == cand.track_jitter          # NaN test
+                and ref.track_jitter == ref.track_jitter
+                and cand.track_jitter < ref.track_jitter):
+            parts.append(
+                f"trajectories are smoother than the control's: "
+                f"{cand.track_jitter:.3f} vs {ref.track_jitter:.3f}"
+            )
+        result.defects.append(
+            f"OVER-SMOOTHING: track_stability_ratio {ratio:.3f} > ceiling "
+            f"{ratio_ceiling} — the candidate holds {ratio:.0%} of the control's "
+            f"coherent tracks, which is not better coherence but a simpler, "
+            f"slower take"
+            + (" (" + "; ".join(parts) + ")" if parts else "")
+        )
+        result.notes.append(OVERSMOOTHING_NOTE)
+        result.verdict = REJECT
     else:
         result.verdict = PASS
         result.notes.append(SCOPE_NOTE)
@@ -197,6 +258,7 @@ def track_verdict(
 
 __all__ = [
     "CONTENT_NOTE",
+    "OVERSMOOTHING_NOTE",
     "PASS",
     "REJECT",
     "SCOPE_NOTE",

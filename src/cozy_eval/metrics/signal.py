@@ -174,6 +174,47 @@ class ClipScore:  # noqa: PLW1641 — mutable and array-valued: equality yes, ha
         )
 
 
+def temporal_score(source) -> dict[str, float]:
+    """``flicker`` and ``jerk_ratio`` ONLY, from per-frame luma — the per-clip path.
+
+    :func:`score` computes six full-resolution feature families per frame (an
+    FFT, a Laplacian, a 64-bin histogram, a 3x3 box filter, saturation, luma
+    sigma) to build the feature matrix the POPULATION lane needs. The per-clip
+    video report consumes two of its scalars and pays for all of it: MEASURED at
+    **82.6 s of a ~140 s CPU tier** on a 362-frame 1344x768 clip, the single
+    biggest line in the bill (ce#14).
+
+    Both scalars are functions of the luma channel alone, so this pass drops
+    everything else and reproduces them EXACTLY — bit-for-bit, same accumulation
+    order, pinned by a test. It is not an approximation of the old numbers.
+    ``score()`` is unchanged and stays the population lane's entry point.
+    """
+    means: list[float] = []
+    d1: list[float] = []
+    d2: list[float] = []
+    prev = prev2 = None
+    n = 0
+
+    for rgb in iter_frames(source):
+        n += 1
+        lum = rgb @ LUMA
+        means.append(float(lum.mean()))
+        if prev is not None:
+            d1.append(float(np.abs(lum - prev).mean()))
+        if prev2 is not None:
+            d2.append(float(np.abs(lum - 2.0 * prev + prev2).mean()))
+        prev2, prev = prev, lum
+
+    if n == 0:
+        raise ValueError("no frames decoded")
+
+    m = np.asarray(means, np.float64)
+    return {
+        "flicker": float(m.std() / max(m.mean(), 1e-6) * 100.0) if n > 1 else 0.0,
+        "jerk_ratio": float(np.mean(d2) / max(np.mean(d1), 1e-9)) if d2 else 0.0,
+    }
+
+
 def score(source) -> ClipScore:
     """Score any frame source (video path, image dir, array, iterable of frames).
 

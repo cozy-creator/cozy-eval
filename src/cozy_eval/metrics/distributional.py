@@ -56,10 +56,19 @@ def fvd(real_dir, generated_dir, *, model: str = "i3d", device: str = "cuda") ->
     Vendoring yet another I3D checkpoint loader is how FVD numbers stopped being
     comparable between papers in the first place.
 
-    Note (verified 2026-07-26): cd-fvd's PyPI release points ``model="videomae"``
-    at a dead weights URL; the HuggingFace fix landed on ``main`` after the last
-    upload. Use ``model="i3d"`` from PyPI, or install cd-fvd from git for
-    VideoMAEv2 features.
+    ``model="i3d"`` IS THE DEFAULT FOR A LICENCE REASON — do not "fix" it back.
+    cd-fvd's own code is MIT, but its VideoMAE path is not clean at any layer
+    (verified 2026-08-11): it vendors VideoMAEv2 source into
+    ``cdfvd/third_party/VideoMAEv2/`` **with no LICENSE in that directory**, the
+    upstream ``OpenGVLab/VideoMAEv2`` GitHub repo carries **no licence at all**
+    (⇒ all rights reserved), and ``OpenGVLab/VideoMAEv2-Large`` on HF is tagged
+    ``cc-by-nc-4.0``. VideoMAE v1 (``MCG-NJU/videomae-*``) is ``cc-by-nc-4.0``
+    too. An MIT library must not put those weights in a default path.
+
+    Note (verified 2026-07-26): cd-fvd's PyPI release also points
+    ``model="videomae"`` at a dead weights URL; the HuggingFace fix landed on
+    ``main`` after the last upload. That was the original reason for the default
+    and it is the weaker of the two.
     """
     try:
         from cdfvd import fvd as _fvd

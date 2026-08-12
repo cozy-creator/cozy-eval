@@ -65,11 +65,19 @@ class Threshold(msgspec.Struct, frozen=True, kw_only=True):
 
     A tail limit is the point of this structure. A mean hides one catastrophic
     sample inside seven good ones; the worst row is what a user actually hits.
+
+    ``reverse_limit`` is the bound on the metric's GOOD side, for the metrics
+    where scoring far BETTER than the reference is itself the defect signature.
+    Over-smoothing is the case that forced it: an arm that re-rolls into a
+    simpler, slower take holds 2.17x the control's coherent tracks and walks
+    through a floor-only ``track_stability_ratio`` gate while dropping prompt
+    content. Leave it None for the ordinary one-sided metrics.
     """
 
     metric: str
     mean_limit: float | None = None
     tail_limit: float | None = None
+    reverse_limit: float | None = None
 
 
 Budget = tuple[Threshold, ...]
@@ -127,6 +135,13 @@ def _reasons(
             row = f" on {m.worst_row}" if m.worst_row else ""
             out.append(
                 f"{spec.name}_worst {m.worst:.4g} vs tail budget {t.tail_limit:.4g}{row}"
+            )
+        if (m.mean is not None and t.reverse_limit is not None
+                and _breaches(m.mean, t.reverse_limit, not hib)):
+            out.append(
+                f"{spec.name}_mean {m.mean:.4g} vs REVERSE budget "
+                f"{t.reverse_limit:.4g} — scoring this far past the reference is "
+                "the over-smoothing signature, not a win"
             )
     return out
 

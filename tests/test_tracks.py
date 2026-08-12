@@ -214,6 +214,48 @@ def test_a_warbling_candidate_is_rejected_and_the_defect_names_the_cause() -> No
     assert "jitter" in defect or "survival" in defect or "neighbours" in defect
 
 
+def test_an_over_smoothed_candidate_walks_through_a_floor_only_gate() -> None:
+    """THE @9 RED TEST — the other side of the same gate.
+
+    The arm under test is EASIER to track than its control: the control has a
+    region whose points warble, the candidate re-rolled into a clean take that
+    does not. That is what the 15 s courier rung did (ratio 2.169, PASS) while
+    it dropped the cargo bike and the parcel the prompt asked for. A floor-only
+    gate cannot see it; the ceiling must.
+    """
+    verdict = tracks.track_verdict(_pan(), _warble())
+    ratio = verdict.measured["track_stability_ratio"]
+    assert ratio > T.STABILITY_RATIO_CEILING
+    assert ratio > T.STABILITY_RATIO_FLOOR          # the floor cannot fire here
+    assert verdict.verdict == tracks.REJECT
+    assert "OVER-SMOOTHING" in verdict.defects[0]
+    assert any("MEASURED not to separate" in n for n in verdict.notes)
+
+    # ... and raising the ceiling out of the way restores the old PASS, which
+    # is what the gate did before @9.
+    old = tracks.track_verdict(_pan(), _warble(), ratio_ceiling=float("inf"))
+    assert old.verdict == tracks.PASS
+
+
+def test_the_ceiling_refuses_marginally_trackable_content_rather_than_guessing() -> None:
+    """The one asymmetry in the family, and it is measured.
+
+    The ratio's UPWARD tail is denominator-driven, so a control that barely
+    tracks inflates it: a dense-weave pair the owner reviewed as IDENTICAL
+    reads 1.207 at the shipped budget and 2.766 undecimated. A false REJECT of
+    a good arm is the expensive error, so above the ceiling the family says
+    UNMEASURED unless the control is comfortably trackable — while the FLOOR
+    keeps gating at the ordinary trackability floor.
+    """
+    marginal = tracks.track_verdict(_pan(), _warble(), ceiling_trackability_floor=1.0)
+    assert marginal.verdict == tracks.PASS
+    assert "OVER-SMOOTHING UNMEASURED" in marginal.unmeasured["track_stability_ratio_ceiling"]
+    assert marginal.measured["track_stability_ratio"] > T.STABILITY_RATIO_CEILING
+    # the floor is NOT relaxed by the same knob
+    warbled = tracks.track_verdict(_warble(), _pan(), ceiling_trackability_floor=1.0)
+    assert warbled.verdict == tracks.REJECT
+
+
 def test_a_clean_pass_carries_the_scope_note() -> None:
     verdict = tracks.track_verdict(_pan(frames=14), _pan(frames=14))
     assert verdict.verdict == tracks.PASS
@@ -242,7 +284,7 @@ def test_the_family_is_declared_in_the_registry_and_only_the_ratio_gates() -> No
         spec = registry.BY_NAME[name]
         assert spec.dimension == registry.QUALITY
         assert not spec.gated and not spec.paired
-    assert registry.METRIC_SET_VERSION == "cozy-eval/metrics@8"
+    assert registry.METRIC_SET_VERSION == "cozy-eval/metrics@9"
 
 
 def test_the_floor_sits_in_the_measured_empty_middle() -> None:
@@ -250,3 +292,11 @@ def test_the_floor_sits_in_the_measured_empty_middle() -> None:
     library ships against it (calibration/track-stability.json)."""
     assert 0.850 < T.STABILITY_RATIO_FLOOR < 0.929
     assert T.TRACKABILITY_FLOOR > 0.20  # loom's 0.18 control must stay excluded
+    # @9: the ceiling's own empty middle, taken ACROSS window budgets —
+    # owner-IDENTICAL pairs top out at 1.2514, and the labeled over-smoothed
+    # rung reads 2.169 shipped but only 1.512 undecimated.
+    assert 1.2514 < T.STABILITY_RATIO_CEILING < 1.512
+    # ... and the ceiling's extra trackability bar sits between the marginal
+    # loom control (0.299, an owner-IDENTICAL pair that reads 2.766 undecimated)
+    # and the over-smoothed cell's control (0.532).
+    assert 0.316 < T.CEILING_TRACKABILITY_FLOOR < 0.532

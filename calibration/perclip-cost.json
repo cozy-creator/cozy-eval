@@ -1,0 +1,39 @@
+{
+ "library": "cozy-eval",
+ "metric_set": "cozy-eval/metrics@9",
+ "what": "per-clip CPU cost of the video tier, measured on the labeled 15 s pair; and the signal cut's exactness proof",
+ "clip": {
+  "reference": "h3-15s-coverage-20260811/out/idx/courier-15s__dense-r1.mp4",
+  "candidate": "h3-15s-coverage-20260811/out/idx/courier-15s__mn-c10-r1.mp4",
+  "frames": 362,
+  "height": 768,
+  "width": 1344
+ },
+ "threads": 4,
+ "seconds": {
+  "decode_per_clip": 2.216,
+  "integrity": 0.01,
+  "signal_full_feature_pass": 48.534,
+  "signal_luma_only": 2.973,
+  "warp_error_per_arm": 2.32,
+  "temporal_fidelity_pair": 4.988,
+  "track_fidelity_pair": 1.564
+ },
+ "gate_seconds": {
+  "before_at8": 61.8,
+  "after_at9": 16.3,
+  "saved": 45.6
+ },
+ "signal_cut_is_exact": true,
+ "signal_values": {
+  "luma_flicker_full": 17.721077921585103,
+  "luma_flicker_lean": 17.721077921585103,
+  "jerk_ratio_full": 1.4654147671377133,
+  "jerk_ratio_lean": 1.4654147671377133
+ },
+ "measured": {
+  "track_stability_ratio": 2.1691153333787367,
+  "motion_mag_ratio": 0.9197781198116546,
+  "warp_error_delta": 0.023644000602265236
+ }
+}

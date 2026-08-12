@@ -27,7 +27,16 @@ Every row below was read from the actual HF model-card YAML frontmatter or the
 repository `LICENSE` file, not inferred from a family name or a blog post.
 Re-verify before a release: upstream projects relicense (pyiqa went Apache-2.0
 → PolyForm-Noncommercial at 0.1.16 on 2026-07-08, mid-flight for anyone
-depending on it).
+depending on it). **And the HF `license:` field is a claim, not a grant — read
+the base model's `config.json` when a small fine-tune claims a more permissive
+licence than its backbone.** Three survey claims were reversed by doing exactly
+that (2026-08-11): "VideoMAE-v2 is Apache-2.0" (it is `cc-by-nc-4.0` on HF and
+the upstream GitHub repo carries **no licence at all**), "COVER is an MIT DOVER
+replacement" (its `swin_backbone.py` and `head.py` are **byte-identical** to
+DOVER's non-commercial source with the notice removed), and
+"`videophy_2_auto` is MIT" (its `config.json` is `model_type: llama`, vocab
+32000, 4096 hidden, 32 layers — mPLUG-Owl-video on **LLaMA-7B**, the same trap
+shape as the LiFT-Critic row below).
 
 ---
 
@@ -97,7 +106,21 @@ depending on it).
   `temporal_flickering` dimension is model-free (mean absolute difference of
   consecutive frames) and its `motion_smoothness` depends on the AMT
   interpolator, which is CC-BY-NC (see the traps table). Methods only; no code
-  used.
+  used. **The NC taint is INSTALL-WIDE, verified 2026-08-11**: `pyiqa` is a hard
+  `requirements.txt` entry (pulled in by `vbench/imaging_quality.py`, which does
+  `from pyiqa.archs.musiq_arch import MUSIQ`), so a stock `pip install` of VBench
+  puts PolyForm-Noncommercial code in the tree *regardless of which dimension is
+  called*. If a VBench dimension is ever adopted it must be a **re-hosted
+  clean-dependency build**, never a stock install — the escape hatches are
+  verified: the original MUSIQ + SPAQ checkpoints ship Apache-2.0 from
+  google-research (which is what `metrics/musiq.py` already ports), and FILM
+  (Apache-2.0) or RIFE (MIT) are clean AMT swaps. Commercially-clean per-video
+  dimensions after that surgery: `dynamic_degree`, `subject_consistency`,
+  `background_consistency`, `overall_consistency`, `temporal_flickering`.
+  **Dynamic Degree's top-5% pooling was evaluated for our over-smoothing gate
+  and MEASURED not to transfer** (`calibration/motion-magnitude.json`); note
+  also that its published per-video output is BINARY and its dimension score is
+  a set-level fraction, so it is not a per-clip gauge in the first place.
 - **FVD** — Unterthiner et al. (2018). Licence is actually fine (Apache-2.0
   I3D, checkpoint included) — **rejected on statistical grounds**: like FID it
   needs a large sample population, and this suite scores 16-clip runs.
@@ -199,7 +222,12 @@ Not used, and why — these are the licence traps, recorded so nobody re-walks t
 |---|---|---|
 | **pyiqa / IQA-PyTorch** | **PolyForm-Noncommercial-1.0.0 + NTU S-Lab** (`chaofengc/IQA-PyTorch` `LICENSE`) | UNUSABLE, and as of 2026-07-30 **not reachable from any extra**: the `perceptual` extra that pinned `pyiqa<0.1.16` is deleted. Relicensed from Apache-2.0 at 0.1.16 (2026-07-08). Survives only as the dev-only parity oracle (0.1.15, the last Apache release), installed in a throwaway venv by `parity/run_oracle.py`; the NUMBERS are committed, the package never is. |
 | **GenEval2** | **CC BY-NC 4.0**, Meta Platforms (`facebookresearch/GenEval2` `LICENSE`) | UNUSABLE. Reimplement the method from the GenEval paper instead. |
-| **DOVER / FAST-VQA** | S-Lab 1.0 (non-commercial) — while their `setup.py` still declares MIT/Apache | UNUSABLE. The declared metadata is wrong; read the `LICENSE`. |
+| **DOVER / FAST-VQA / FasterVQA / Q-Align / Q-Bench** | **S-Lab License 1.0** (non-commercial) — while their `setup.py` still declares MIT/Apache | UNUSABLE. The declared metadata is wrong; read the `LICENSE`. Everything out of NTU S-Lab carries this, which removes most of the no-reference video-quality canon in one stroke. |
+| **COVER** (`vztu/COVER`) | claims MIT | ⛔ **TRAP, verified by md5 2026-08-11**: `swin_backbone.py` and `head.py` are **byte-identical to DOVER's** non-commercial source with the notice removed (`conv_backbone.py` / `evaluator.py` lightly modified), and S-Lab clause 1 requires retaining the notice. The obvious "MIT DOVER replacement" is not one. **Do not ship COVER.** |
+| **VideoPhy-2 auto-evaluator** (`videophysics/videocon_physics` lineage) | card says `mit` | ⛔ **TRAP**: `config.json` is `model_type: llama`, vocab 32000, hidden 4096, 32 layers on an `mplug_owl_vision_model` tower — mPLUG-Owl-video on LLaMA-7B, and Meta's terms reach through. Physics plausibility stays UNCOVERED rather than shipping this. |
+| **VideoMAE v1 / v2 backbones** (via `cd-fvd`'s `model="videomae"`) | `OpenGVLab/VideoMAEv2-Large` is **`cc-by-nc-4.0`**; upstream GitHub repo licence **NONE**; `cd-fvd` vendors the source into `cdfvd/third_party/VideoMAEv2/` **with no LICENSE in that directory** | UNUSABLE. `metrics/distributional.py` defaults to `model="i3d"`; **that default is now also a LICENCE decision, not only the broken-URL one it started as.** |
+| **CoTracker / CoTracker3** | **CC-BY-NC-4.0** (re-confirmed 2026-08-11) | UNUSABLE — which is why the track-stability family uses BSD pyramidal Lucas-Kanade. Permissive alternatives if a dense tracker is ever wanted: BootsTAPIR / TAPNet (Apache-2.0), Track-On (MIT). |
+| **LiFT / MJ-Video / T2VQA / DEVIL / T2V-CompBench** | **no LICENSE file at all** | UNUSABLE — all rights reserved is strictly worse than non-commercial. The dominant blocker in this field is "unlicensed", not "NC". |
 | **Ultralytics YOLO** | **AGPL-3.0** (paid Enterprise Licence exists) | UNUSABLE as a dependency. Copyleft would reach our users' products. |
 | **piq** | Apache-2.0 | USED (quality extra): torchmetrics' `clip_iqa` default checkpoint path requires `piq>=0.8` at runtime — found by the pod smoke, not the docs. Otherwise still redundant with torchmetrics. |
 | **t2v_metrics (VQAScore)** | Apache-2.0 wrapper | wrapper usable; **its checkpoints are not** — see weights table. |

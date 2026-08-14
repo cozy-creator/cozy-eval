@@ -28,9 +28,10 @@ jobs:
         run: uv python install 3.12
 
       # --locked: fail loudly if uv.lock drifts from pyproject.toml instead of
-      # silently resolving versions the tests never saw.
+      # silently resolving versions the tests never saw. All extras: the metric
+      # tests import scipy/torch/etc. for real, no graceful skip.
       - name: Install dependencies
-        run: uv sync --locked --extra dev
+        run: uv sync --locked --all-extras
 
       # cozy-eval has no separate CI yet, so the publish gate runs the suite
       # itself, bounded by the job timeout. When a ci.yml exists, switch to the

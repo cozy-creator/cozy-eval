@@ -68,7 +68,9 @@ def test_a_bare_import_caps_the_machine() -> None:
     assert got["threads"] == cap
     assert got["source"] == "default"
     assert got["env"] == dict.fromkeys(POOL_ENV, str(cap))
-    assert got["torch"] == cap and got["torch_interop"] <= cap
+    # The cap only LOWERS torch; its own default (physical cores) may sit below
+    # the budget on small hosts, so the promise is a bound, not equality.
+    assert 1 <= got["torch"] <= cap and got["torch_interop"] <= cap
     assert got["cv2"] == cap
     assert got["ffmpeg"] == ["-threads", str(cap)]
 
@@ -77,7 +79,7 @@ def test_the_caller_s_own_omp_num_threads_is_never_overridden() -> None:
     got = _run(_PROBE, OMP_NUM_THREADS="3", **{THREADS_ENV: ""})
     assert (got["threads"], got["source"]) == (3, "OMP_NUM_THREADS")
     assert got["env"]["OMP_NUM_THREADS"] == "3"
-    assert got["torch"] == 3
+    assert 1 <= got["torch"] <= 3
 
 
 def test_the_knob_raises_the_budget_on_a_dedicated_machine() -> None:
